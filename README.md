@@ -1,9 +1,4 @@
 # crossfire
-<<<<<<< HEAD
-=======
-
-
-
 
 After Changes Run
 
@@ -15,7 +10,7 @@ git commit -m "Your commit message"
 git push
 ``
 
-Afterwards use 
+Afterwards use
 
 ``
 git pull origin main
@@ -26,4 +21,3 @@ git commit -m "Your commit message"
 
 git push
 ``
->>>>>>> aab82ccc8ca7857c43b5319b5193ed3fc8d0cdca

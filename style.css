@@ -1,0 +1,154 @@
+a {
+    text-decoration: none;
+}
+
+body {
+    background-color: #fff;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 20px;
+}
+
+nav {
+    background-color: #3498db;
+    border-bottom: 2px solid black;
+    padding: 1.3rem;
+}
+
+nav li {
+    border-bottom: 1px solid black;
+}
+
+/*Classes*/
+
+.dashboard-btns {
+    display: flex;
+    justify-content: center;
+}
+
+.navbar {
+    align-items: center;
+    display: grid;
+    font-size: 20px;
+    font-weight: 600;
+    grid-template-columns: auto auto;
+}
+
+.navbar a {
+    color: #fff;
+}
+.navbar a:hover {
+    color: rgb(118, 118, 118);
+}
+
+.navbar-links {
+    display: none;
+    grid-template-columns: 1fr;
+    position: absolute;
+    right: 0;
+    top: 8rem;
+    width: 100%;
+}
+
+.navbar-links a {
+    background-color: #3498db;
+    color: #fff;
+    display: block;
+    padding: 1.5rem;
+}
+
+.navbar-links a:hover {
+    border-radius: 25px;
+    color: rgb(118, 118, 118);
+}
+
+.navbar-links ul{
+    display: grid;
+    grid-template-columns: 1fr;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-menu {
+    cursor: pointer;
+    display: block;
+    font-size: 3.5rem;
+    justify-self: end;
+}
+
+.ncr-buttons {
+    background-color: #3498db;
+    border: 2px solid black;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 30px 10px 0;
+    padding: 30px 25px;
+}
+
+.ncr-buttons:hover {
+    background-color: #4eaeed;
+    cursor: pointer;
+}
+/*IDs*/
+
+#wrapper {
+    margin: 0 auto;
+    place-items: center;
+    width: 90%;
+}
+
+/*Media Queries*/
+
+@media screen and (min-width: 768px){
+    .ncr-buttons {
+        margin: 30px 15px 0;
+        padding: 50px;
+    }
+}
+
+@media screen and (min-width: 1024px){
+    nav li {
+        border: none;
+    }
+
+    .navbar {
+        font-size: 18px;
+    }
+    .navbar-links {
+        display: grid;
+        position: static;
+    }
+    .navbar-links a {
+        justify-self: end;
+    }
+    .navbar-links ul{
+        grid-template-columns: auto;
+    }
+    .navbar-menu {
+        display: none;
+    }
+    .ncr-buttons {
+        font-size: 20px;
+        margin: 20px;
+        padding: 80px;
+    }
+}
+
+@media screen and (min-width: 1440px){
+    .navbar {
+        font-size: 24px;
+    }
+    .ncr-buttons {
+        font-size: 24px;
+    }
+}
+

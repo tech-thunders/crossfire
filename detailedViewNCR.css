@@ -1,0 +1,38 @@
+.container {
+  width: 50%;
+  background-color: white;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+h1 {
+  text-align: center;
+  color: #333;
+  background-color: #e0e0e0;
+  padding: 20px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 8px;
+}
+th {
+  text-align: left;
+}
+td {
+  text-align: justify;
+}
+tr:nth-child(odd) {
+  background-color: #f7f7f7;
+}
+th,
+td {
+  padding: 15px;
+
+  color: #333; /* dark gray text */
+}
+.with-line {
+  border-bottom: 1px solid black;
+}

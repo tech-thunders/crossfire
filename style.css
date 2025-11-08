@@ -26,9 +26,28 @@ nav li {
 
 /*Classes*/
 
-.dashboard-btns {
-    display: flex;
-    justify-content: center;
+.dashboard-summary .row {
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    justify-items: center;
+    margin-top: 20px;
+}
+
+.dashboard-summary .row .col {
+    border: 2px solid black;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: rgb(71, 71, 71);
+    padding: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.dashboard-summary .row .col b{
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 1rem;
 }
 
 .navbar {
@@ -43,7 +62,7 @@ nav li {
     color: #fff;
 }
 .navbar a:hover {
-    color: rgb(118, 118, 118);
+    color: #163451;
 }
 
 .navbar-links {
@@ -64,7 +83,7 @@ nav li {
 
 .navbar-links a:hover {
     border-radius: 25px;
-    color: rgb(118, 118, 118);
+    color: #163451;
 }
 
 .navbar-links ul{
@@ -95,7 +114,7 @@ nav li {
 }
 
 .ncr-buttons:hover {
-    background-color: #163451;
+    color: #163451;
     cursor: pointer;
 }
 /*IDs*/
@@ -131,7 +150,7 @@ nav li {
         justify-self: end;
     }
     .navbar-links ul{
-        grid-template-columns: repeat(2, auto);
+        grid-template-columns: repeat(3, auto);
     }
     .navbar-menu {
         display: none;

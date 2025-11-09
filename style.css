@@ -15,7 +15,7 @@ h1 {
 }
 
 nav {
-    background-color: #3498db;
+    background-color: #5897c9;
     border-bottom: 2px solid black;
     padding: 1.3rem;
 }
@@ -56,7 +56,7 @@ nav li {
 }
 
 .navbar-links a {
-    background-color: #3498db;
+    background-color: #5897c9;
     color: #fff;
     display: block;
     padding: 1.5rem;
@@ -83,7 +83,7 @@ nav li {
 }
 
 .ncr-buttons {
-    background-color: #3498db;
+    background-color: #5897c9;
     border: 2px solid black;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -95,7 +95,7 @@ nav li {
 }
 
 .ncr-buttons:hover {
-    background-color: #4eaeed;
+    background-color: #163451;
     cursor: pointer;
 }
 /*IDs*/
@@ -131,7 +131,7 @@ nav li {
         justify-self: end;
     }
     .navbar-links ul{
-        grid-template-columns: auto;
+        grid-template-columns: repeat(2, auto);
     }
     .navbar-menu {
         display: none;

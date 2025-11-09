@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="style.css" />
     <title>ThunderTrack</title>
     <style>
+<<<<<<< HEAD
       .container {
         width: 80%;
         background-color: white;
@@ -23,6 +24,96 @@
         padding: 20px;
         border-radius: 15px;
       }
+=======
+        .container {
+          width: 80%;
+          background-color: white;
+          margin: 10px auto;
+          padding: 20px;
+          border-radius: 11px;
+        }
+  
+        h1 {
+          text-align: center;
+          color: #333;
+          background-color: #e0e0e0;
+          padding: 20px;
+        }
+  
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          background-color: #fff;
+          border-radius: 8px;
+        }
+  
+        th,
+        td {
+          padding: 15px;
+          text-align: center;
+          color: #333; /* dark gray text */
+        }
+  
+        th {
+          background-color: #e0e0e0;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+  
+        tr:nth-child(odd) {
+          background-color: #f7f7f7;
+        }
+        tr:hover {
+          background-color: #e0f0ff;
+          transition: 0.3s;
+        }
+  
+        .view-ncr {
+          padding: 6px 12px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-weight: bold;
+          text-decoration: none;
+          color: white;
+          background-color: #3498db;
+        }
+  
+        .view-ncr:hover {
+          background-color: #217dbb;
+          color: black;
+        }
+      </style>
+</head>
+<body> 
+    <header>
+        <nav>
+            <div class="navbar">
+                <div>
+                    <a href="index.html"><img src="images/Crossfire Logo-transparent.png" alt="" style="width: 25%;"></a>
+                </div>
+                <div class="navbar-links">
+                    <ul>
+                      <li><a href="index.html"><i class="bi bi-menu-button-wide"></i> Dashboard</a></li>
+                      <li><a href="view-ncr.html"><i class="bi bi-journal"></i> View NCR Log</a></li>
+                        <!--<li><a href="view-ncr.html">View Reports</a></li>-->
+                    </ul>
+                </div>
+                <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
+                    &#9776;
+                 </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div id="wrapper">
+            <div class="dashboard-btns">
+                <a href="create-ncr.html"><button type="button" class="ncr-buttons"><i class="bi bi-file-plus"></i> Create NCR</button></a>
+                <a href="view-ncr.html"><button type="button" class="ncr-buttons"><i class="bi bi-journal"></i> NCR Log</button></a>
+                <a href="create-ncr.html"><button type="button" class="ncr-buttons"><i class="bi bi-pencil-square"></i> Edit NCR</button></a>
+            </div>
+>>>>>>> 7a4e693c452c67ccefb441ea385156e060677e6f
 
       h1 {
         text-align: center;

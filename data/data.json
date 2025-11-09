@@ -1,0 +1,122 @@
+[
+  {
+    "ncrNumber": "2025-001",
+    "createdOn": "2025-01-05",
+    "supplier": "Niagara College",
+    "status": "Active"
+  },
+  {
+    "ncrNumber": "2025-002",
+    "createdOn": "2025-01-12",
+    "supplier": "Ontario Steelworks",
+    "status": "Closed"
+  },
+  {
+    "ncrNumber": "2025-003",
+    "createdOn": "2025-01-18",
+    "supplier": "Maple Plastics Ltd.",
+    "status": "Active"
+  },
+  {
+    "ncrNumber": "2025-004",
+    "createdOn": "2025-01-22",
+    "supplier": "GreenTech Supplies",
+    "status": "Closed"
+  },
+  {
+    "ncrNumber": "2025-005",
+    "createdOn": "2025-01-28",
+    "supplier": "Hamilton Parts Co.",
+    "status": "Active"
+  },
+  {
+    "ncrNumber": "2025-006",
+    "createdOn": "2025-02-04",
+    "supplier": "Niagara College",
+    "status": "Closed"
+  },
+  {
+    "ncrNumber": "2025-007",
+    "createdOn": "2025-02-10",
+    "supplier": "Ontario Steelworks",
+    "status": "Active"
+  },
+  {
+    "ncrNumber": "2025-008",
+    "createdOn": "2025-02-16",
+    "supplier": "Maple Plastics Ltd.",
+    "status": "Closed"
+  },
+  {
+    "ncrNumber": "2025-009",
+    "createdOn": "2025-02-21",
+    "supplier": "GreenTech Supplies",
+    "status": "Active"
+  },
+  {
+    "ncrNumber": "2025-010",
+    "createdOn": "2025-02-27",
+    "supplier": "Hamilton Parts Co.",
+    "status": "Closed"
+  },
+  {
+    "ncrNumber": "2025-011",
+    "createdOn": "2025-03-03",
+    "supplier": "Niagara College",
+    "status": "Active"
+  },
+  {
+    "ncrNumber": "2025-012",
+    "createdOn": "2025-03-10",
+    "supplier": "Ontario Steelworks",
+    "status": "Closed"
+  },
+  {
+    "ncrNumber": "2025-013",
+    "createdOn": "2025-03-15",
+    "supplier": "Maple Plastics Ltd.",
+    "status": "Active"
+  },
+  {
+    "ncrNumber": "2025-014",
+    "createdOn": "2025-03-20",
+    "supplier": "GreenTech Supplies",
+    "status": "Closed"
+  },
+  {
+    "ncrNumber": "2025-015",
+    "createdOn": "2025-03-25",
+    "supplier": "Hamilton Parts Co.",
+    "status": "Active"
+  },
+  {
+    "ncrNumber": "2025-016",
+    "createdOn": "2025-03-30",
+    "supplier": "Niagara College",
+    "status": "Closed"
+  },
+  {
+    "ncrNumber": "2025-017",
+    "createdOn": "2025-04-04",
+    "supplier": "Ontario Steelworks",
+    "status": "Active"
+  },
+  {
+    "ncrNumber": "2025-018",
+    "createdOn": "2025-04-09",
+    "supplier": "Maple Plastics Ltd.",
+    "status": "Closed"
+  },
+  {
+    "ncrNumber": "2025-019",
+    "createdOn": "2025-04-14",
+    "supplier": "GreenTech Supplies",
+    "status": "Active"
+  },
+  {
+    "ncrNumber": "2025-020",
+    "createdOn": "2025-04-19",
+    "supplier": "Hamilton Parts Co.",
+    "status": "Closed"
+  }
+]

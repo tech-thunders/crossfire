@@ -2,11 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
     <title>View NCRs</title>
     <style>
       a {
@@ -20,14 +24,101 @@
         margin: 0;
         padding: 0;
       }
-      .container {
-        width: 80%;
-        background-color: white;
-        margin: 50px auto;
-        padding: 20px;
-        border-radius: 10px;
+
+      /* Navigation Bar */
+      nav {
+        background-color: #5897c9;
+        border-bottom: 2px solid black;
+        padding: 1.3rem;
       }
 
+      nav li {
+        border-bottom: 1px solid black;
+      }
+
+      .navbar {
+        align-items: center;
+        display: grid;
+        font-size: 20px;
+        font-weight: 600;
+        grid-template-columns: auto auto;
+      }
+
+      .navbar a {
+        color: #fff;
+      }
+
+      .navbar a:hover {
+        color: #163451;
+      }
+
+      .navbar-links {
+        display: none;
+        grid-template-columns: 1fr;
+        position: absolute;
+        right: 0;
+        top: 8rem;
+        width: 100%;
+      }
+
+      .navbar-links a {
+        background-color: #5897c9;
+        color: #fff;
+        display: block;
+        padding: 1.5rem;
+      }
+
+      .navbar-links a:hover {
+        border-radius: 25px;
+        color: #163451;
+      }
+
+      .navbar-links ul {
+        display: grid;
+        grid-template-columns: 1fr;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar-menu {
+        cursor: pointer;
+        display: block;
+        font-size: 3.5rem;
+        justify-self: end;
+      }
+
+      /* Responsive Navbar for Large Screens */
+      @media screen and (min-width: 1024px) {
+        nav li {
+          border: none;
+        }
+
+        .navbar {
+          font-size: 18px;
+        }
+        .navbar-links {
+          display: grid;
+          position: static;
+        }
+        .navbar-links a {
+          justify-self: end;
+        }
+        .navbar-links ul {
+          grid-template-columns: repeat(3, auto);
+        }
+        .navbar-menu {
+          display: none;
+        }
+      }
+
+      @media screen and (min-width: 1440px) {
+        .navbar {
+          font-size: 24px;
+        }
+      }
+
+      /* Page Content */
       h1 {
         text-align: center;
         color: #333;
@@ -36,30 +127,97 @@
         max-width: 100%;
       }
 
+      .container {
+        width: 85%;
+        background-color: white;
+        margin: 30px auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .filter-buttons {
+        text-align: center;
+        margin-bottom: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .filter-buttons button {
+        background-color: #e0e0e0;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      .filter-buttons button.active {
+        background-color: #5897c9;
+        color: white;
+      }
+
+      input {
+        width: 60%;
+        padding: 10px;
+        margin: 20px auto;
+        display: block;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+      }
+
+      .download-btn {
+        display: block;
+        margin: 10px auto 25px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      .download-btn:hover {
+        background-color: #218838;
+      }
+
+      /* Table Responsiveness */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 10px;
+      }
+
       table {
         width: 100%;
         border-collapse: collapse;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         background-color: #fff;
         border-radius: 8px;
+        min-width: 600px;
       }
 
       th,
       td {
         padding: 15px;
         text-align: center;
-        color: #333; /* dark gray text */
+        color: #333;
       }
 
       th {
         background-color: #e0e0e0;
         text-transform: uppercase;
         letter-spacing: 0.05em;
+        cursor: pointer;
       }
 
       tr:nth-child(odd) {
         background-color: #f7f7f7;
       }
+
       tr:hover {
         background-color: #e0f0ff;
         transition: 0.3s;
@@ -77,303 +235,298 @@
       }
 
       .view-ncr:hover {
-        color: #163451;
+        background-color: #417aa7;
       }
 
-      input {
-        width: 50%;
-        padding: 8px;
-        margin: 20px auto;
-        display: block;
-        border-radius: 6px;
-        border: 1px solid #ccc;
+      .pagination {
+        text-align: center;
+        margin-top: 20px;
       }
 
-      /*Navigation Bar CSS*/
-      nav {
+      .pagination button {
+        background-color: #e0e0e0;
+        border: none;
+        padding: 8px 12px;
+        margin: 0 5px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .pagination button.active {
         background-color: #5897c9;
-        border-bottom: 2px solid black;
-        padding: 1.3rem;
+        color: white;
       }
 
-      nav li {
-          border-bottom: 1px solid black;
-      }
-
-
-      .navbar {
-        align-items: center;
-        display: grid;
-        font-size: 20px;
-        font-weight: 600;
-        grid-template-columns: auto auto;
-      }
-
-      .navbar a {
-          color: #fff;
-      }
-      .navbar a:hover {
-          color: #163451;
-      }
-
-      .navbar-links {
-          display: none;
-          grid-template-columns: 1fr;
-          position: absolute;
-          right: 0;
-          top: 8rem;
-          width: 100%;
-      }
-
-      .navbar-links a {
-        background-color: #5897c9;
-          color: #fff;
-          display: block;
-          padding: 1.5rem;
-      }
-
-      .navbar-links a:hover {
-          border-radius: 25px;
-          color: #163451;
-      }
-
-      .navbar-links ul{
-          display: grid;
-          grid-template-columns: 1fr;
-          list-style: none;
-          margin: 0;
-          padding: 0;
-      }
-
-      .navbar-menu {
-          cursor: pointer;
-          display: block;
-          font-size: 3.5rem;
-          justify-self: end;
-      }
-
-      /*Media Queries*/
-      @media screen and (min-width: 1024px){
-        nav li {
-            border: none;
+      /* 📱 Mobile Responsive Styles */
+      @media screen and (max-width: 768px) {
+        .container {
+          width: 95%;
+          padding: 15px;
         }
 
-        .navbar {
-            font-size: 18px;
+        h1 {
+          font-size: 22px;
+          padding: 15px;
         }
-        .navbar-links {
-            display: grid;
-            position: static;
+
+        input {
+          width: 90%;
+          font-size: 14px;
         }
-        .navbar-links a {
-            justify-self: end;
+
+        .filter-buttons button {
+          padding: 8px 12px;
+          font-size: 14px;
         }
-        .navbar-links ul{
-            grid-template-columns: repeat(3, auto);
+
+        table {
+          font-size: 14px;
+          min-width: 500px;
         }
-        .navbar-menu {
-            display: none;
+
+        th,
+        td {
+          padding: 10px;
+        }
+
+        .download-btn {
+          width: 90%;
+          font-size: 14px;
         }
       }
 
-      @media screen and (min-width: 1440px){
-        .navbar {
-            font-size: 24px;
+      @media screen and (max-width: 480px) {
+        h1 {
+          font-size: 20px;
+        }
+
+        .filter-buttons button {
+          font-size: 13px;
+          padding: 6px 10px;
+        }
+
+        table {
+          min-width: 400px;
+          font-size: 13px;
+        }
+
+        input {
+          font-size: 13px;
         }
       }
-
     </style>
   </head>
+
   <body>
+    <!-- ✅ Navbar -->
     <header>
       <nav>
-          <div class="navbar">
-              <div>
-                  <a href="index.html"><img src="images/Crossfire Logo-transparent.png" alt="" style="width: 25%;"></a>
-              </div>
-              <div class="navbar-links">
-                  <ul>
-                    <li><a href="index.html"><i class="bi bi-menu-button-wide"></i> Dashboard</a></li>
-                    <li><a href="view-ncr.html"><i class="bi bi-journal"></i> View NCR Log</a></li>
-                      <li><a href="create-ncr.html"><i class="bi bi-file-plus"></i> Create NCR</a></li>
-                  </ul>
-              </div>
-              <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
-                  &#9776;
-               </div>
+        <div class="navbar">
+          <div>
+            <a href="index.html"
+              ><img
+                src="images/Crossfire Logo-transparent.png"
+                alt="Logo"
+                style="width: 100px"
+            /></a>
           </div>
+          <div class="navbar-links">
+            <ul>
+              <li>
+                <a href="index.html"
+                  ><i class="bi bi-menu-button-wide"></i> Dashboard</a
+                >
+              </li>
+              <li>
+                <a href="view-ncr.html"
+                  ><i class="bi bi-journal"></i> View NCR Log</a
+                >
+              </li>
+              <li>
+                <a href="create-ncr.html"
+                  ><i class="bi bi-file-plus"></i> Create NCR</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
+            &#9776;
+          </div>
+        </div>
       </nav>
-  </header>
+    </header>
+
+    <!-- ✅ Page Content -->
     <h1>View NCRs</h1>
     <div class="container">
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-status="all">All NCR</button>
+        <button class="filter-btn" data-status="Active">Active</button>
+        <button class="filter-btn" data-status="Closed">Closed</button>
+      </div>
+
       <input
         type="text"
         id="search"
-        placeholder="Filter results by NCR No, Supp. Name, Date or Status..."
+        placeholder="Filter results by NCR No, Supplier Name, Date or Status..."
       />
-      <table id="ncrTable">
-        <tr>
-          <th>NCR No.</th>
-          <th>Status</th>
-          <th>Date Created</th>
-          <th>Supplier Name</th>
-          <th colspan="2">Action</th>
-        </tr>
-        <tr>
-          <td>2025-001</td>
-          <td>Active</td>
-          <td>October 01,2025</td>
-          <td>Suncrest Foods Ltd.</td>
-          <td>
-            <a href="detailedViewNCR.html?ncr=2025-001" class="view-ncr"
-              >View</a
-            >
-          </td>
-          <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
-        </tr>
-        <tr>
-          <td>2025-002</td>
-          <td>Active</td>
-          <td>October 08, 2025</td>
-          <td>Fiesta Foods Co.</td>
-          <td>
-            <a href="detailedViewNCR.html?ncr=2025-002" class="view-ncr"
-              >View</a
-            >
-          </td>
-          <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
-        </tr>
+      <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
 
-        <tr>
-          <td>2025-003</td>
-          <td>Active</td>
-          <td>October 03, 2025</td>
-          <td>Nature’s Delight Ltd.</td>
-          <td>
-            <a href="detailedViewNCR.html?ncr=2025-003" class="view-ncr"
-              >View</a
-            >
-          </td>
-          <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
-        </tr>
+      <div class="table-container">
+        <table id="ncrTable">
+          <thead>
+            <tr>
+              <th onclick="sortTable(0)">NCR No. ▲▼</th>
+              <th onclick="sortTable(1)">Current Status ▲▼</th>
+              <th onclick="sortTable(2)">Date Created ▲▼</th>
+              <th onclick="sortTable(3)">Supplier Name ▲▼</th>
+              <th colspan="2">Action</th>
+            </tr>
+          </thead>
+          <tbody id="ncrTableBody"></tbody>
+        </table>
+      </div>
 
-        <tr>
-          <td>2025-004</td>
-          <td>Active</td>
-          <td>October 04, 2025</td>
-          <td>Baker’s Choice Foods</td>
-          <td>
-            <a href="detailedViewNCR.html?ncr=2025-004" class="view-ncr"
-              >View</a
-            >
-          </td>
-          <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
-        </tr>
-
-        <tr>
-          <td>2025-005</td>
-          <td>Active</td>
-          <td>October 05, 2025</td>
-          <td>Harvest Fresh Produce Inc.</td>
-          <td>
-            <a href="detailedViewNCR.html?ncr=2025-005" class="view-ncr"
-              >View</a
-            >
-          </td>
-          <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
-        </tr>
-        <tr>
-          <td>2025-006</td>
-          <td>Closed</td>
-          <td>October 06,2025</td>
-          <td>TexaSpice Foods Ltd.</td>
-          <td>
-            <a href="detailedViewNCR.html?ncr=2025-006" class="view-ncr"
-              >View</a
-            >
-          </td>
-          <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
-        </tr>
-        <tr>
-          <td>2025-007</td>
-          <td>Active</td>
-          <td>October 07,2025</td>
-          <td>Golden Dairy Products</td>
-          <td>
-            <a href="detailedViewNCR.html?ncr=2025-007" class="view-ncr"
-              >View</a
-            >
-          </td>
-          <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
-        </tr>
-        <tr>
-          <td>2025-008</td>
-          <td>Closed</td>
-          <td>October 08,2025</td>
-          <td>Snackify Ltd.</td>
-          <td>
-            <a href="detailedViewNCR.html?ncr=2025-008" class="view-ncr"
-              >View</a
-            >
-          </td>
-          <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
-        </tr>
-        <tr>
-          <td>2025-009</td>
-          <td>Closed</td>
-          <td>October 09,2025</td>
-          <td>FreshWave Foods</td>
-          <td>
-            <a href="detailedViewNCR.html?ncr=2025-009" class="view-ncr"
-              >View</a
-            >
-          </td>
-          <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
-        </tr>
-        <tr>
-          <td>2025-010</td>
-          <td>Active</td>
-          <td>October 10,2025</td>
-          <td>Orient Select Imports</td>
-          <td>
-            <a href="detailedViewNCR.html?ncr=2025-010" class="view-ncr"
-              >View</a
-            >
-          </td>
-          <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
-        </tr>
-      </table>
+      <div class="pagination" id="pagination"></div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-      const searchBox = document.getElementById("search");
-      const rows = document.querySelectorAll("#ncrTable tr");
+      // Navbar toggle
+      function toggleMenu() {
+        const links = document.querySelector(".navbar-links");
+        links.style.display = links.style.display === "grid" ? "none" : "grid";
+      }
 
-      searchBox.addEventListener("keyup", function () {
-        const searchValue = this.value.toUpperCase();
-        rows.forEach((row, index) => {
-          if (index === 0) return; // skip table header
-          const ncrNum = row.cells[0].innerText.toUpperCase();
-          const supplierName = row.cells[3].innerText.toUpperCase();
-          const status = row.cells[1].innerText.toUpperCase();
-          const date = row.cells[2].innerText.toUpperCase();
+      let ncrData = [];
+      let filteredData = [];
+      let currentPage = 1;
+      const rowsPerPage = 5;
+      let sortColumn = -1;
+      let sortAsc = true;
 
-          if (
-            ncrNum.includes(searchValue) ||
-            supplierName.includes(searchValue) ||
-            status.includes(searchValue) ||
-            date.includes(searchValue)
-          ) {
-            row.style.display = "";
-          } else {
-            row.style.display = "none";
-          }
+      // Load NCR data
+      fetch("data/ncrData2.json")
+        .then((response) => response.json())
+        .then((data) => {
+          ncrData = data;
+          filteredData = [...ncrData];
+          renderTable();
+        })
+        .catch((error) => console.error("Error loading NCR data:", error));
+
+      function renderTable() {
+        const tableBody = document.getElementById("ncrTableBody");
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const pageData = filteredData.slice(start, end);
+
+        tableBody.innerHTML = "";
+
+        pageData.forEach((item) => {
+          const date = new Date(item.dateCreated);
+          const formattedDate = date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+
+          const row = `
+            <tr>
+              <td>${item.ncrNumber}</td>
+              <td>${
+                item.currentStage.charAt(0).toUpperCase() +
+                item.currentStage.slice(1)
+              }</td>
+              <td>${formattedDate}</td>
+              <td>${item.supplierName}</td>
+              <td><a href="detailedViewNCR.html?ncr=${
+                item.ncrNumber
+              }" class="view-ncr">View</a></td>
+              <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
+            </tr>
+          `;
+          tableBody.innerHTML += row;
         });
+
+        renderPagination();
+      }
+
+      function renderPagination() {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        const pagination = document.getElementById("pagination");
+        pagination.innerHTML = "";
+
+        for (let i = 1; i <= totalPages; i++) {
+          pagination.innerHTML += `<button class="${
+            i === currentPage ? "active" : ""
+          }" onclick="goToPage(${i})">${i}</button>`;
+        }
+      }
+
+      function goToPage(page) {
+        currentPage = page;
+        renderTable();
+      }
+
+      // Search
+      document.getElementById("search").addEventListener("input", function () {
+        const query = this.value.toLowerCase();
+        filteredData = ncrData.filter(
+          (item) =>
+            item.ncrNumber.toLowerCase().includes(query) ||
+            item.currentStage.toLowerCase().includes(query) ||
+            item.supplierName.toLowerCase().includes(query) ||
+            new Date(item.dateCreated)
+              .toLocaleDateString("en-US")
+              .toLowerCase()
+              .includes(query)
+        );
+        currentPage = 1;
+        renderTable();
       });
+
+      // Filter buttons
+      document.querySelectorAll(".filter-btn").forEach((btn) =>
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll(".filter-btn")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const status = btn.dataset.status;
+          filteredData =
+            status === "all"
+              ? [...ncrData]
+              : ncrData.filter((item) => item.status === status);
+          currentPage = 1;
+          renderTable();
+        })
+      );
+
+      // Sorting
+      function sortTable(colIndex) {
+        const keys = [
+          "ncrNumber",
+          "currentStage",
+          "dateCreated",
+          "supplierName",
+        ];
+        if (sortColumn === colIndex) sortAsc = !sortAsc;
+        else sortAsc = true;
+        sortColumn = colIndex;
+
+        filteredData.sort((a, b) => {
+          const valA = a[keys[colIndex]].toLowerCase();
+          const valB = b[keys[colIndex]].toLowerCase();
+          return (valA > valB ? 1 : valA < valB ? -1 : 0) * (sortAsc ? 1 : -1);
+        });
+        renderTable();
+      }
+
+      // PDF download
+      function downloadPDF() {
+        window.print();
+      }
     </script>
-    <script src="scripts/script.js"></script>
   </body>
 </html>
-
-
-

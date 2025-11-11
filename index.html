@@ -473,7 +473,6 @@
 				font-size: 3.5rem;
 				justify-self: end;
 			}
-			
 
 			h1 {
 				color: #5897c9;
@@ -543,7 +542,8 @@
             </ul>
           </div>
           <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
-            &#9776;
+
+            <i id="menu-icon"></i>
           </div>
         </div>
       </nav>
@@ -601,66 +601,6 @@
                   </tr>
                 </thead>
                 <tbody id="ncr-log-table-home">
-                  <tr>
-                    <td>2025-001</td>
-                    <td>Active</td>
-                    <td>October 1,2025</td>
-                    <td>Emma</td>
-                    <td>
-                      <a href="detailedViewNCR.html?ncr=2025-001"
-                        class="view-ncr">View</a>
-                    </td>
-                    <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
-                  </tr>
-                  <tr>
-                    <td>2025-002</td>
-                    <td>Active</td>
-                    <td>October 8, 2025</td>
-                    <td>William</td>
-                    <td>
-                      <a href="detailedViewNCR.html?ncr=2025-002"
-                        class="view-ncr">View</a>
-                    </td>
-                    <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
-                  </tr>
-
-                  <tr>
-                    <td>2025-002</td>
-                    <td>Active</td>
-                    <td>October 8, 2025</td>
-                    <td>William</td>
-                    <td>
-                      <a href="detailedViewNCR.html?ncr=2025-003"
-                        class="view-ncr">View</a>
-                    </td>
-                    <td>
-                      <a href="edit-ncr.html/2025-001" class="view-ncr">Edit</a>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>2025-002</td>
-                    <td>Active</td>
-                    <td>October 8, 2025</td>
-                    <td>William</td>
-                    <td>
-                      <a href="detailedViewNCR.html?ncr=2025-004"
-                        class="view-ncr">View</a>
-                    </td>
-                    <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
-                  </tr>
-
-                  <tr>
-                    <td>2025-002</td>
-                    <td>Active</td>
-                    <td>October 8, 2025</td>
-                    <td>William</td>
-                    <td>
-                      <a href="detailedViewNCR.html?ncr=2025-005"
-                        class="view-ncr">View</a>
-                    </td>
-                    <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
-                  </tr>
                 </tbody>
               </table>
             </div>
@@ -670,7 +610,12 @@
     </main>
 
     <footer id="footer">&copy;Tech Thunders 2025</footer>
-    <script src="scripts/script.js" defer></script>
+
+    <!-- script  -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"></script>
+    <script src="scripts/script.js"></script>
   </body>
 </html>
 >>>>>>> b18d81e76cd8689ad1e573632b077b6041df9e27

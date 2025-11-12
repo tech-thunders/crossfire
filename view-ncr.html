@@ -293,6 +293,142 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="scripts/script.js"></script>
+    <script>
+      // Navbar toggle
+      function toggleMenu() {
+        const links = document.querySelector(".navbar-links");
+        links.style.display = links.style.display === "grid" ? "none" : "grid";
+      }
+
+      let ncrData = [];
+      let filteredData = [];
+      let currentPage = 1;
+      const rowsPerPage = 5;
+      let sortColumn = -1;
+      let sortAsc = true;
+
+      // Load NCR data
+      fetch("data/ncrData2.json")
+        .then((response) => response.json())
+        .then((data) => {
+          ncrData = data;
+          filteredData = [...ncrData];
+          renderTable();
+        })
+        .catch((error) => console.error("Error loading NCR data:", error));
+
+      function renderTable() {
+        const tableBody = document.getElementById("ncrTableBody");
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const pageData = filteredData.slice(start, end);
+
+        tableBody.innerHTML = "";
+
+        pageData.forEach((item) => {
+          const date = new Date(item.dateCreated);
+          const formattedDate = date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+
+          const row = `
+            <tr>
+              <td>${item.ncrNumber}</td>
+              <td>${
+                item.currentStage.charAt(0).toUpperCase() +
+                item.currentStage.slice(1)
+              }</td>
+              <td>${formattedDate}</td>
+              <td>${item.supplierName}</td>
+              <td><a href="detailedViewNCR.html?ncr=${
+                item.ncrNumber
+              }" class="view-ncr">View</a></td>
+              <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
+            </tr>
+          `;
+          tableBody.innerHTML += row;
+        });
+
+        renderPagination();
+      }
+
+      function renderPagination() {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        const pagination = document.getElementById("pagination");
+        pagination.innerHTML = "";
+
+        for (let i = 1; i <= totalPages; i++) {
+          pagination.innerHTML += `<button class="${
+            i === currentPage ? "active" : ""
+          }" onclick="goToPage(${i})">${i}</button>`;
+        }
+      }
+
+      function goToPage(page) {
+        currentPage = page;
+        renderTable();
+      }
+
+      // Search
+      document.getElementById("search").addEventListener("input", function () {
+        const query = this.value.toLowerCase();
+        filteredData = ncrData.filter(
+          (item) =>
+            item.ncrNumber.toLowerCase().includes(query) ||
+            item.currentStage.toLowerCase().includes(query) ||
+            item.supplierName.toLowerCase().includes(query) ||
+            new Date(item.dateCreated)
+              .toLocaleDateString("en-US")
+              .toLowerCase()
+              .includes(query)
+        );
+        currentPage = 1;
+        renderTable();
+      });
+
+      // Filter buttons
+      document.querySelectorAll(".filter-btn").forEach((btn) =>
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll(".filter-btn")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const status = btn.dataset.status;
+          filteredData =
+            status === "all"
+              ? [...ncrData]
+              : ncrData.filter((item) => item.status === status);
+          currentPage = 1;
+          renderTable();
+        })
+      );
+
+      // Sorting
+      function sortTable(colIndex) {
+        const keys = [
+          "ncrNumber",
+          "currentStage",
+          "dateCreated",
+          "supplierName",
+        ];
+        if (sortColumn === colIndex) sortAsc = !sortAsc;
+        else sortAsc = true;
+        sortColumn = colIndex;
+
+        filteredData.sort((a, b) => {
+          const valA = a[keys[colIndex]].toLowerCase();
+          const valB = b[keys[colIndex]].toLowerCase();
+          return (valA > valB ? 1 : valA < valB ? -1 : 0) * (sortAsc ? 1 : -1);
+        });
+        renderTable();
+      }
+
+      // PDF download
+      function downloadPDF() {
+        window.print();
+      }
+    </script>
   </body>
 </html>

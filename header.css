@@ -1,3 +1,7 @@
+a {
+    text-decoration: none;
+}
+
 nav {
   background-color: #5897c9;
   border-bottom: 2px solid black;
@@ -13,6 +17,10 @@ nav li {
   font-size: 20px;
   font-weight: 600;
   grid-template-columns: auto auto;
+}
+
+.navbar .logo {
+    width: 25%;
 }
 
 .navbar a {

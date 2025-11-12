@@ -35,8 +35,8 @@ body {
 #footer {
 	background-color: var(--border);
 	place-items: center;
-    padding: 10px 0;
-    color: #9b9b9b;
+	padding: 10px 0;
+	color: #9b9b9b;
 }
 /* Headings */
 h1,
@@ -82,65 +82,7 @@ small,
 .card .icon-circle {
 	display: grid;
 }
-Header Nav nav {
-	padding: 1.3rem;
-}
-.navbar {
-	align-items: center;
-	font-weight: 600;
-	grid-template-columns: auto auto;
-	padding: 0 4px;
-}
-.navbar .logo {
-	width: 100%;
-	min-width: 119.28px;
-	max-width: 161.51px;
-}
-nav li {
-	border-bottom: 1px solid var(--border);
-}
-.navbar a {
-	color: var(--surface);
-}
-.navbar a:hover {
-	color: var(--surface);
-}
-.navbar-links {
-	display: none;
-	grid-template-columns: 1fr;
-	position: absolute;
-	right: 0;
-	top: 10.2vh;
-	width: 100%;
-	z-index: 2;
-	justify-content: end;
-}
-.navbar-links a {
-	background-color: var(--primary);
-	color: var(--background);
-	display: block;
-	padding: 1.3rem;
-	text-decoration: none;
-}
-.navbar-links .bi {
-	margin-right: 4px;
-}
-.navbar-links a:hover {
-	border-radius: 25px;
-	color: rgb(118, 118, 118);
-}
-.navbar-links ul {
-	grid-template-columns: 1fr;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-.navbar-menu {
-	cursor: pointer;
-	display: block;
-	justify-self: end;
-	font-size: 1.5rem;
-}
+
 /* Cards  */
 .row {
 	grid-template-columns: 1fr;
@@ -176,37 +118,6 @@ nav li {
 }
 
 /* Table */
-table {
-	width: 100%;
-	min-width: 600px;
-	border-collapse: collapse;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	background-color: #fff;
-	border-radius: 8px;
-	text-align: left;
-	white-space: nowrap;
-}
-
-th,
-td {
-	padding: 15px;
-	color: #333;
-}
-
-th {
-	background-color: #e0e0e0;
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
-}
-
-tr:nth-child(odd) {
-	background-color: #f7f7f7;
-}
-
-tr:hover {
-	background-color: #e0f0ff;
-	transition: 0.3s;
-}
 
 .view-ncr {
 	padding: 6px 12px;
@@ -224,14 +135,7 @@ tr:hover {
 	padding: 20px;
 	border-radius: 11px;
 }
-.table-container {
-	overflow-x: auto;
-	width: 100%;
-}
-.view-ncr:hover {
-	color: #163451;
-	color: black;
-}
+
 @media (min-width: 768px) {
 	h1 {
 		font-size: 2rem;

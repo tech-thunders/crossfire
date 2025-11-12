@@ -190,6 +190,88 @@ button {
    width: 100%;
 }
 
+/* Primary Button CSS */
+
+.btn-primary {
+    background: #5897c9;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background: #4a7ba7;       
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(88, 151, 201, 0.3); 
+}
+
+.btn-primary:active {
+    transform: translateY(0);    
+}
+
+
+/* Secondary Button CSS (Draft) */
+
+/* .btn-secondary {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.btn-secondary {
+    background: #e5e7eb;
+    color: #374151;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background: #d1d5db;        
+    transform: scale(1.02);     
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  
+} */
+
+.btn-secondary {
+    background: #10b981;         /* Green background */
+    color: white;                /* White text */
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background: #059669;         /* Darker green */
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);  /* Green shadow */
+}
+
+.btn-secondary:active {
+    transform: scale(1);
+    background: #047857;         /* Even darker green */
+}
+
+
+
+
+.btn-secondary:active {
+    transform: scale(1);         /* Back to normal size */
+}
+
+
+
+/* Cancel Button */
+.btn-outline {
+    background: white;
+    color: #dc2626;              /* Red text */
+    border: 1.5px solid #dc2626; /* Red border */
+    transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+    background: #fef2f2;         /* Very light red background */
+    border-color: #b91c1c;       /* Darker red border */
+    color: #b91c1c;              /* Darker red text */
+}
+
+.btn-outline:active {
+    background: #fee2e2;         /* Slightly darker red when clicked */
+}
+
 .form-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -213,4 +295,133 @@ button {
   font-size: 0.813rem;
   color: #92400e;
   margin-bottom: 1.5rem;
+}
+
+/* ==========================================
+   TABLET: 768px and up
+   ========================================== */
+@media (min-width: 768px) {
+    body {
+        font-size: 15px;
+    }
+
+    main {
+        max-width: 750px;
+        margin: 2rem auto;
+        padding: 1.5rem;
+    }
+
+    header.form-header {
+        padding: 2rem 1.5rem;
+    }
+
+    header.form-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .meta-info {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    form {
+        padding: 1.5rem;
+    }
+
+    legend {
+        font-size: 1.125rem;
+    }
+
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+
+    .form-grid .full-width {
+        grid-column: 1 / -1;
+    }
+
+    .radio-group,
+    .checkbox-group {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    footer.form-footer {
+        flex-direction: row;
+        justify-content: center;
+        padding: 1.5rem;
+    }
+
+    button {
+        width: auto;
+        min-width: 140px;
+    }
+}
+
+/* ==========================================
+   DESKTOP: 1024px and up
+   ========================================== */
+@media (min-width: 1024px) {
+    body {
+        font-size: 16px;
+    }
+
+    main {
+        max-width: 900px;
+        margin: 2.5rem auto;
+        padding: 2rem;
+    }
+
+    header.form-header {
+        padding: 2.5rem 2rem;
+    }
+
+    header.form-header h1 {
+        font-size: 1.75rem;
+    }
+
+    .meta-info {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.25rem;
+    }
+
+    .meta-item {
+        padding: 0.75rem;
+    }
+
+    form {
+        padding: 2rem;
+    }
+
+    legend {
+        font-size: 1.25rem;
+    }
+
+    .form-grid {
+        gap: 1.5rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.25rem;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    textarea,
+    select {
+        font-size: 0.938rem;
+        padding: 0.875rem;
+    }
+
+    footer.form-footer {
+        padding: 2rem;
+    }
+
+    button {
+        padding: 0.875rem 1.5rem;
+        min-width: 160px;
+        font-size: 1rem;
+    }
 }

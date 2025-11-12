@@ -3,6 +3,11 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+a {
+    text-decoration: none;
+}
+
 body {
     background-color: #f5f6f7;
     font-family: "Poppins", sans-serif;

@@ -24,6 +24,12 @@ nav li {
     color: #163451;
 }
 
+.navbar .logo {
+	width: 100%;
+	min-width: 119.28px;
+	max-width: 161.51px;
+}
+
 .navbar-links {
     display: none;
     grid-template-columns: 1fr;

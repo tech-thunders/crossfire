@@ -12,109 +12,187 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="style.css" />
-    <!-- <link rel="stylesheet" href="style copy.css"> -->
+    <link rel="stylesheet" href="header.css" />
     <title>ThunderTrack</title>
-
     <style>
-			nav {
-				background-color: #5897c9;
-				border-bottom: 2px solid black;
-				padding: 1.3rem;
-			}
+      /* Page Content */
+      h1 {
+        text-align: center;
+        color: #333;
+        background-color: #e0e0e0;
+        padding: 20px;
+        width: 100%;
+      }
 
-			nav li {
-				border-bottom: 1px solid black;
-			}
-			.navbar {
-				align-items: center;
-				display: grid;
-				font-size: 20px;
-				font-weight: 600;
-				grid-template-columns: auto auto;
-			}
+      .container {
+        width: 85%;
+        background-color: white;
+        margin: 30px auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
 
-			.navbar a {
-				color: #fff;
-			}
-			.navbar a:hover {
-				color: #163451;
-			}
+      .filter-buttons {
+        text-align: center;
+        margin-bottom: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
 
-			.navbar-links {
-				display: none;
-				grid-template-columns: 1fr;
-				position: absolute;
-				right: 0;
-				top: 8rem;
-				width: 100%;
-			}
+      .filter-buttons button {
+        background-color: #e0e0e0;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 500;
+      }
 
-			.navbar-links a {
-				background-color: #5897c9;
-				color: #fff;
-				display: block;
-				padding: 1.5rem;
-			}
+      .filter-buttons button.active {
+        background-color: #5897c9;
+        color: white;
+      }
 
-			.navbar-links a:hover {
-				border-radius: 25px;
-				color: #163451;
-			}
+      input {
+        width: 60%;
+        padding: 10px;
+        margin: 20px auto;
+        display: block;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+      }
 
-			.navbar-links ul {
-				display: grid;
-				grid-template-columns: 1fr;
-				list-style: none;
-				margin: 0;
-				padding: 0;
-			}
+      .download-btn {
+        display: block;
+        margin: 10px auto 25px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-weight: 500;
+      }
 
-			.navbar-menu {
-				cursor: pointer;
-				display: block;
-				font-size: 3.5rem;
-				justify-self: end;
-			}
+      .download-btn:hover {
+        background-color: #218838;
+      }
 
-			h1 {
-				color: #5897c9;
-				font-size: 2rem;
-				/* background-color: #e0e0e0; */
-				background-color: #5896c928;
-				padding: 20px;
-				text-align: center;
-			}
+      /* Table Responsiveness */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 10px;
+      }
 
-			@media screen and (min-width: 1024px) {
-				nav li {
-					border: none;
-				}
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        border-radius: 8px;
+        min-width: 600px;
+      }
 
-				.navbar {
-					font-size: 18px;
-				}
-				.navbar-links {
-					display: grid;
-					position: static;
-				}
-				.navbar-links a {
-					justify-self: end;
-				}
-				.navbar-links ul {
-					grid-template-columns: repeat(3, auto);
-				}
-				.navbar-menu {
-					display: none;
-				}
-			}
-			@media screen and (min-width: 1440px) {
-				.navbar {
-					font-size: 24px;
-				}
-			}
-		</style>
+      th,
+      td {
+        padding: 15px;
+        text-align: center;
+        color: #333;
+      }
+
+      th {
+        background-color: #e0e0e0;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        cursor: pointer;
+      }
+
+      tr:nth-child(odd) {
+        background-color: #f7f7f7;
+      }
+
+      tr:hover {
+        background-color: #e0f0ff;
+        transition: 0.3s;
+      }
+
+      .view-ncr {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none;
+        color: white;
+        background-color: #5897c9;
+      }
+
+      .view-ncr:hover {
+        background-color: #417aa7;
+      }
+
+      .pagination {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .pagination button {
+        background-color: #e0e0e0;
+        border: none;
+        padding: 8px 12px;
+        margin: 0 5px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .pagination button.active {
+        background-color: #5897c9;
+        color: white;
+      }
+
+      /* 📱 Mobile Responsive Styles */
+      @media screen and (max-width: 768px) {
+        .container {
+          width: 95%;
+          padding: 15px;
+        }
+
+        h1 {
+          font-size: 22px;
+          padding: 15px;
+        }
+
+        input {
+          width: 90%;
+          font-size: 14px;
+        }
+
+        .filter-buttons button {
+          padding: 8px 12px;
+          font-size: 14px;
+        }
+
+        table {
+          font-size: 14px;
+          min-width: 500px;
+        }
+
+        th,
+        td {
+          padding: 10px;
+        }
+
+        .download-btn {
+          width: 90%;
+          font-size: 14px;
+        }
+      }
+    </style>
   </head>
-
   <body>
     <header>
       <nav>
@@ -122,38 +200,31 @@
           <div>
             <a href="index.html"><img
                 src="images/Crossfire Logo-transparent.png"
-                alt="Crossfire Logo"
-                class="logo" /></a>
+                alt
+                style="width: 25%" /></a>
           </div>
           <div class="navbar-links">
             <ul>
               <li>
-                <a href="index.html"><i class="bi bi-house-fill"></i>
+                <a href="index.html"><i class="bi bi-menu-button-wide"></i>
                   Dashboard</a>
               </li>
               <li>
-                <a href="view-ncr.html"><i
-                    class="bi bi-file-earmark-bar-graph-fill"
-                    style="font-weight: 900"></i>
-                  View NCR Log</a>
+                <a href="view-ncr.html"><i class="bi bi-journal"></i> View NCR
+                  Log</a>
               </li>
-              <li>
-                <a href="create-ncr.html"><i
-                    class="bi bi-file-earmark-plus-fill"></i> Create NCR</a>
-              </li>
+              <!--<li><a href="view-ncr.html">View Reports</a></li>-->
             </ul>
           </div>
           <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
-
-            <i id="menu-icon"></i>
+            &#9776;
           </div>
         </div>
       </nav>
     </header>
-
     <main>
       <div id="wrapper">
-        <section>
+        <!-- <section>
           <div class="dashboard-summary">
             <h1>NCR Summary</h1>
             <div class="row">
@@ -186,39 +257,202 @@
               </div>
             </div>
           </div>
-        </section>
-
-        <section>
-          <div class="container">
-            <h1>Recent NCRs</h1>
-            <div class="table-container">
-              <table>
-                <thead>
-                  <tr>
-                    <th onclick="sortTable(0)">NCR No. ▲▼</th>
-                    <th onclick="sortTable(1)">Status ▲▼</th>
-                    <th onclick="sortTable(2)">Date Created ▲▼</th>
-                    <th onclick="sortTable(3)">Reported By ▲▼</th>
-                    <th colspan="2">Action</th>
-                  </tr>
-                </thead>
-                <tbody id="ncr-log-table-home">
-                </tbody>
-              </table>
-            </div>
-
-            <div class="pagination" id="pagination"></div>
-          </div>
-        </section>
+        </section> -->
+        <!-- <div class="dashboard-btns">
+          <a href="create-ncr.html"><button type="button" class="ncr-buttons">
+              <i class="bi bi-file-plus"></i> Create NCR
+            </button></a>
+          <a href="view-ncr.html"><button type="button" class="ncr-buttons">
+              <i class="bi bi-journal"></i> NCR Log
+            </button></a>
+          <a href="create-ncr.html"><button type="button" class="ncr-buttons">
+              <i class="bi bi-pencil-square"></i> Edit NCR
+            </button></a>
+        </div> -->
       </div>
+
+      <!-- ✅ Page Content -->
+      <h1>Recent NCRs</h1>
+      <div class="container">
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-status="all">All NCR</button>
+          <button class="filter-btn" data-status="Active">Active</button>
+          <button class="filter-btn" data-status="Closed">Closed</button>
+        </div>
+
+        <input
+          type="text"
+          id="search"
+          placeholder="Filter results by NCR No, Supplier Name, Date or Status..." />
+        <button class="download-btn" onclick="downloadPDF()">
+          Download PDF
+        </button>
+
+        <div class="table-container">
+          <table id="ncrTable">
+            <thead>
+              <tr>
+                <th onclick="sortTable(0)">NCR No. ▲▼</th>
+                <th onclick="sortTable(1)">Current Status ▲▼</th>
+                <th onclick="sortTable(2)">Date Created ▲▼</th>
+                <th onclick="sortTable(3)">Supplier Name ▲▼</th>
+                <th colspan="2">Action</th>
+              </tr>
+            </thead>
+            <tbody id="ncrTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="pagination" id="pagination"></div>
+      </div>
+
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+      <script>
+        // Navbar toggle
+        function toggleMenu() {
+          const links = document.querySelector(".navbar-links");
+          links.style.display =
+            links.style.display === "grid" ? "none" : "grid";
+        }
+
+        let ncrData = [];
+        let filteredData = [];
+        let currentPage = 1;
+        const rowsPerPage = 5;
+        let sortColumn = -1;
+        let sortAsc = true;
+
+        // Load NCR data
+        fetch("data/ncrData2.json")
+          .then((response) => response.json())
+          .then((data) => {
+            ncrData = data;
+            filteredData = [...ncrData];
+            renderTable();
+          })
+          .catch((error) => console.error("Error loading NCR data:", error));
+
+        function renderTable() {
+          const tableBody = document.getElementById("ncrTableBody");
+          const start = (currentPage - 1) * rowsPerPage;
+          const end = start + rowsPerPage;
+          const pageData = filteredData.slice(start, end);
+
+          tableBody.innerHTML = "";
+
+          pageData.forEach((item) => {
+            const date = new Date(item.dateCreated);
+            const formattedDate = date.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            });
+
+            const row = `
+            <tr>
+              <td>${item.ncrNumber}</td>
+              <td>${
+                item.currentStage.charAt(0).toUpperCase() +
+                item.currentStage.slice(1)
+              }</td>
+              <td>${formattedDate}</td>
+              <td>${item.supplierName}</td>
+              <td><a href="detailedViewNCR.html?ncr=${
+                item.ncrNumber
+              }" class="view-ncr">View</a></td>
+              <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
+            </tr>
+          `;
+            tableBody.innerHTML += row;
+          });
+
+          renderPagination();
+        }
+
+        function renderPagination() {
+          const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+          const pagination = document.getElementById("pagination");
+          pagination.innerHTML = "";
+
+          for (let i = 1; i <= totalPages; i++) {
+            pagination.innerHTML += `<button class="${
+              i === currentPage ? "active" : ""
+            }" onclick="goToPage(${i})">${i}</button>`;
+          }
+        }
+
+        function goToPage(page) {
+          currentPage = page;
+          renderTable();
+        }
+
+        // Search
+        document
+          .getElementById("search")
+          .addEventListener("input", function () {
+            const query = this.value.toLowerCase();
+            filteredData = ncrData.filter(
+              (item) =>
+                item.ncrNumber.toLowerCase().includes(query) ||
+                item.currentStage.toLowerCase().includes(query) ||
+                item.supplierName.toLowerCase().includes(query) ||
+                new Date(item.dateCreated)
+                  .toLocaleDateString("en-US")
+                  .toLowerCase()
+                  .includes(query)
+            );
+            currentPage = 1;
+            renderTable();
+          });
+
+        // Filter buttons
+        document.querySelectorAll(".filter-btn").forEach((btn) =>
+          btn.addEventListener("click", () => {
+            document
+              .querySelectorAll(".filter-btn")
+              .forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            const status = btn.dataset.status;
+            filteredData =
+              status === "all"
+                ? [...ncrData]
+                : ncrData.filter((item) => item.status === status);
+            currentPage = 1;
+            renderTable();
+          })
+        );
+
+        // Sorting
+        function sortTable(colIndex) {
+          const keys = [
+            "ncrNumber",
+            "currentStage",
+            "dateCreated",
+            "supplierName",
+          ];
+          if (sortColumn === colIndex) sortAsc = !sortAsc;
+          else sortAsc = true;
+          sortColumn = colIndex;
+
+          filteredData.sort((a, b) => {
+            const valA = a[keys[colIndex]].toLowerCase();
+            const valB = b[keys[colIndex]].toLowerCase();
+            return (
+              (valA > valB ? 1 : valA < valB ? -1 : 0) * (sortAsc ? 1 : -1)
+            );
+          });
+          renderTable();
+        }
+
+        // PDF download
+        function downloadPDF() {
+          window.print();
+        }
+      </script>
     </main>
 
-    <footer id="footer">&copy;Tech Thunders 2025</footer>
-
-    <!-- script  -->
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-      crossorigin="anonymous"></script>
+    <footer>&copy;Tech Thunders 2025</footer>
     <script src="scripts/script.js"></script>
   </body>
 </html>

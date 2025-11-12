@@ -195,10 +195,10 @@
               <table>
                 <thead>
                   <tr>
-                    <th>NCR No.</th>
-                    <th>Status</th>
-                    <th>Date Created</th>
-                    <th>Reported By</th>
+                    <th onclick="sortTable(0)">NCR No. ▲▼</th>
+                    <th onclick="sortTable(1)">Status ▲▼</th>
+                    <th onclick="sortTable(2)">Date Created ▲▼</th>
+                    <th onclick="sortTable(3)">Reported By ▲▼</th>
                     <th colspan="2">Action</th>
                   </tr>
                 </thead>
@@ -206,6 +206,8 @@
                 </tbody>
               </table>
             </div>
+
+            <div class="pagination" id="pagination"></div>
           </div>
         </section>
       </div>

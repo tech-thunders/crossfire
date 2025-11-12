@@ -35,8 +35,8 @@ body {
 #footer {
 	background-color: var(--border);
 	place-items: center;
-    padding: 10px 0;
-    color: #9b9b9b;
+	padding: 10px 0;
+	color: #9b9b9b;
 }
 /* Headings */
 h1,
@@ -232,6 +232,11 @@ tr:hover {
 	color: #163451;
 	color: black;
 }
+.pagination {
+	text-align: center;
+	margin-top: 20px;
+}
+
 @media (min-width: 768px) {
 	h1 {
 		font-size: 2rem;

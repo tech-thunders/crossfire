@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="header.css" />
     <title>ThunderTrack</title>
     <style>
-        /* Page Content */
+      /* Page Content */
       h1 {
         text-align: center;
         color: #333;
@@ -187,112 +193,141 @@
           font-size: 14px;
         }
       }
-      </style>
-</head>
-<body> 
+    </style>
+  </head>
+  <body>
     <header>
-        <nav>
-            <div class="navbar">
-                <div>
-                    <a href="index.html"><img src="images/Crossfire Logo-transparent.png" alt="" style="width: 25%;"></a>
-                </div>
-                <div class="navbar-links">
-                    <ul>
-                      <li><a href="index.html"><i class="bi bi-menu-button-wide"></i> Dashboard</a></li>
-                      <li><a href="view-ncr.html"><i class="bi bi-journal"></i> View NCR Log</a></li>
-                        <!--<li><a href="view-ncr.html">View Reports</a></li>-->
-                    </ul>
-                </div>
-                <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
-                    &#9776;
-                 </div>
-            </div>
-        </nav>
+      <nav>
+        <div class="navbar">
+          <div>
+            <a href="index.html"
+              ><img
+                src="images/Crossfire Logo-transparent.png"
+                alt=""
+                style="width: 25%"
+            /></a>
+          </div>
+          <div class="navbar-links">
+            <ul>
+              <li>
+                <a href="index.html"
+                  ><i class="bi bi-menu-button-wide"></i> Dashboard</a
+                >
+              </li>
+              <li>
+                <a href="view-ncr.html"
+                  ><i class="bi bi-journal"></i> View NCR Log</a
+                >
+              </li>
+              <!--<li><a href="view-ncr.html">View Reports</a></li>-->
+            </ul>
+          </div>
+          <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
+            &#9776;
+          </div>
+        </div>
+      </nav>
     </header>
     <main>
-        <div id="wrapper">
-            <div class="dashboard-btns">
-                <a href="create-ncr.html"><button type="button" class="ncr-buttons"><i class="bi bi-file-plus"></i> Create NCR</button></a>
-                <a href="view-ncr.html"><button type="button" class="ncr-buttons"><i class="bi bi-journal"></i> NCR Log</button></a>
-                <a href="create-ncr.html"><button type="button" class="ncr-buttons"><i class="bi bi-pencil-square"></i> Edit NCR</button></a>
-            </div>
+      <div id="wrapper">
+        <div class="dashboard-btns">
+          <a href="create-ncr.html"
+            ><button type="button" class="ncr-buttons">
+              <i class="bi bi-file-plus"></i> Create NCR
+            </button></a
+          >
+          <a href="view-ncr.html"
+            ><button type="button" class="ncr-buttons">
+              <i class="bi bi-journal"></i> NCR Log
+            </button></a
+          >
+          <a href="create-ncr.html"
+            ><button type="button" class="ncr-buttons">
+              <i class="bi bi-pencil-square"></i> Edit NCR
+            </button></a
+          >
+        </div>
+      </div>
 
       <!-- ✅ Page Content -->
-    <h1>Recent NCRs</h1>
-    <div class="container">
-      <div class="filter-buttons">
-        <button class="filter-btn active" data-status="all">All NCR</button>
-        <button class="filter-btn" data-status="Active">Active</button>
-        <button class="filter-btn" data-status="Closed">Closed</button>
+      <h1>Recent NCRs</h1>
+      <div class="container">
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-status="all">All NCR</button>
+          <button class="filter-btn" data-status="Active">Active</button>
+          <button class="filter-btn" data-status="Closed">Closed</button>
+        </div>
+
+        <input
+          type="text"
+          id="search"
+          placeholder="Filter results by NCR No, Supplier Name, Date or Status..."
+        />
+        <button class="download-btn" onclick="downloadPDF()">
+          Download PDF
+        </button>
+
+        <div class="table-container">
+          <table id="ncrTable">
+            <thead>
+              <tr>
+                <th onclick="sortTable(0)">NCR No. ▲▼</th>
+                <th onclick="sortTable(1)">Current Status ▲▼</th>
+                <th onclick="sortTable(2)">Date Created ▲▼</th>
+                <th onclick="sortTable(3)">Supplier Name ▲▼</th>
+                <th colspan="2">Action</th>
+              </tr>
+            </thead>
+            <tbody id="ncrTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="pagination" id="pagination"></div>
       </div>
 
-      <input
-        type="text"
-        id="search"
-        placeholder="Filter results by NCR No, Supplier Name, Date or Status..."
-      />
-      <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+      <script>
+        // Navbar toggle
+        function toggleMenu() {
+          const links = document.querySelector(".navbar-links");
+          links.style.display =
+            links.style.display === "grid" ? "none" : "grid";
+        }
 
-      <div class="table-container">
-        <table id="ncrTable">
-          <thead>
-            <tr>
-              <th onclick="sortTable(0)">NCR No. ▲▼</th>
-              <th onclick="sortTable(1)">Current Status ▲▼</th>
-              <th onclick="sortTable(2)">Date Created ▲▼</th>
-              <th onclick="sortTable(3)">Supplier Name ▲▼</th>
-              <th colspan="2">Action</th>
-            </tr>
-          </thead>
-          <tbody id="ncrTableBody"></tbody>
-        </table>
-      </div>
+        let ncrData = [];
+        let filteredData = [];
+        let currentPage = 1;
+        const rowsPerPage = 5;
+        let sortColumn = -1;
+        let sortAsc = true;
 
-      <div class="pagination" id="pagination"></div>
-    </div>
+        // Load NCR data
+        fetch("data/ncrData2.json")
+          .then((response) => response.json())
+          .then((data) => {
+            ncrData = data;
+            filteredData = [...ncrData];
+            renderTable();
+          })
+          .catch((error) => console.error("Error loading NCR data:", error));
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script>
-      // Navbar toggle
-      function toggleMenu() {
-        const links = document.querySelector(".navbar-links");
-        links.style.display = links.style.display === "grid" ? "none" : "grid";
-      }
+        function renderTable() {
+          const tableBody = document.getElementById("ncrTableBody");
+          const start = (currentPage - 1) * rowsPerPage;
+          const end = start + rowsPerPage;
+          const pageData = filteredData.slice(start, end);
 
-      let ncrData = [];
-      let filteredData = [];
-      let currentPage = 1;
-      const rowsPerPage = 5;
-      let sortColumn = -1;
-      let sortAsc = true;
+          tableBody.innerHTML = "";
 
-      // Load NCR data
-      fetch("data/ncrData2.json")
-        .then((response) => response.json())
-        .then((data) => {
-          ncrData = data;
-          filteredData = [...ncrData];
-          renderTable();
-        })
-        .catch((error) => console.error("Error loading NCR data:", error));
+          pageData.forEach((item) => {
+            const date = new Date(item.dateCreated);
+            const formattedDate = date.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            });
 
-      function renderTable() {
-        const tableBody = document.getElementById("ncrTableBody");
-        const start = (currentPage - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-        const pageData = filteredData.slice(start, end);
-
-        tableBody.innerHTML = "";
-
-        pageData.forEach((item) => {
-          const date = new Date(item.dateCreated);
-          const formattedDate = date.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          });
-
-          const row = `
+            const row = `
             <tr>
               <td>${item.ncrNumber}</td>
               <td>${
@@ -307,370 +342,95 @@
               <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
             </tr>
           `;
-          tableBody.innerHTML += row;
-        });
+            tableBody.innerHTML += row;
+          });
 
-        renderPagination();
-      }
-
-      function renderPagination() {
-        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-        const pagination = document.getElementById("pagination");
-        pagination.innerHTML = "";
-
-        for (let i = 1; i <= totalPages; i++) {
-          pagination.innerHTML += `<button class="${
-            i === currentPage ? "active" : ""
-          }" onclick="goToPage(${i})">${i}</button>`;
+          renderPagination();
         }
-      }
 
-      function goToPage(page) {
-        currentPage = page;
-        renderTable();
-      }
+        function renderPagination() {
+          const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+          const pagination = document.getElementById("pagination");
+          pagination.innerHTML = "";
 
-      // Search
-      document.getElementById("search").addEventListener("input", function () {
-        const query = this.value.toLowerCase();
-        filteredData = ncrData.filter(
-          (item) =>
-            item.ncrNumber.toLowerCase().includes(query) ||
-            item.currentStage.toLowerCase().includes(query) ||
-            item.supplierName.toLowerCase().includes(query) ||
-            new Date(item.dateCreated)
-              .toLocaleDateString("en-US")
-              .toLowerCase()
-              .includes(query)
-        );
-        currentPage = 1;
-        renderTable();
-      });
+          for (let i = 1; i <= totalPages; i++) {
+            pagination.innerHTML += `<button class="${
+              i === currentPage ? "active" : ""
+            }" onclick="goToPage(${i})">${i}</button>`;
+          }
+        }
 
-      // Filter buttons
-      document.querySelectorAll(".filter-btn").forEach((btn) =>
-        btn.addEventListener("click", () => {
-          document
-            .querySelectorAll(".filter-btn")
-            .forEach((b) => b.classList.remove("active"));
-          btn.classList.add("active");
-          const status = btn.dataset.status;
-          filteredData =
-            status === "all"
-              ? [...ncrData]
-              : ncrData.filter((item) => item.status === status);
-          currentPage = 1;
+        function goToPage(page) {
+          currentPage = page;
           renderTable();
-        })
-      );
+        }
 
-      // Sorting
-      function sortTable(colIndex) {
-        const keys = [
-          "ncrNumber",
-          "currentStage",
-          "dateCreated",
-          "supplierName",
-        ];
-        if (sortColumn === colIndex) sortAsc = !sortAsc;
-        else sortAsc = true;
-        sortColumn = colIndex;
+        // Search
+        document
+          .getElementById("search")
+          .addEventListener("input", function () {
+            const query = this.value.toLowerCase();
+            filteredData = ncrData.filter(
+              (item) =>
+                item.ncrNumber.toLowerCase().includes(query) ||
+                item.currentStage.toLowerCase().includes(query) ||
+                item.supplierName.toLowerCase().includes(query) ||
+                new Date(item.dateCreated)
+                  .toLocaleDateString("en-US")
+                  .toLowerCase()
+                  .includes(query)
+            );
+            currentPage = 1;
+            renderTable();
+          });
 
-        filteredData.sort((a, b) => {
-          const valA = a[keys[colIndex]].toLowerCase();
-          const valB = b[keys[colIndex]].toLowerCase();
-          return (valA > valB ? 1 : valA < valB ? -1 : 0) * (sortAsc ? 1 : -1);
-        });
-        renderTable();
-      }
+        // Filter buttons
+        document.querySelectorAll(".filter-btn").forEach((btn) =>
+          btn.addEventListener("click", () => {
+            document
+              .querySelectorAll(".filter-btn")
+              .forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            const status = btn.dataset.status;
+            filteredData =
+              status === "all"
+                ? [...ncrData]
+                : ncrData.filter((item) => item.status === status);
+            currentPage = 1;
+            renderTable();
+          })
+        );
 
-      // PDF download
-      function downloadPDF() {
-        window.print();
-      }
-    </script>
+        // Sorting
+        function sortTable(colIndex) {
+          const keys = [
+            "ncrNumber",
+            "currentStage",
+            "dateCreated",
+            "supplierName",
+          ];
+          if (sortColumn === colIndex) sortAsc = !sortAsc;
+          else sortAsc = true;
+          sortColumn = colIndex;
+
+          filteredData.sort((a, b) => {
+            const valA = a[keys[colIndex]].toLowerCase();
+            const valB = b[keys[colIndex]].toLowerCase();
+            return (
+              (valA > valB ? 1 : valA < valB ? -1 : 0) * (sortAsc ? 1 : -1)
+            );
+          });
+          renderTable();
+        }
+
+        // PDF download
+        function downloadPDF() {
+          window.print();
+        }
+      </script>
     </main>
 
-    <footer>
-        &copy;Tech Thunders 2025
-    </footer>
+    <footer>&copy;Tech Thunders 2025</footer>
     <script src="scripts/script.js"></script>
-</body>
-</html>
-=======
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    <link rel="stylesheet" href="style.css" />
-    <!-- <link rel="stylesheet" href="style copy.css"> -->
-    <title>ThunderTrack</title>
-
-    <style>
-			nav {
-				background-color: #5897c9;
-				border-bottom: 2px solid black;
-				padding: 1.3rem;
-			}
-
-			nav li {
-				border-bottom: 1px solid black;
-			}
-			.navbar {
-				align-items: center;
-				display: grid;
-				font-size: 20px;
-				font-weight: 600;
-				grid-template-columns: auto auto;
-			}
-
-			.navbar a {
-				color: #fff;
-			}
-			.navbar a:hover {
-				color: #163451;
-			}
-
-			.navbar-links {
-				display: none;
-				grid-template-columns: 1fr;
-				position: absolute;
-				right: 0;
-				top: 8rem;
-				width: 100%;
-			}
-
-			.navbar-links a {
-				background-color: #5897c9;
-				color: #fff;
-				display: block;
-				padding: 1.5rem;
-			}
-
-			.navbar-links a:hover {
-				border-radius: 25px;
-				color: #163451;
-			}
-
-			.navbar-links ul {
-				display: grid;
-				grid-template-columns: 1fr;
-				list-style: none;
-				margin: 0;
-				padding: 0;
-			}
-
-			.navbar-menu {
-				cursor: pointer;
-				display: block;
-				font-size: 3.5rem;
-				justify-self: end;
-			}
-			
-
-			h1 {
-				color: #5897c9;
-				font-size: 2rem;
-				/* background-color: #e0e0e0; */
-				background-color: #5896c928;
-				padding: 20px;
-				text-align: center;
-			}
-
-			@media screen and (min-width: 1024px) {
-				nav li {
-					border: none;
-				}
-
-				.navbar {
-					font-size: 18px;
-				}
-				.navbar-links {
-					display: grid;
-					position: static;
-				}
-				.navbar-links a {
-					justify-self: end;
-				}
-				.navbar-links ul {
-					grid-template-columns: repeat(3, auto);
-				}
-				.navbar-menu {
-					display: none;
-				}
-			}
-			@media screen and (min-width: 1440px) {
-				.navbar {
-					font-size: 24px;
-				}
-			}
-		</style>
-  </head>
-
-  <body>
-    <header>
-      <nav>
-        <div class="navbar">
-          <div>
-            <a href="index.html"><img
-                src="images/Crossfire Logo-transparent.png"
-                alt="Crossfire Logo"
-                class="logo" /></a>
-          </div>
-          <div class="navbar-links">
-            <ul>
-              <li>
-                <a href="index.html"><i class="bi bi-house-fill"></i>
-                  Dashboard</a>
-              </li>
-              <li>
-                <a href="view-ncr.html"><i
-                    class="bi bi-file-earmark-bar-graph-fill"
-                    style="font-weight: 900"></i>
-                  View NCR Log</a>
-              </li>
-              <li>
-                <a href="create-ncr.html"><i
-                    class="bi bi-file-earmark-plus-fill"></i> Create NCR</a>
-              </li>
-            </ul>
-          </div>
-          <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
-            &#9776;
-          </div>
-        </div>
-      </nav>
-    </header>
-
-    <main>
-      <div id="wrapper">
-        <section>
-          <div class="dashboard-summary">
-            <h1>NCR Summary</h1>
-            <div class="row">
-              <div class="col m4 card">
-                <div class="icon-circle card-blue">
-                  <i class="bi bi-archive"></i>
-                </div>
-                <div>
-                  <p>All NCRs</p>
-                  <h3>34</h3>
-                </div>
-              </div>
-              <div class="col m4 card">
-                <div class="icon-circle card-green">
-                  <i class="bi bi-check2-circle"></i>
-                </div>
-                <div>
-                  <p>Active NCRs</p>
-                  <h3>34</h3>
-                </div>
-              </div>
-              <div class="col m4 card">
-                <div class="icon-circle card-red">
-                  <i class="bi bi-x-circle"></i>
-                </div>
-                <div>
-                  <p>Closed NCRs</p>
-                  <h3>34</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <div class="container">
-            <h1>Recent NCRs</h1>
-            <div class="table-container">
-              <table>
-                <thead>
-                  <tr>
-                    <th>NCR No.</th>
-                    <th>Status</th>
-                    <th>Date Created</th>
-                    <th>Reported By</th>
-                    <th colspan="2">Action</th>
-                  </tr>
-                </thead>
-                <tbody id="ncr-log-table-home">
-                  <tr>
-                    <td>2025-001</td>
-                    <td>Active</td>
-                    <td>October 1,2025</td>
-                    <td>Emma</td>
-                    <td>
-                      <a href="detailedViewNCR.html?ncr=2025-001"
-                        class="view-ncr">View</a>
-                    </td>
-                    <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
-                  </tr>
-                  <tr>
-                    <td>2025-002</td>
-                    <td>Active</td>
-                    <td>October 8, 2025</td>
-                    <td>William</td>
-                    <td>
-                      <a href="detailedViewNCR.html?ncr=2025-002"
-                        class="view-ncr">View</a>
-                    </td>
-                    <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
-                  </tr>
-
-                  <tr>
-                    <td>2025-002</td>
-                    <td>Active</td>
-                    <td>October 8, 2025</td>
-                    <td>William</td>
-                    <td>
-                      <a href="detailedViewNCR.html?ncr=2025-003"
-                        class="view-ncr">View</a>
-                    </td>
-                    <td>
-                      <a href="edit-ncr.html/2025-001" class="view-ncr">Edit</a>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>2025-002</td>
-                    <td>Active</td>
-                    <td>October 8, 2025</td>
-                    <td>William</td>
-                    <td>
-                      <a href="detailedViewNCR.html?ncr=2025-004"
-                        class="view-ncr">View</a>
-                    </td>
-                    <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
-                  </tr>
-
-                  <tr>
-                    <td>2025-002</td>
-                    <td>Active</td>
-                    <td>October 8, 2025</td>
-                    <td>William</td>
-                    <td>
-                      <a href="detailedViewNCR.html?ncr=2025-005"
-                        class="view-ncr">View</a>
-                    </td>
-                    <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
-
-    <footer id="footer">&copy;Tech Thunders 2025</footer>
-    <script src="scripts/script.js" defer></script>
   </body>
 </html>
->>>>>>> b18d81e76cd8689ad1e573632b077b6041df9e27

@@ -5,121 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New NCR</title>
     <link rel="stylesheet" href="create-ncr.css">
+    <link rel="stylesheet" href="header.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <style>
-        nav {
-            background-color: #5897c9;
-            border-bottom: 2px solid black;
-            padding: 1.3rem;
-        }
-
-        nav li {
-            border-bottom: 1px solid black;
-        }
-        .navbar {
-            align-items: center;
-            display: grid;
-            font-size: 20px;
-            font-weight: 600;
-            grid-template-columns: auto auto;
-        }
-
-        .navbar a {
-            color: #fff;
-        }
-        .navbar a:hover {
-            color: #163451;
-        }
-
-        .navbar-links {
-            display: none;
-            grid-template-columns: 1fr;
-            position: absolute;
-            right: 0;
-            top: 8rem;
-            width: 100%;
-        }
-
-        .navbar-links a {
-            background-color: #5897c9;
-            color: #fff;
-            display: block;
-            padding: 1.5rem;
-        }
-
-        .navbar-links a:hover {
-            border-radius: 25px;
-            color: #163451;
-        }
-
-        .navbar-links ul{
-            display: grid;
-            grid-template-columns: 1fr;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .navbar-menu {
-            cursor: pointer;
-            display: block;
-            font-size: 3.5rem;
-            justify-self: end;
-        }
-
-        @media screen and (min-width: 1024px){
-            nav li {
-                border: none;
-            }
-
-            .navbar {
-                font-size: 18px;
-            }
-            .navbar-links {
-                display: grid;
-                position: static;
-            }
-            .navbar-links a {
-                justify-self: end;
-            }
-            .navbar-links ul{
-                grid-template-columns: repeat(3, auto);
-            }
-            .navbar-menu {
-                display: none;
-            }
-        }
-        @media screen and (min-width: 1440px){
-            .navbar {
-                font-size: 24px;
-            }
-        }
-    </style>
-
-
 </head>
 <body>
     <header>
-        <nav>
-            <div class="navbar">
-                <div>
-                    <a href="index.html"><img src="images/Crossfire Logo-transparent.png" alt="" style="width: 25%;"></a>
-                </div>
-                <div class="navbar-links">
-                    <ul>
-                        <li><a href="index.html"><i class="bi bi-menu-button-wide"></i> Dashboard</a></li>
-                    <li><a href="view-ncr.html"><i class="bi bi-journal"></i> View NCR Log</a></li>
-                        <li><a href="create-ncr.html"><i class="bi bi-file-plus"></i> Create NCR</a></li>
-                    </ul>
-                </div>
-                <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
-                    &#9776;
-                 </div>
-            </div>
-        </nav>
+      <nav>
+        <div class="navbar">
+          <div>
+            <a href="index.html"><img
+                src="images/Crossfire Logo-transparent.png"
+                alt="Crossfire Logo"
+                class="logo" /></a>
+          </div>
+          <div class="navbar-links">
+            <ul>
+              <li>
+                <a href="index.html"><i class="bi bi-house-fill"></i>
+                  Dashboard</a>
+              </li>
+              <li>
+                <a href="view-ncr.html"><i
+                    class="bi bi-file-earmark-bar-graph-fill"
+                    style="font-weight: 900"></i>
+                  View NCR Log</a>
+              </li>
+              <li>
+                <a href="create-ncr.html"><i
+                    class="bi bi-file-earmark-plus-fill"></i> Create NCR</a>
+              </li>
+            </ul>
+          </div>
+          <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
+
+            <i id="menu-icon"></i>
+          </div>
+        </div>
+      </nav>
     </header>
     <main id="main-content" role="main">
         <article>
@@ -408,7 +333,7 @@ document.getElementById('sendToEngineer').addEventListener('click', function (ev
 
 document.getElementById('saveDraft').addEventListener('click', function () {
   alert("Your NCR has been saved as a draft.");
-  window.location.href = "index.html"; // replace with your home page file
+  window.location.href = "index.html";
 });
     </script>
 <script src="scripts/script.js"></script>

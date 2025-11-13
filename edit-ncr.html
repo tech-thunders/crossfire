@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>New NCR</title>
-    <link rel="stylesheet" href="create-ncr.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="header.css">
-
-
-</head>
-<body>
+    <link rel="stylesheet" href="create-ncr.css" />
+    <link rel="stylesheet" href="tstyle.css" />
+    <link rel="stylesheet" href="header.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  </head>
+  <body>
+    <!-- Header section  -->
     <header>
       <nav>
         <div class="navbar">
@@ -42,148 +46,571 @@
             </ul>
           </div>
           <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
-
             <i id="menu-icon"></i>
           </div>
         </div>
       </nav>
     </header>
-    <div class="ncr_form_container">
-    <form action="post">
+    <!-- Header section  -->
 
-        <!-- NCR Meta Data  -->
-        <div class="ncr_meta_section">
+    <!-- Body  -->
+    <main id="main-content" role="main">
+      <!-- Quality Inspector Section  -->
+      <section class="accordion accordion--radio">
+        <div class="role-tab">
+          <input type="radio" name="role-section" id="rd1" />
+          <label for="rd1" class="tab__label">Quality Inspector Section</label>
+          <div class="tab_content">
+            <div class="accordion-container">
+              <div id="role-header">
+                <header class="form-header">
+                  <h1>Edit New NCR</h1>
+                  <div
+                    class="meta-info"
+                    role="contentinfo"
+                    aria-label="NCR metadata">
+                    <div class="meta-item">
+                      <span class="meta-label">NCR Number</span>
+                      <span class="meta-value"
+                        id="ncr-number-display">Loading..</span>
+                    </div>
+                    <div class="meta-item">
+                      <span class="meta-label">Created By</span>
+                      <span class="meta-value"
+                        id="created-by-display">Loading..</span>
+                    </div>
+                    <div class="meta-item">
+                      <span class="meta-label">Date Created</span>
+                      <time
+                        datetime="2025-11-08"
+                        class="meta-value"
+                        id="date-created-display">Loading..</time>
+                    </div>
+                    <div class="meta-item">
+                      <span class="meta-label">Status</span>
+                      <span
+                        class="meta-value"
+                        id="status-display"
+                        role="status"
+                        aria-live="polite">Draft</span>
+                    </div>
+                  </div>
+                </header>
 
-            
-                <div>
-                    <Label for="ncr_no">NCR: </Label>
-                    <input id="ncr_no" type="text" readonly value="2025-0011">
-                </div>
+                <form action="#" method="post">
+                  <aside
+                    class="notice"
+                    role="note"
+                    aria-label="Required fields notice">
+                    <i class="bi bi-info-circle" aria-hidden="true"></i>
+                    Fields marked with
+                    <span class="required" aria-label="required">*</span> are
+                    required
+                  </aside>
 
-                <div>
-                    <Label for="doc_no">Document No.</Label>
-                    <input id="doc_no" type="text" readonly value="OPS-00011">
-                </div>
+                  <fieldset>
+                    <legend>
+                      <i class="bi bi-receipt" aria-hidden="true"></i>
+                      Order Information
+                    </legend>
 
-                <div>
-                    <label for="date_raised">Date Created</label>
-                    <input id="date_raised" type="text" readonly value="2025/10/17">
-                </div>
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label for="po_number">
+                          Purchase Order Number
+                          <abbr class="required" title="required">*</abbr>
+                        </label>
+                        <input
+                          type="text"
+                          id="po_number"
+                          name="po_number"
+                          placeholder="e.g., PO-2025-1234"
+                          required
+                          aria-required="true"
+                          aria-describedby="po_help" />
+                        <small id="po_help" class="help-text">Enter the PO
+                          number
+                          from SAP</small>
+                        <span class="error-message" id="po_number_error"><i
+                            class="bi bi-exclamation-circle"></i> PO Number is
+                          required</span>
+                      </div>
 
-                <div>
-                    <label for="created_by">Created By</label>
-                    <input type="text" name="created_by" readonly id="created_by" value="user@email">
-                </div>
+                      <div class="form-group">
+                        <label for="sales_order">
+                          Sales Order Number
+                          <abbr class="required" title="required">*</abbr>
+                        </label>
+                        <input
+                          type="text"
+                          id="sales_order"
+                          name="sales_order"
+                          placeholder="e.g., SO-2025-5678"
+                          required
+                          aria-required="true"
+                          aria-describedby="sales_help" />
+                        <small id="sales_help" class="help-text">Manually
+                          entered
+                          sales order number</small>
+                        <span class="error-message" id="sales_order_error"><i
+                            class="bi bi-exclamation-circle"></i>Sales Order
+                          Number is required</span>
+                      </div>
+                    </div>
+                  </fieldset>
 
-            
-    </div>
+                  <!-- Fieldset 2: Supplier Information -->
+                  <fieldset>
+                    <legend>
+                      <i class="bi bi-building" aria-hidden="true"></i>
+                      Supplier Information
+                    </legend>
 
-<!-- Field Container -->
-        <div class="field_container">
+                    <div class="form-group">
+                      <label for="supplier_name">
+                        Supplier Name
+                        <abbr class="required" title="required">*</abbr>
+                      </label>
+                      <input
+                        type="text"
+                        id="supplier_name"
+                        name="supplier_name"
+                        placeholder="e.g., NorthTech Industrial Supplies"
+                        required
+                        aria-required="true" />
+                      <span class="error-message" id="supplier_name_error"><i
+                          class="bi bi-exclamation-circle"></i>Supplier Name is
+                        required</span>
+                    </div>
+                  </fieldset>
 
-        <div class="field">
-            <Label for="po_no">Purchasing Order No. <span>*</span></Label>
-            <input id="po_no" type="text" required>
+                  <!-- Fieldset 3: Item Details -->
+                  <fieldset>
+                    <legend>
+                      <i class="bi bi-box-seam" aria-hidden="true"></i>
+                      Item Details
+                    </legend>
+
+                    <div class="form-grid">
+                      <div class="form-group full-width">
+                        <label for="item_description">
+                          Item Description (including SAP No.)
+                          <abbr class="required" title="required">*</abbr>
+                        </label>
+                        <textarea
+                          id="item_description"
+                          name="item_description"
+                          placeholder="e.g., Stainless steel screen panel, Model HX-200, SAP#: 12345"
+                          required
+                          aria-required="true"
+                          aria-describedby="item_help"></textarea>
+                        <small id="item_help" class="help-text">Include model
+                          number, specifications, and SAP number if
+                          available</small>
+                        <span class="error-message"
+                          id="item_description_error"><i
+                            class="bi bi-exclamation-circle"></i>Item
+                          Description
+                          is required</span>
+                      </div>
+
+                      <div class="form-group full-width">
+                        <span id="process_type_label">
+                          Process Type
+                          <abbr class="required" title="required">*</abbr>
+                        </span>
+                        <div
+                          class="radio-group"
+                          role="radiogroup"
+                          aria-labelledby="process_type_label"
+                          aria-required="true">
+                          <label>
+                            <input
+                              type="radio"
+                              name="process_type"
+                              value="supplier"
+                              id="process_supplier"
+                              required />
+                            <span>Supplier or Receiving-Inspection</span>
+                          </label>
+                          <label>
+                            <input
+                              type="radio"
+                              name="process_type"
+                              value="wip"
+                              id="process_wip"
+                              required />
+                            <span>WIP (Production Order)</span>
+                          </label>
+                        </div>
+                        <span class="error-message" id="process_type_error"><i
+                            class="bi bi-exclamation-circle"></i>Please select a
+                          process type</span>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <!-- Fieldset 4: Defect Information -->
+                  <fieldset>
+                    <legend>
+                      <i class="bi bi-exclamation-triangle"
+                        aria-hidden="true"></i>
+                      Defect Information
+                    </legend>
+
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label for="qty_received">
+                          Quantity Received
+                          <abbr class="required" title="required">*</abbr>
+                        </label>
+                        <input
+                          type="number"
+                          id="qty_received"
+                          name="qty_received"
+                          min="0"
+                          placeholder="0"
+                          required
+                          aria-required="true" />
+                        <span class="error-message" id="qty_received_error"><i
+                            class="bi bi-exclamation-circle"></i>Quantity
+                          Received
+                          is required</span>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="qty_defective">
+                          Quantity Defective
+                          <abbr class="required" title="required">*</abbr>
+                        </label>
+                        <input
+                          type="number"
+                          id="qty_defective"
+                          name="qty_defective"
+                          min="0"
+                          placeholder="0"
+                          required
+                          aria-required="true" />
+                        <span class="error-message" id="qty_defective_error"><i
+                            class="bi bi-exclamation-circle"></i>Quantity
+                          Defective is required</span>
+                        <span class="error-message" id="qty_validation_error"><i
+                            class="bi bi-exclamation-circle"></i>Defective
+                          quantity cannot exceed received quantity</span>
+                      </div>
+
+                      <div class="form-group full-width">
+                        <label for="defect_description">
+                          Defect Description
+                          <abbr class="required" title="required">*</abbr>
+                        </label>
+                        <textarea
+                          id="defect_description"
+                          name="defect_description"
+                          placeholder="e.g., Dimensional deviation exceeding tolerance on flange face; multiple units affected"
+                          required
+                          aria-required="true"
+                          aria-describedby="defect_help"></textarea>
+                        <small id="defect_help" class="help-text">Provide
+                          detailed
+                          description of the
+                          non-conformance</small>
+                        <span class="error-message"
+                          id="defect_description_error"><i
+                            class="bi bi-exclamation-circle"></i>Defect
+                          Description is required</span>
+                      </div>
+                    </div>
+                  </fieldset>
+
+                  <!-- Fieldset 5: Quality Assessment -->
+                  <fieldset>
+                    <legend>
+                      <i class="bi bi-clipboard-check" aria-hidden="true"></i>
+                      Quality Assessment
+                    </legend>
+
+                    <div class="form-grid">
+                      <div class="form-group full-width">
+                        <span id="item_status_label">
+                          Item Status
+                          <abbr class="required" title="required">*</abbr>
+                        </span>
+                        <div
+                          class="radio-group"
+                          role="radiogroup"
+                          aria-labelledby="item_status_label"
+                          aria-required="true">
+                          <label>
+                            <input
+                              type="radio"
+                              name="item_status"
+                              value="conforming"
+                              id="status_conforming"
+                              required />
+                            <span>Conforming</span>
+                          </label>
+                          <label>
+                            <input
+                              type="radio"
+                              name="item_status"
+                              value="nonconforming"
+                              id="status_nonconforming"
+                              required />
+                            <span>Non-Conforming</span>
+                          </label>
+                        </div>
+                        <span class="error-message" id="item_status_error"><i
+                            class="bi bi-exclamation-circle"></i>Please select
+                          an
+                          item status</span>
+                      </div>
+
+                      <div class="form-group full-width">
+                        <div class="checkbox-group">
+                          <label>
+                            <input
+                              type="checkbox"
+                              id="engineering_required"
+                              name="engineering_required" />
+                            <span>
+                              <strong>Engineering Review Required</strong>
+                              <small
+                                class="help-text"
+                                style="display: block; margin-top: 0.25rem">
+                                Check if this NCR needs engineering disposition
+                              </small>
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+
+                  <!-- Form Actions Footer -->
+                  <footer class="form-footer">
+                    <button
+                      type="button"
+                      class="btn-outline"
+                      onclick="window.location.href='index.html'">
+                      <i class="bi bi-x-circle" aria-hidden="true"></i>
+                      <span>Cancel</span>
+                    </button>
+                    <button type="button" class="btn-secondary" id="saveDraft">
+                      <i class="bi bi-save" aria-hidden="true"></i>
+                      <span>Save as Draft</span>
+                    </button>
+                    <button type="submit" class="btn-primary" id="submitForm">
+                      <i class="bi bi-send" aria-hidden="true"></i>
+                      <span>Send to Engineer</span>
+                    </button>
+                  </footer>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Engineer Section  -->
+      <section class="accordion accordion--radio">
+        <div class="role-tab">
+          <input type="radio" name="role-section" id="rd2">
+          <label for="rd2" class="tab__label">Engineering Section</label>
+          <div class="tab_content">
+            <div class="accordion-container">
+              <div id="role-header">
+                <header class="form-header">
+                  <!-- <h1>Edit New NCR</h1> -->
+                  <div
+                    class="meta-info"
+                    role="contentinfo"
+                    aria-label="NCR metadata">
+                    <div class="meta-item">
+                      <span class="meta-label">NCR Number</span>
+                      <span class="meta-value"
+                        id="ncr-number-display">Loading..</span>
+                    </div>
+                    <div class="meta-item">
+                      <span class="meta-label">Created By</span>
+                      <span class="meta-value"
+                        id="created-by-display">Loading..</span>
+                    </div>
+                    <div class="meta-item">
+                      <span class="meta-label">Date Created</span>
+                      <time
+                        datetime="2025-11-08"
+                        class="meta-value"
+                        id="date-created-display">Loading..</time>
+                    </div>
+                    <div class="meta-item">
+                      <span class="meta-label">Status</span>
+                      <span
+                        class="meta-value"
+                        id="status-display"
+                        role="status"
+                        aria-live="polite">Draft</span>
+                    </div>
+                  </div>
+                </header>
+
+                <!-- Form -->
+                <form action="#" method="post">
+                  <aside
+                    class="notice"
+                    role="note"
+                    aria-label="Required fields notice">
+                    <i class="bi bi-info-circle" aria-hidden="true"></i>
+                    Fields marked with
+                    <span class="required" aria-label="required">*</span> are
+                    required
+                  </aside>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- modal-overlay -->
+
+    <div id="preview-modal" class="modal-overlay">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h2><i class="bi bi-eye"></i>Please confirm the Details.</h2>
+          <button
+            class="modal-close"
+            onclick="NCRFormHandler.closePreviewModal()">
+            <i class="bi bi-x-lg"></i>
+          </button>
         </div>
 
-        <div class="field">
-            <Label for="sales_no">Sales  Order No.<span>*</span></Label>
-            <input id="sales_no" type="text" required>
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <!-- NCR Info -->
+          <div class="preview-section">
+            <h3>NCR Information</h3>
+            <div class="preview-grid">
+              <div class="preview-item">
+                <span class="preview-label">NCR Number:</span>
+                <span class="preview-value" id="preview-ncr-number">-</span>
+              </div>
+              <div class="preview-item">
+                <span class="preview-label">Date Created:</span>
+                <span class="preview-value" id="preview-date">-</span>
+              </div>
+              <div class="preview-item">
+                <span class="preview-label">Created By:</span>
+                <span class="preview-value" id="preview-user">-</span>
+              </div>
+              <div class="preview-item">
+                <span class="preview-label">Status:</span>
+                <span class="preview-value" id="preview-status">Active</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Information -->
+          <div class="preview-section">
+            <h3>Order Information</h3>
+            <div class="preview-grid">
+              <div class="preview-item">
+                <span class="preview-label">PO Number:</span>
+                <span class="preview-value" id="preview-po">-</span>
+              </div>
+              <div class="preview-item">
+                <span class="preview-label">Sales Order:</span>
+                <span class="preview-value" id="preview-so">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Supplier Information -->
+          <div class="preview-section">
+            <h3>Supplier Information</h3>
+            <div class="preview-grid">
+              <div class="preview-item full-width">
+                <span class="preview-label">Supplier Name:</span>
+                <span class="preview-value" id="preview-supplier">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item Details -->
+          <div class="preview-section">
+            <h3>Item Details</h3>
+            <div class="preview-grid">
+              <div class="preview-item full-width">
+                <span class="preview-label">Item Description:</span>
+                <span class="preview-value" id="preview-item">-</span>
+              </div>
+              <div class="preview-item">
+                <span class="preview-label">Process Type:</span>
+                <span class="preview-value" id="preview-process">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Defect Information -->
+          <div class="preview-section">
+            <h3>Defect Information</h3>
+            <div class="preview-grid">
+              <div class="preview-item">
+                <span class="preview-label">Quantity Received:</span>
+                <span class="preview-value" id="preview-qty-received">-</span>
+              </div>
+              <div class="preview-item">
+                <span class="preview-label">Quantity Defective:</span>
+                <span class="preview-value" id="preview-qty-defective">-</span>
+              </div>
+              <div class="preview-item full-width">
+                <span class="preview-label">Defect Description:</span>
+                <span class="preview-value" id="preview-defect">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quality Assessment -->
+          <div class="preview-section">
+            <h3>Quality Assessment</h3>
+            <div class="preview-grid">
+              <div class="preview-item">
+                <span class="preview-label">Item Status:</span>
+                <span class="preview-value" id="preview-item-status">-</span>
+              </div>
+              <div class="preview-item">
+                <span class="preview-label">Engineering Required:</span>
+                <span class="preview-value" id="preview-engineering">-</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div>
-            <Label for="qauntity_received">Quantity Defective<span>*</span></Label>
-            <input type="number" name="qauntity_received" id="qauntity_received" required min="0">
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn-secondary"
+            onclick="NCRFormHandler.closePreviewModal()">
+            <i class="bi bi-arrow-left"></i>
+            Go Back to Edit
+          </button>
+          <button
+            type="button"
+            class="btn-primary"
+            onclick="NCRFormHandler.confirmAndSave()">
+            <i class="bi bi-check-circle"></i>
+            Confirm & Send
+          </button>
         </div>
-
-
-        <div>
-            <Label for="qauntity_defective">Quantity Recieved<span>*</span></Label>
-            <input type="number" name="qauntity_defective" id="qauntity_defective" required min="0">
-        </div>
-
-
-        <div class="field col_span_2">
-        <label>Identify the process applicable<span>*</span></label>
-        <div class="radio_group">
-        <label for="process_type_opt1">Supplier or Rec-Insp</label>
-        <input type="radio" name="process_type" id="process_type_opt1" required>
-        <label for="process_type_opt2">WIP (Production Order)</label>
-        <input type="radio" name="process_type" id="process_type_opt2" required>
-        </div>
-        <!-- <select name="process_type" id="type">
-            <option value="">Supplier</option>
-            <option value="">Receiving-Inspection(PO)</option>
-            <option value="">Production No./WIP</option>
-        </select> -->
+      </div>
     </div>
+    <!-- Load data-manager first -->
+    <script src="scripts/data-manager.js"></script>
 
-    <div class="field col_span_2">
-        <label for="item_description">Description Of Item<span>*</span></label>
-        <textarea name="item_description" id="item_description" placeholder="eg., Stainless steel screen panel, Model HX-200, supplied by ABC Metals." required></textarea>
-    </div>
+    <script src="scripts/ncr-form.js"></script>
 
-    <div class="field col_span_2">
-        <label for="defect_description">Description Of Defect<span>*</span></label>
-        <textarea name="defect_description" id="defect_description" placeholder="eg., Dimensional deviation exceeding tolerance on flange face; part rejected." required></textarea>
-    </div>
-
-     <div class="field">
-        <label for="supplier_name">Supplier Name<span>*</span></label>
-        <input type="text" placeholder="e.g., NorthTech Industrial Supplies" id="supplier_name">
-    </div>
-
-
-
-<div class="field col_span_2">
-    <label>Is the Product?<span>*</span></label><br>
-    <div class="radio_group">
-    <label for="conforming">Conforming</label>
-    <input type="radio" name="cfn" id="conforming" required>
-    <label for="nconforming">Non-Conforming</label>
-    <input type="radio" name="cfn" id="nconforming" required>
-    </div>
-</div>
-
-<div class="required_text">* Required fields</div>
-<!-- Action Buttons -->
-
-</div>
-<div class="buttons_group">
-
-    <button type="submit" id="sendToEngineer">Send To Engineer</button>
-    <button type="submit"  id="saveDraft">Save as Draft</button>
-
-</div>
-
-    </form>
-    </div>
-
-
-
-    <script>
-document.getElementById('sendToEngineer').addEventListener('click', function (event) {
-  
-  event.preventDefault();
-
-  
-  const confirmed = confirm("Confirm to send this NCR to the engineer?");
-  
-  if (confirmed) {
-    
-    document.querySelector('form').submit(); 
-  } else {
-    
-    console.log("Action cancelled by user.");
-  }
-});
-
-document.getElementById('saveDraft').addEventListener('click', function () {
-  alert("Your NCR has been saved as a draft.");
-  window.location.href = "index.html"; // replace with your home page file
-});
-</script>
-<script src="scripts/script.js"></script>
-</body>
-
+    <script src="scripts/script.js"></script>
+  </body>
 </html>

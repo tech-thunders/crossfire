@@ -20,12 +20,13 @@
 	border: 2px solid;
 	border-radius: 0.5rem;
 	overflow: hidden;
+	margin-bottom: 10px;
 }
 
 .tab__label,
 .tab__close {
 	display: flex;
-	color: white;
+	color: #fff;
 	background: var(--theme);
 	cursor: pointer;
 }

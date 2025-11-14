@@ -179,3 +179,13 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (processRadio) processRadio.checked = true;
 	}
 });
+
+
+// Engineering Form
+
+
+//Populate Updated On Date
+const todayDate = new Date();
+console.log(todayDate.toLocaleDateString());
+
+document.getElementById("date-updated-eng").textContent = todayDate.toLocaleDateString();

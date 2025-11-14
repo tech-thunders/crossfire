@@ -35,8 +35,9 @@ nav li {
   grid-template-columns: 1fr;
   position: absolute;
   right: 0;
-  top: 8rem;
+  top: 14.5%;
   width: 100%;
+  z-index: 10;
 }
 
 .navbar-links a {

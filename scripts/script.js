@@ -1,6 +1,6 @@
 const menuIcon = document.getElementById("menu-icon");
 menuIcon.className = "bi bi-list";
-// document.getElementById("rd1").checked = true;
+// document.getElementById("rd2").checked = true;
 
 // let url = "./data/data.json";
 // let ncrLogs = [];
@@ -130,11 +130,14 @@ function selectedLog(ncrNumber) {
 // Populate the data into Inpector Section
 document.addEventListener("DOMContentLoaded", () => {
 	const allRecords = JSON.parse(localStorage.getItem("ncr_records")) || [];
+
+	// document.getElementById("total-ncr-summary").textContent = allRecords.length;
+	// document.getElementById("active-ncr").textContent = allRecords.filter((r) => r.ncrNumber = "2025-001").length;
 	const selectedNCR = localStorage.getItem("selectedNCR");
 
 	// First checking if there is a selected ncr number and if we have all mock data in the localStorage
 	if (!selectedNCR || allRecords.length === 0) {
-		alert("No NCR data found.");
+		console.log("No NCR data found.");
 		return;
 	}
 	//Then finding the ncrNumber in the list of data and save it as a record
@@ -178,4 +181,34 @@ document.addEventListener("DOMContentLoaded", () => {
 		);
 		if (processRadio) processRadio.checked = true;
 	}
+
+
+	// Engineering Form
+
+
+	//Populate Updated On Date
+	const todayDate = new Date();
+	console.log(todayDate.toLocaleDateString());
+
+	document.getElementById("date-updated-eng").innerHTML = todayDate.toLocaleDateString();
+
 });
+
+const yesBtn = document.getElementById("yes-notification");
+const noBtn = document.getElementById("no-notification");
+document.getElementById("showMessageBox").style.display = "none";
+
+yesBtn.addEventListener("change", () => {
+	if(yesBtn.checked){
+		document.getElementById("showMessageBox").style.display = "block"
+	}
+	
+});
+noBtn.addEventListener("change", () => {
+	if(noBtn.checked){
+		document.getElementById("showMessageBox").style.display = "none"
+	}
+	
+});
+
+

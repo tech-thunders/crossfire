@@ -17,6 +17,7 @@ nav li {
   font-size: 20px;
   font-weight: 600;
   grid-template-columns: auto auto;
+ 
 }
 
 .navbar .logo {
@@ -35,8 +36,9 @@ nav li {
   grid-template-columns: 1fr;
   position: absolute;
   right: 0;
-  top: 8rem;
+  top: 14.5%;
   width: 100%;
+  z-index: 100;
 }
 
 .navbar-links a {

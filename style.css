@@ -208,6 +208,7 @@ input {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     border-radius: 10px;
+    
 }
 
 table {
@@ -216,12 +217,13 @@ table {
     background-color: #fff;
     border-radius: 8px;
     min-width: 600px;
+    text-align: left;
 }
 
 th,
 td {
     padding: 15px;
-    text-align: center;
+    /* text-align: center; */
     color: #333;
 }
 

@@ -130,6 +130,9 @@ function selectedLog(ncrNumber) {
 // Populate the data into Inpector Section
 document.addEventListener("DOMContentLoaded", () => {
 	const allRecords = JSON.parse(localStorage.getItem("ncr_records")) || [];
+
+	document.getElementById("total-ncr-summary").textContent = allRecords.length;
+	// document.getElementById("active-ncr").textContent = allRecords.filter((r) => r.ncrNumber = "2025-001").length;
 	const selectedNCR = localStorage.getItem("selectedNCR");
 
 	// First checking if there is a selected ncr number and if we have all mock data in the localStorage

@@ -131,7 +131,7 @@ function selectedLog(ncrNumber) {
 document.addEventListener("DOMContentLoaded", () => {
 	const allRecords = JSON.parse(localStorage.getItem("ncr_records")) || [];
 
-	document.getElementById("total-ncr-summary").textContent = allRecords.length;
+	// document.getElementById("total-ncr-summary").textContent = allRecords.length;
 	// document.getElementById("active-ncr").textContent = allRecords.filter((r) => r.ncrNumber = "2025-001").length;
 	const selectedNCR = localStorage.getItem("selectedNCR");
 

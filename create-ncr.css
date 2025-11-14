@@ -558,14 +558,15 @@ select.success {
 }
 
 .modal-close {
-	background: transparent;
-	border: none;
-	color: white;
-	font-size: 1.5rem;
-	cursor: pointer;
-	padding: 0.5rem;
-	line-height: 1;
-	transition: transform 0.2s;
+    background: transparent;
+    width: 15px;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.3rem;
+    line-height: 1;
+    transition: transform 0.2s;
 }
 
 .modal-close:hover {
@@ -692,20 +693,78 @@ select.success {
 
 /* Responsive */
 @media screen and (max-width: 767px) {
-	.modal-content {
-		margin: 0;
-	}
+    .modal-content {
+        margin: 0;
+    }
+    
+    .modal-header h2 {
+        font-size: 1rem;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+        max-height: 50vh;
+    }
+    
+    .modal-footer {
+        padding: 1rem;
+    }
+}
 
-	.modal-header h2 {
-		font-size: 1rem;
-	}
+/* ============================================
+   TOAST NOTIFICATION STYLES
+   ============================================ */
 
-	.modal-body {
-		padding: 1rem;
-		max-height: 50vh;
-	}
+.toast {
+    position: fixed;
+    bottom: -100px;
+    right: 2rem;
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+    z-index: 9999;
+    transition: bottom 0.3s ease-out;
+    max-width: 400px;
+}
 
-	.modal-footer {
-		padding: 1rem;
-	}
+.toast.show {
+    bottom: 2rem;
+}
+
+.toast-success {
+    border-left: 4px solid #16a34a;
+    color: #15803d;
+}
+
+.toast-success i {
+    color: #16a34a;
+    font-size: 1.5rem;
+}
+
+.toast-error {
+    border-left: 4px solid #dc2626;
+    color: #b91c1c;
+}
+
+.toast-error i {
+    color: #dc2626;
+    font-size: 1.5rem;
+}
+
+/* Mobile toast */
+@media screen and (max-width: 767px) {
+    .toast {
+        right: 1rem;
+        left: 1rem;
+        max-width: none;
+    }
+    
+    .toast.show {
+        bottom: 1rem;
+    }
 }

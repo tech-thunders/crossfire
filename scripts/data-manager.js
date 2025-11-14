@@ -17,11 +17,11 @@ const NCRDataManager = {
     const existing = localStorage.getItem(this.STORAGE_KEYS.NCRS);
     
     if (!existing) {
-        console.log('🔄 First time! Loading sample data from JSON...');
+        console.log('Seeding Data from json file');
         
         // Load the JSON file
         // NOTE: Using ncrData2.json (team agreed on 2024-11-09)
-        // This file contains complete welding equipment NCR data
+        
         fetch('data/ncrData2.json')
             .then(response => {
                 if (!response.ok) {
@@ -32,21 +32,21 @@ const NCRDataManager = {
             .then(data => {
                 // Save to localStorage
                 localStorage.setItem(this.STORAGE_KEYS.NCRS, JSON.stringify(data));
-                console.log('✅ Loaded', data.length, 'NCRs from ncrData2.json');
-                console.log('📊 Sample NCR:', data[0].ncrNumber, '-', data[0].supplierName);
+                // console.log('Loaded', data.length, 'NCRs from ncrData2.json');
+                // console.log('Sample NCR:', data[0].ncrNumber, '-', data[0].supplierName);
                 
                 // Trigger a custom event so other code knows data is loaded
                 window.dispatchEvent(new Event('ncr-data-loaded'));
             })
             .catch(error => {
-                console.error('❌ Error loading JSON:', error);
+                console.error('Error loading', error);
                 // Initialize with empty array as fallback
                 localStorage.setItem(this.STORAGE_KEYS.NCRS, JSON.stringify([]));
             });
     } else {
-        console.log('✅ Data already exists in localStorage');
+        console.log('Data already exists in localStorage');
         const ncrs = JSON.parse(existing);
-        console.log('📊 Total NCRs:', ncrs.length);
+        console.log('Total NCRs:', ncrs.length);
         
         // Data already loaded, dispatch event immediately
         setTimeout(() => {
@@ -54,7 +54,7 @@ const NCRDataManager = {
         }, 0);
     }
     
-    // Set default user (will be replaced with login in Prototype 3)
+    // Set default user 
     if (!localStorage.getItem(this.STORAGE_KEYS.CURRENT_USER)) {
         localStorage.setItem(this.STORAGE_KEYS.CURRENT_USER, 'Emma Johnson');
     }
@@ -172,24 +172,15 @@ const NCRDataManager = {
             // Save back to localStorage
             localStorage.setItem(this.STORAGE_KEYS.NCRS, JSON.stringify(ncrs));
             
-            console.log('✅ NCR updated:', ncrs[index].ncrNumber);
+            console.log('NCR updated:', ncrs[index].ncrNumber);
             return ncrs[index];
         }
         
-        console.error('❌ NCR not found:', id);
+        console.error('NCR not found:', id);
         return null;
     },
 
-    /**
-     * Delete NCR (optional - for future use)
-     */
-    deleteNCR(id) {
-        const ncrs = this.getAllNCRs();
-        const filtered = ncrs.filter(ncr => ncr.id !== id);
-        
-        localStorage.setItem(this.STORAGE_KEYS.NCRS, JSON.stringify(filtered));
-        console.log('✅ NCR deleted');
-    },
+   
 
     /**
      * Generate unique ID
@@ -204,8 +195,63 @@ const NCRDataManager = {
     clearAllData() {
         localStorage.removeItem(this.STORAGE_KEYS.NCRS);
         localStorage.removeItem(this.STORAGE_KEYS.CURRENT_USER);
-        console.log('🗑️ All data cleared');
+        console.log('All data cleared');
+    },
+    /**
+     * Create NCR object from form data with all required fields
+     */
+    createNCRFromFormData(formData) {
+        const now = new Date().toISOString();
+        const today = new Date().toISOString().split('T')[0];
+        
+        return {
+            // Core IDs
+            id: this.generateUniqueId(),
+            ncrNumber: this.generateNCRNumber(),
+            
+            // Order Info
+            poNumber: formData.poNumber || "",
+            salesOrderNumber: formData.salesOrderNumber || "",
+            
+            // Supplier Info
+            supplierName: formData.supplierName || "",
+            
+            // Item Details
+            itemDescription: formData.itemDescription || "",
+            processType: formData.processType || "supplier",
+            
+            // Defect Info
+            defectDescription: formData.defectDescription || "",
+            quantityReceived: parseInt(formData.quantityReceived) || 0,
+            quantityDefective: parseInt(formData.quantityDefective) || 0,
+            itemStatus: formData.itemStatus || "nonconforming",
+            itemMarkedNonconforming: formData.itemStatus === "nonconforming",
+            
+            // Quality Assessment
+            engineeringRequired: formData.engineeringRequired || false,
+            qualityCompleted: true,
+            qualityCompletedAt: now,
+            
+            // Audit Trail
+            createdBy: this.getCurrentUser(),
+            createdByEmail: "emma.johnson@crossfire.com",
+            dateCreated: now,
+            lastModified: now,
+            inspectionDate: today,
+            inspectorId: "EJ001",
+            
+            // Status
+            status: "Active",
+            currentStage: formData.engineeringRequired ? "engineering" : "operations",
+            
+            // Future fields (for later prototypes)
+            closedBy: null,
+            closedByEmail: null,
+            dateClosed: null,
+            resolutionSummary: null
+        };
     }
+
 };
 
 // Initialize when script loads

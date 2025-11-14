@@ -1,6 +1,6 @@
 const menuIcon = document.getElementById("menu-icon");
 menuIcon.className = "bi bi-list";
-// document.getElementById("rd1").checked = true;
+document.getElementById("rd2").checked = true;
 
 // let url = "./data/data.json";
 // let ncrLogs = [];
@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// First checking if there is a selected ncr number and if we have all mock data in the localStorage
 	if (!selectedNCR || allRecords.length === 0) {
-		alert("No NCR data found.");
+		console.log("No NCR data found.");
 		return;
 	}
 	//Then finding the ncrNumber in the list of data and save it as a record
@@ -178,14 +178,34 @@ document.addEventListener("DOMContentLoaded", () => {
 		);
 		if (processRadio) processRadio.checked = true;
 	}
+
+
+	// Engineering Form
+
+
+	//Populate Updated On Date
+	const todayDate = new Date();
+	console.log(todayDate.toLocaleDateString());
+
+	document.getElementById("date-updated-eng").innerHTML = todayDate.toLocaleDateString();
+
+});
+
+const yesBtn = document.getElementById("yes-notification");
+const noBtn = document.getElementById("no-notification");
+document.getElementById("showMessageBox").style.display = "none";
+
+yesBtn.addEventListener("change", () => {
+	if(yesBtn.checked){
+		document.getElementById("showMessageBox").style.display = "block"
+	}
+	
+});
+noBtn.addEventListener("change", () => {
+	if(noBtn.checked){
+		document.getElementById("showMessageBox").style.display = "none"
+	}
+	
 });
 
 
-// Engineering Form
-
-
-//Populate Updated On Date
-const todayDate = new Date();
-console.log(todayDate.toLocaleDateString());
-
-document.getElementById("date-updated-eng").textContent = todayDate.toLocaleDateString();

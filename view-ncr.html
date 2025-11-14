@@ -302,6 +302,7 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="scripts/script.js"></script>
     <script>
       // Navbar toggle
       function toggleMenu() {
@@ -367,7 +368,7 @@
               <td><a href="detailedViewNCR.html?ncr=${
                 item.ncrNumber
               }" class="view-ncr">View</a></td>
-              <td><a href="create-ncr.html" class="view-ncr">Edit</a></td>
+              <td><a href="edit-ncr.html" onClick="selectedLog('${item.ncrNumber}')" class="view-ncr">Edit</a></td>
             </tr>
           `;
           tableBody.innerHTML += row;

@@ -1,6 +1,6 @@
 const menuIcon = document.getElementById("menu-icon");
 menuIcon.className = "bi bi-list";
-document.getElementById("rd2").checked = true;
+// document.getElementById("rd2").checked = true;
 
 // let url = "./data/data.json";
 // let ncrLogs = [];

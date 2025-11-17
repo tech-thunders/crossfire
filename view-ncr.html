@@ -169,6 +169,52 @@
         font-size: 20px;
       }
 
+      /* Container for all filters */
+      .filter-container {
+        display: flex;
+        flex-wrap: wrap; /* Wrap on small screens */
+        justify-content: center;
+        align-items: flex-end;
+        gap: 15px;
+        margin-bottom: 10px;
+      }
+
+      /* Each input/select wrapper */
+      .filter-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 14px;
+        gap: 5px;
+      }
+
+      /* Inputs & selects */
+      .filter-item input,
+      .filter-item select {
+        padding: 4px 8px;
+        margin: 0;
+        height: 28px;
+        line-height: 1;
+        font-size: 14px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        min-width: 140px;
+        margin-bottom: 20px;
+      }
+
+      /* Mobile responsiveness */
+      @media screen and (max-width: 600px) {
+        .filter-container {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .filter-item input,
+        .filter-item select {
+          width: 100%;
+        }
+      }
+
       /* 📱 Mobile Responsive Styles */
       @media screen and (max-width: 768px) {
         .container {
@@ -273,11 +319,32 @@
         <button class="filter-btn" data-status="Closed">Closed</button>
       </div>
 
-      <input
-        type="text"
-        id="search"
-        placeholder="Filter results by NCR No, Supplier Name, Date or Status..."
-      />
+      <!-- Multi-column Filters -->
+      <div class="filter-container">
+        <div class="filter-item">
+          <label for="filter-ncr">NCR No:</label>
+          <input type="text" id="filter-ncr" placeholder="Filter by NCR No." />
+        </div>
+
+        <div class="filter-item">
+          <label for="filter-supplier">Supplier:</label>
+          <input
+            type="text"
+            id="filter-supplier"
+            placeholder="Filter by Supplier"
+          />
+        </div>
+
+        <div class="filter-item">
+          <label for="filter-start-date">Start Date:</label>
+          <input type="date" id="filter-start-date" />
+        </div>
+
+        <div class="filter-item">
+          <label for="filter-end-date">End Date:</label>
+          <input type="date" id="filter-end-date" />
+        </div>
+      </div>
 
       <div class="table-container">
         <table id="ncrTable">
@@ -408,18 +475,46 @@
       }
 
       // Search
-      document.getElementById("search").addEventListener("input", function () {
-        const query = this.value.toLowerCase();
-        filteredData = ncrData.filter(
-          (item) =>
-            item.ncrNumber.toLowerCase().includes(query) ||
-            item.currentStage.toLowerCase().includes(query) ||
-            item.supplierName.toLowerCase().includes(query) ||
-            formatDate(item.dateCreated).toLowerCase().includes(query)
-        );
+      function applyFilters() {
+        const ncrQuery = document
+          .getElementById("filter-ncr")
+          .value.toLowerCase();
+        const supplierQuery = document
+          .getElementById("filter-supplier")
+          .value.toLowerCase();
+        const startDate = document.getElementById("filter-start-date").value;
+        const endDate = document.getElementById("filter-end-date").value;
+
+        filteredData = ncrData.filter((item) => {
+          const itemDate = new Date(item.dateCreated);
+
+          const matchesNCR = item.ncrNumber.toLowerCase().includes(ncrQuery);
+          const matchesSupplier = item.supplierName
+            .toLowerCase()
+            .includes(supplierQuery);
+          const matchesStart = startDate
+            ? itemDate >= new Date(startDate)
+            : true;
+          const matchesEnd = endDate ? itemDate <= new Date(endDate) : true;
+
+          return matchesNCR && matchesSupplier && matchesStart && matchesEnd;
+        });
+
         currentPage = 1;
         renderTable();
-      });
+      }
+      document
+        .getElementById("filter-ncr")
+        .addEventListener("input", applyFilters);
+      document
+        .getElementById("filter-supplier")
+        .addEventListener("input", applyFilters);
+      document
+        .getElementById("filter-start-date")
+        .addEventListener("change", applyFilters);
+      document
+        .getElementById("filter-end-date")
+        .addEventListener("change", applyFilters);
 
       // Filter buttons
       document.querySelectorAll(".filter-btn").forEach((btn) =>

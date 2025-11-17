@@ -189,8 +189,7 @@
       }
 
       /* Inputs & selects */
-      .filter-item input,
-      .filter-item select {
+      .filter-item input {
         padding: 4px 8px;
         margin: 0;
         height: 28px;
@@ -202,6 +201,26 @@
         margin-bottom: 20px;
       }
 
+      /* Collapsible filter section */
+      .collapse {
+        display: none; /* hidden by default */
+      }
+
+      /* Optional: styling toggle button */
+      .filter-toggle-btn {
+        background-color: #2f6ea3;
+        color: white;
+        padding: 8px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 10px;
+      }
+
+      .filter-toggle-btn:hover {
+        background-color: #4a8bc0;
+      }
+
       /* Mobile responsiveness */
       @media screen and (max-width: 600px) {
         .filter-container {
@@ -209,8 +228,7 @@
           align-items: stretch;
         }
 
-        .filter-item input,
-        .filter-item select {
+        .filter-item input {
           width: 100%;
         }
       }
@@ -320,7 +338,10 @@
       </div>
 
       <!-- Multi-column Filters -->
-      <div class="filter-container">
+      <button id="toggle-filters" class="filter-toggle-btn">
+        Show Filters
+      </button>
+      <div class="filter-container collapse">
         <div class="filter-item">
           <label for="filter-ncr">NCR No:</label>
           <input type="text" id="filter-ncr" placeholder="Filter by NCR No." />
@@ -475,6 +496,19 @@
       }
 
       // Search
+      const toggleBtn = document.getElementById("toggle-filters");
+      const filterContainer = document.querySelector(".filter-container");
+
+      toggleBtn.addEventListener("click", () => {
+        if (filterContainer.style.display === "flex") {
+          filterContainer.style.display = "none";
+          toggleBtn.textContent = "Show Filters";
+        } else {
+          filterContainer.style.display = "flex";
+          toggleBtn.textContent = "Hide Filters";
+        }
+      });
+
       function applyFilters() {
         const ncrQuery = document
           .getElementById("filter-ncr")

@@ -21,7 +21,7 @@
       body {
         background-color: #fff;
         font-family: "Poppins", sans-serif;
-        font-size: 14px;
+        font-size: 16px;
         margin: 0;
         padding: 0;
       }
@@ -111,7 +111,7 @@
       th,
       td {
         padding: 15px;
-        text-align: left;
+        text-align: center;
         color: #333;
       }
 
@@ -146,6 +146,22 @@
         background-color: #417aa7;
       }
 
+      .generate-pdf-btn {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        color: white;
+        background-color: #6b7280;
+        margin: 0 2px;
+        font-size: 16px;
+      }
+
+      .generate-pdf-btn:hover {
+        background-color: #4b5563;
+      }
+
       .pagination {
         text-align: center;
         margin-top: 20px;
@@ -163,6 +179,59 @@
       .pagination button.active {
         background-color: #5897c9;
         color: white;
+      }
+
+      /* Modal for PDF Generation */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-content {
+        background-color: white;
+        margin: 10% auto;
+        padding: 30px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 500px;
+        text-align: center;
+      }
+
+      .modal-content h2 {
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .modal-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .modal-btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .modal-btn-primary {
+        background-color: #5897c9;
+        color: white;
+      }
+
+      .modal-btn-secondary {
+        background-color: #e0e0e0;
+        color: #333;
       }
 
       /* 📱 Mobile Responsive Styles */
@@ -279,9 +348,6 @@
         id="search"
         placeholder="Filter results by NCR No, Supplier Name, Date or Status..."
       />
-      <button class="download-btn" onclick="downloadPDF()">
-        Generate Report
-      </button>
 
       <div class="table-container">
         <table id="ncrTable">
@@ -291,7 +357,7 @@
               <th onclick="sortTable(1)">Current Status ▲▼</th>
               <th onclick="sortTable(2)">Date Created ▲▼</th>
               <th onclick="sortTable(3)">Supplier Name ▲▼</th>
-              <th colspan="2">Action</th>
+              <th colspan="3">Action</th>
             </tr>
           </thead>
           <tbody id="ncrTableBody"></tbody>
@@ -302,11 +368,11 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="scripts/script.js"></script>
     <script>
       // Navbar toggle
       function toggleMenu() {
         const navLinks = document.querySelector(".navbar-links");
+        const menuIcon = document.getElementById("menu-icon");
         if (
           navLinks.style.display === "" ||
           navLinks.style.display === "none"
@@ -340,6 +406,15 @@
         })
         .catch((error) => console.error("Error loading NCR data:", error));
 
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+      }
+
       function renderTable() {
         const tableBody = document.getElementById("ncrTableBody");
         const start = (currentPage - 1) * rowsPerPage;
@@ -349,12 +424,7 @@
         tableBody.innerHTML = "";
 
         pageData.forEach((item) => {
-          const date = new Date(item.dateCreated);
-          const formattedDate = date.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          });
+          const formattedDate = formatDate(item.dateCreated);
 
           const row = `
             <tr>
@@ -368,7 +438,12 @@
               <td><a href="detailedViewNCR.html?ncr=${
                 item.ncrNumber
               }" class="view-ncr">View</a></td>
-              <td><a href="edit-ncr.html" onClick="selectedLog('${item.ncrNumber}')" class="view-ncr">Edit</a></td>
+              <td><a href="edit-ncr.html" onClick="selectedLog('${
+                item.ncrNumber
+              }')" class="view-ncr">Edit</a></td>
+              <td><button class="generate-pdf-btn" onclick='generateSinglePDF("${
+                item.id
+              }")'>PDF</button></td>
             </tr>
           `;
           tableBody.innerHTML += row;
@@ -402,10 +477,7 @@
             item.ncrNumber.toLowerCase().includes(query) ||
             item.currentStage.toLowerCase().includes(query) ||
             item.supplierName.toLowerCase().includes(query) ||
-            new Date(item.dateCreated)
-              .toLocaleDateString("en-US")
-              .toLowerCase()
-              .includes(query)
+            formatDate(item.dateCreated).toLowerCase().includes(query)
         );
         currentPage = 1;
         renderTable();
@@ -448,9 +520,251 @@
         renderTable();
       }
 
-      // PDF download
-      function downloadPDF() {
-        window.print();
+      // PDF Generation Functions
+      function generateSinglePDF(ncrId) {
+        const ncr = ncrData.find((n) => n.id === ncrId);
+        if (!ncr) {
+          alert("NCR not found!");
+          return;
+        }
+
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        // Header
+        doc.setFillColor(88, 151, 201);
+        doc.rect(0, 0, 210, 40, "F");
+
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(24);
+        doc.setFont(undefined, "bold");
+        doc.text("NON-CONFORMANCE REPORT", 105, 20, { align: "center" });
+
+        doc.setFontSize(12);
+        doc.setFont(undefined, "normal");
+        doc.text(`NCR Number: ${ncr.ncrNumber}`, 105, 30, { align: "center" });
+
+        // Reset text color
+        doc.setTextColor(0, 0, 0);
+        let yPos = 50;
+
+        // Status Badge
+        doc.roundedRect(150, yPos - 5, 40, 10, 2, 2, "F");
+        doc.setFontSize(10);
+        doc.setFont(undefined, "bold");
+        doc.text(ncr.status, 170, yPos, { align: "center" });
+
+        yPos += 15;
+
+        // Section: General Information
+        doc.setFillColor(248, 249, 250);
+        doc.rect(10, yPos, 190, 8, "F");
+        doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(88, 151, 201);
+        doc.text("GENERAL INFORMATION", 15, yPos + 5);
+        doc.setTextColor(0, 0, 0);
+        yPos += 15;
+
+        doc.setFontSize(10);
+        doc.setFont(undefined, "bold");
+        doc.text("Created By:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.createdBy, 50, yPos);
+
+        doc.setFont(undefined, "bold");
+        doc.text("Email:", 120, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.createdByEmail, 140, yPos);
+        yPos += 7;
+
+        doc.setFont(undefined, "bold");
+        doc.text("Date Created:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(formatDate(ncr.dateCreated), 50, yPos);
+
+        doc.setFont(undefined, "bold");
+        doc.text("Inspection Date:", 120, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(formatDate(ncr.inspectionDate), 155, yPos);
+        yPos += 7;
+
+        doc.setFont(undefined, "bold");
+        doc.text("Inspector ID:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.inspectorId, 50, yPos);
+
+        doc.setFont(undefined, "bold");
+        doc.text("Current Stage:", 120, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.currentStage.toUpperCase(), 155, yPos);
+        yPos += 15;
+
+        // Section: Item Details
+        doc.setFillColor(248, 249, 250);
+        doc.rect(10, yPos, 190, 8, "F");
+        doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(88, 151, 201);
+        doc.text("ITEM DETAILS", 15, yPos + 5);
+        doc.setTextColor(0, 0, 0);
+        yPos += 15;
+
+        doc.setFontSize(10);
+        doc.setFont(undefined, "bold");
+        doc.text("Supplier:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.supplierName, 50, yPos);
+        yPos += 7;
+
+        doc.setFont(undefined, "bold");
+        doc.text("Item Description:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        const itemDesc = doc.splitTextToSize(ncr.itemDescription, 130);
+        doc.text(itemDesc, 50, yPos);
+        yPos += itemDesc.length * 7;
+
+        doc.setFont(undefined, "bold");
+        doc.text("PO Number:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.poNumber, 50, yPos);
+
+        doc.setFont(undefined, "bold");
+        doc.text("SO Number:", 120, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.salesOrderNumber, 155, yPos);
+        yPos += 7;
+
+        doc.setFont(undefined, "bold");
+        doc.text("Process Type:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.processType.toUpperCase(), 50, yPos);
+        yPos += 15;
+
+        // Section: Quantity Information
+        doc.setFillColor(248, 249, 250);
+        doc.rect(10, yPos, 190, 8, "F");
+        doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(88, 151, 201);
+        doc.text("QUANTITY INFORMATION", 15, yPos + 5);
+        doc.setTextColor(0, 0, 0);
+        yPos += 15;
+
+        doc.setFontSize(10);
+        doc.setFont(undefined, "bold");
+        doc.text("Quantity Received:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.quantityReceived.toString(), 60, yPos);
+
+        doc.setFont(undefined, "bold");
+        doc.text("Quantity Defective:", 120, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.quantityDefective.toString(), 165, yPos);
+        yPos += 7;
+
+        doc.setFont(undefined, "bold");
+        doc.text("Item Status:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.itemStatus.toUpperCase(), 60, yPos);
+        yPos += 15;
+
+        // Section: Defect Description
+        doc.setFillColor(248, 249, 250);
+        doc.rect(10, yPos, 190, 8, "F");
+        doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(88, 151, 201);
+        doc.text("DEFECT DESCRIPTION", 15, yPos + 5);
+        doc.setTextColor(0, 0, 0);
+        yPos += 15;
+
+        doc.setFontSize(10);
+        doc.setFont(undefined, "normal");
+        const defectDesc = doc.splitTextToSize(ncr.defectDescription, 180);
+        doc.text(defectDesc, 15, yPos);
+        yPos += defectDesc.length * 7 + 10;
+
+        // Section: Engineering & Resolution
+        if (yPos > 250) {
+          doc.addPage();
+          yPos = 20;
+        }
+
+        doc.setFillColor(248, 249, 250);
+        doc.rect(10, yPos, 190, 8, "F");
+        doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(88, 151, 201);
+        doc.text("ENGINEERING & RESOLUTION", 15, yPos + 5);
+        doc.setTextColor(0, 0, 0);
+        yPos += 15;
+
+        doc.setFontSize(10);
+        doc.setFont(undefined, "bold");
+        doc.text("Engineering Required:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.engineeringRequired ? "YES" : "NO", 65, yPos);
+        yPos += 7;
+
+        doc.setFont(undefined, "bold");
+        doc.text("Quality Completed:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.qualityCompleted ? "YES" : "NO", 65, yPos);
+
+        if (ncr.qualityCompletedAt) {
+          doc.setFont(undefined, "bold");
+          doc.text("Completed At:", 120, yPos);
+          doc.setFont(undefined, "normal");
+          doc.text(formatDate(ncr.qualityCompletedAt), 155, yPos);
+        }
+        yPos += 10;
+
+        if (ncr.resolutionSummary) {
+          doc.setFont(undefined, "bold");
+          doc.text("Resolution Summary:", 15, yPos);
+          yPos += 7;
+          doc.setFont(undefined, "normal");
+          const resolutionText = doc.splitTextToSize(
+            ncr.resolutionSummary,
+            180
+          );
+          doc.text(resolutionText, 15, yPos);
+          yPos += resolutionText.length * 7 + 10;
+        }
+
+        if (ncr.status === "Closed") {
+          doc.setFont(undefined, "bold");
+          doc.text("Closed By:", 15, yPos);
+          doc.setFont(undefined, "normal");
+          doc.text(ncr.closedBy || "N/A", 50, yPos);
+
+          doc.setFont(undefined, "bold");
+          doc.text("Date Closed:", 120, yPos);
+          doc.setFont(undefined, "normal");
+          doc.text(
+            ncr.dateClosed ? formatDate(ncr.dateClosed) : "N/A",
+            155,
+            yPos
+          );
+        }
+
+        // Footer
+        const pageCount = doc.internal.getNumberOfPages();
+        for (let i = 1; i <= pageCount; i++) {
+          doc.setPage(i);
+          doc.setFontSize(8);
+          doc.setTextColor(128, 128, 128);
+          doc.text(
+            `Generated on ${new Date().toLocaleDateString()} | Page ${i} of ${pageCount}`,
+            105,
+            287,
+            { align: "center" }
+          );
+        }
+
+        // Save PDF
+        doc.save(`NCR_${ncr.ncrNumber}_Report.pdf`);
       }
     </script>
   </body>

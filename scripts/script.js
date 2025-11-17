@@ -1,6 +1,6 @@
 const menuIcon = document.getElementById("menu-icon");
 menuIcon.className = "bi bi-list";
-// document.getElementById("rd2").checked = true;
+document.getElementById("rd2").checked = true;
 
 // let url = "./data/data.json";
 // let ncrLogs = [];
@@ -28,100 +28,6 @@ function toggleMenu() {
 		menuIcon.className = "bi bi-list";
 	}
 }
-
-//Function to display ncr logs on table with pagination
-// function renderTable() {
-// 	const data = getFilteredData();
-// 	let rows = "";
-
-// 	// To sort the data
-// 	if (sortColumn !== null) {
-// 		const keys = ["ncrNumber", "status", "dateCreated", "createdBy"];
-// 		data.sort((a, b) => {
-// 			const valA = a[keys[sortColumn]]
-// 				? a[keys[sortColumn]].toString().toLowerCase()
-// 				: "";
-// 			const valB = b[keys[sortColumn]]
-// 				? b[keys[sortColumn]].toString().toLowerCase()
-// 				: "";
-// 			if (valA < valB) return sortAsc ? -1 : 1;
-// 			if (valA > valB) return sortAsc ? 1 : -1;
-// 			return 0;
-// 		});
-// 	}
-// 	// Adding pagination to the table data
-// 	const start = (currentPage - 1) * rowsPerPage;
-// 	const end = start + rowsPerPage;
-// 	const pageData = data.slice(start, end);
-
-// 	// Build rows
-// 	$.each(pageData, function (_, log) {
-// 		rows += `
-//       <tr>
-//         <td>${log.ncrNumber}</td>
-//         <td><span class="status ${log.status.toLowerCase()}">${
-// 			log.status
-// 		}</span></td>
-//         <td>${log.dateCreated}</td>
-//         <td>${log.createdBy}</td>
-//         <td><a href="edit-ncr.html?ncr=${log.ncrNumber}">View/Edit</a></td>
-//       </tr>`;
-// 	});
-
-// 	$("#ncr-log-table-home").html(rows);
-// 	renderPagination();
-// }
-// Function to filter in all NCR page
-// function getFilteredData() {
-// 	return ncrLogs.filter((log) => {
-// 		const matchesSearch =
-// 			log.ncrNumber.toLowerCase().includes(searchQuery) ||
-// 			log.supplierName.toLowerCase().includes(searchQuery) ||
-// 			log.createdBy.toLowerCase().includes(searchQuery);
-
-// 		const matchesStatus =
-// 			statusFilter === "All" ||
-// 			log.status.toLowerCase() === statusFilter.toLowerCase();
-
-// 		return matchesSearch && matchesStatus;
-// 	});
-// }
-
-// Populate all log data
-// function populateTable(logs) {
-// 	let rowsHome = "";
-// 	let rows = "";
-
-// 	$.each(logs.slice(0, 10), function (_, log) {
-// 		rowsHome += `
-//       <tr>
-//         <td>${log.ncrNumber}</td>
-//         <td><span class="status ${log.status.toLowerCase()}">${
-// 			log.status
-// 		}</span></td>
-//         <td>${log.dateCreated}</td>
-//         <td>${log.createdBy}</td>
-//         <td><a href="edit-ncr.html?ncr=${log.ncrNumber}">View/Edit</a></td>
-//       </tr>
-//     `;
-// 	});
-// 	$.each(logs, function (_, log) {
-// 		rows += `
-//       <tr>
-//         <td>${log.ncrNumber}</td>
-//         <td>${log.createdOn}</td>
-//         <td>${log.supplier}</td>
-//         <td><span class="status ${log.status.toLowerCase()}">${
-// 			log.status
-// 		}</span></td>
-//         <td><a href="edit-ncr.html?ncr=${log.ncrNumber}">View/Edit</a></td>
-//       </tr>
-//     `;
-// 	});
-
-// 	$("#ncr-log-table-home").html(rowsHome);
-// 	$("#ncr-logs-table").html(rows);
-// }
 
 function selectedLog(ncrNumber) {
 	localStorage.setItem("selectedNCR", ncrNumber);
@@ -182,33 +88,46 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (processRadio) processRadio.checked = true;
 	}
 
-
 	// Engineering Form
-
 
 	//Populate Updated On Date
 	const todayDate = new Date();
 	console.log(todayDate.toLocaleDateString());
 
-	document.getElementById("date-updated-eng").innerHTML = todayDate.toLocaleDateString();
-
+	document.getElementById("date-updated-eng").innerHTML =
+		todayDate.toLocaleDateString();
 });
 
+// Customer require notification NCR
 const yesBtn = document.getElementById("yes-notification");
 const noBtn = document.getElementById("no-notification");
 document.getElementById("showMessageBox").style.display = "none";
 
 yesBtn.addEventListener("change", () => {
-	if(yesBtn.checked){
-		document.getElementById("showMessageBox").style.display = "block"
+	if (yesBtn.checked) {
+		document.getElementById("showMessageBox").style.display = "block";
 	}
-	
 });
 noBtn.addEventListener("change", () => {
-	if(noBtn.checked){
-		document.getElementById("showMessageBox").style.display = "none"
+	if (noBtn.checked) {
+		document.getElementById("showMessageBox").style.display = "none";
 	}
-	
 });
 
+// Disposition Sequence if Repair or Rework
+const logType = document.querySelectorAll('input[name="log-type"]');
+const dispositionMessage = document.getElementById("disposition-message");
+
+const showDisposition = () => {
+	const selected = document.querySelector('input[name="log-type"]:checked');
+	console.log(selected.id);
+
+	const shouldShow =
+		selected && (selected.id === "repair" || selected.id === "rework");
+
+	dispositionMessage.style.display = shouldShow ? "block" : "none";
+};
+
+dispositionMessage.style.display = "none";
+logType.forEach((r) => r.addEventListener("change", showDisposition));
 

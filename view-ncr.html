@@ -63,7 +63,7 @@
       }
 
       .filter-buttons button.active {
-        background-color: #5897c9;
+        background-color: #2f6ea3;
         color: white;
       }
 
@@ -74,22 +74,6 @@
         display: block;
         border-radius: 6px;
         border: 1px solid #ccc;
-      }
-
-      .download-btn {
-        display: block;
-        margin: 10px auto 25px;
-        background-color: #6b7280;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 15px;
-        cursor: pointer;
-        font-weight: 700;
-      }
-
-      .download-btn:hover {
-        background-color: #5897c9;
       }
 
       /* Table Responsiveness */
@@ -139,11 +123,11 @@
         font-weight: bold;
         text-decoration: none;
         color: white;
-        background-color: #5897c9;
+        background-color: #2f6ea3;
       }
 
       .view-ncr:hover {
-        background-color: #417aa7;
+        background-color: #4a8bc0;
       }
 
       .generate-pdf-btn {
@@ -177,61 +161,12 @@
       }
 
       .pagination button.active {
-        background-color: #5897c9;
+        background-color: #2f6ea3;
         color: white;
       }
 
-      /* Modal for PDF Generation */
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-      }
-
-      .modal-content {
-        background-color: white;
-        margin: 10% auto;
-        padding: 30px;
-        border-radius: 10px;
-        width: 80%;
-        max-width: 500px;
-        text-align: center;
-      }
-
-      .modal-content h2 {
-        margin-bottom: 20px;
-        color: #333;
-      }
-
-      .modal-buttons {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        margin-top: 20px;
-      }
-
-      .modal-btn {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 14px;
-      }
-
-      .modal-btn-primary {
-        background-color: #5897c9;
-        color: white;
-      }
-
-      .modal-btn-secondary {
-        background-color: #e0e0e0;
-        color: #333;
+      th i {
+        font-size: 20px;
       }
 
       /* 📱 Mobile Responsive Styles */
@@ -264,11 +199,6 @@
         th,
         td {
           padding: 10px;
-        }
-
-        .download-btn {
-          width: 90%;
-          font-size: 14px;
         }
       }
 
@@ -353,10 +283,18 @@
         <table id="ncrTable">
           <thead>
             <tr>
-              <th onclick="sortTable(0)">NCR No. ▲▼</th>
-              <th onclick="sortTable(1)">Current Status ▲▼</th>
-              <th onclick="sortTable(2)">Date Created ▲▼</th>
-              <th onclick="sortTable(3)">Supplier Name ▲▼</th>
+              <th onclick="sortTable(0)">
+                NCR No. <i class="bi bi-arrow-down-up"></i>
+              </th>
+              <th onclick="sortTable(1)">
+                Current Status <i class="bi bi-arrow-down-up"></i>
+              </th>
+              <th onclick="sortTable(2)">
+                Date Created <i class="bi bi-arrow-down-up"></i>
+              </th>
+              <th onclick="sortTable(3)">
+                Supplier <i class="bi bi-arrow-down-up"></i>
+              </th>
               <th colspan="3">Action</th>
             </tr>
           </thead>
@@ -530,6 +468,14 @@
 
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
+        const logo = "images/Crossfire Logo-transparent.png";
+
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const imgWidth = 60;
+        const imgHeight = 20;
+
+        const x = (pageWidth - imgWidth) / 2; // center horizontally
+        const y = 5; // top position
 
         // Header
         doc.setFillColor(88, 151, 201);
@@ -538,7 +484,9 @@
         doc.setTextColor(255, 255, 255);
         doc.setFontSize(24);
         doc.setFont(undefined, "bold");
-        doc.text("NON-CONFORMANCE REPORT", 105, 20, { align: "center" });
+        //   doc.text("NON-CONFORMANCE REPORT", 105, 20, { align: "center" });
+
+        doc.addImage(logo, "PNG", x, y, imgWidth, imgHeight);
 
         doc.setFontSize(12);
         doc.setFont(undefined, "normal");

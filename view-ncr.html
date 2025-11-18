@@ -26,6 +26,13 @@
         padding: 0;
       }
 
+      #wrapper {
+        padding: 20px 0px;
+        width: 100%;
+        max-width: 1420px;
+        margin: 0 auto;
+      }
+
       /* Page Content */
       h1 {
         text-align: center;
@@ -36,7 +43,7 @@
       }
 
       .container {
-        width: 85%;
+        width: auto;
         background-color: white;
         margin: 30px auto;
         padding: 20px;
@@ -63,8 +70,8 @@
       }
 
       .filter-buttons button.active {
-        background-color: #2f6ea3;
-        color: white;
+        background-color: #2F6EA3;
+        color: #fff;
       }
 
       input {
@@ -122,7 +129,7 @@
         cursor: pointer;
         font-weight: bold;
         text-decoration: none;
-        color: white;
+        color: #fff;
         background-color: #2f6ea3;
       }
 
@@ -313,13 +320,16 @@
                     class="bi bi-file-earmark-bar-graph-fill"
                     style="font-weight: 900"
                   ></i>
-                  View NCR Log</a
+                  NCR Log</a
                 >
               </li>
               <li>
                 <a href="create-ncr.html"
                   ><i class="bi bi-file-earmark-plus-fill"></i> Create NCR</a
                 >
+              </li>
+              <li>
+                <a href="#"><i class="bi bi-bell-fill"></i></a>
               </li>
             </ul>
           </div>
@@ -329,68 +339,74 @@
         </div>
       </nav>
     </header>
-    <h1>View NCRs</h1>
-    <div class="container">
-      <div class="filter-buttons">
-        <button class="filter-btn active" data-status="all">All NCR</button>
-        <button class="filter-btn" data-status="Active">Active</button>
-        <button class="filter-btn" data-status="Closed">Closed</button>
+    <div id="wrapper">
+      <h1>View NCRs</h1>
+      <div class="container">
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-status="all">All NCR</button>
+          <button class="filter-btn" data-status="Active">Active</button>
+          <button class="filter-btn" data-status="Closed">Closed</button>
+        </div>
+
+        <!-- Multi-column Filters -->
+        <button id="toggle-filters" class="filter-toggle-btn">
+          Show Filters
+        </button>
+        <div class="filter-container collapse">
+          <div class="filter-item">
+            <label for="filter-ncr">NCR No:</label>
+            <input
+              type="text"
+              id="filter-ncr"
+              placeholder="Filter by NCR No."
+            />
+          </div>
+
+          <div class="filter-item">
+            <label for="filter-supplier">Supplier:</label>
+            <input
+              type="text"
+              id="filter-supplier"
+              placeholder="Filter by Supplier"
+            />
+          </div>
+
+          <div class="filter-item">
+            <label for="filter-start-date">Start Date:</label>
+            <input type="date" id="filter-start-date" />
+          </div>
+
+          <div class="filter-item">
+            <label for="filter-end-date">End Date:</label>
+            <input type="date" id="filter-end-date" />
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table id="ncrTable">
+            <thead>
+              <tr>
+                <th onclick="sortTable(0)">
+                  NCR No. <i class="bi bi-arrow-down-up"></i>
+                </th>
+                <th onclick="sortTable(1)">
+                  Current Status <i class="bi bi-arrow-down-up"></i>
+                </th>
+                <th onclick="sortTable(2)">
+                  Date Created <i class="bi bi-arrow-down-up"></i>
+                </th>
+                <th onclick="sortTable(3)">
+                  Supplier <i class="bi bi-arrow-down-up"></i>
+                </th>
+                <th colspan="3">Action</th>
+              </tr>
+            </thead>
+            <tbody id="ncrTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="pagination" id="pagination"></div>
       </div>
-
-      <!-- Multi-column Filters -->
-      <button id="toggle-filters" class="filter-toggle-btn">
-        Show Filters
-      </button>
-      <div class="filter-container collapse">
-        <div class="filter-item">
-          <label for="filter-ncr">NCR No:</label>
-          <input type="text" id="filter-ncr" placeholder="Filter by NCR No." />
-        </div>
-
-        <div class="filter-item">
-          <label for="filter-supplier">Supplier:</label>
-          <input
-            type="text"
-            id="filter-supplier"
-            placeholder="Filter by Supplier"
-          />
-        </div>
-
-        <div class="filter-item">
-          <label for="filter-start-date">Start Date:</label>
-          <input type="date" id="filter-start-date" />
-        </div>
-
-        <div class="filter-item">
-          <label for="filter-end-date">End Date:</label>
-          <input type="date" id="filter-end-date" />
-        </div>
-      </div>
-
-      <div class="table-container">
-        <table id="ncrTable">
-          <thead>
-            <tr>
-              <th onclick="sortTable(0)">
-                NCR No. <i class="bi bi-arrow-down-up"></i>
-              </th>
-              <th onclick="sortTable(1)">
-                Current Status <i class="bi bi-arrow-down-up"></i>
-              </th>
-              <th onclick="sortTable(2)">
-                Date Created <i class="bi bi-arrow-down-up"></i>
-              </th>
-              <th onclick="sortTable(3)">
-                Supplier <i class="bi bi-arrow-down-up"></i>
-              </th>
-              <th colspan="3">Action</th>
-            </tr>
-          </thead>
-          <tbody id="ncrTableBody"></tbody>
-        </table>
-      </div>
-
-      <div class="pagination" id="pagination"></div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>

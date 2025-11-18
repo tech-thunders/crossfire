@@ -134,24 +134,6 @@ small,
 
 /* Table */
 
-.view-ncr {
-    padding: 6px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    text-decoration: none;
-    color: white;
-    background-color: #3498db;
-}
-
-.container {
-    background-color: var(--surface);
-    margin: 10px auto;
-    padding: 20px;
-    border-radius: 11px;
-}
-
 /* Page Content */
 h1 {
     text-align: center;
@@ -162,7 +144,7 @@ h1 {
 }
 
 .container {
-    width: 85%;
+    width: auto;
     background-color: white;
     margin: 30px auto;
     padding: 20px;
@@ -189,7 +171,7 @@ h1 {
 }
 
 .filter-buttons button.active {
-    background-color: #5897c9;
+    background-color: #2F6EA3;
     color: white;
 }
 
@@ -250,12 +232,12 @@ tr:hover {
     cursor: pointer;
     font-weight: bold;
     text-decoration: none;
-    color: white;
-    background-color: #5897c9;
+    color: #fff;
+    background-color: #2f6ea3;
 }
 
 .view-ncr:hover {
-    background-color: #417aa7;
+    background-color: #4a8bc0;
 }
 
 .pagination {
@@ -273,7 +255,7 @@ tr:hover {
 }
 
 .pagination button.active {
-    background-color: #5897c9;
+    background-color: #2F6EA3;
     color: white;
 }
 

@@ -22,13 +22,14 @@ nav li {
 
 .navbar .logo {
     width: 25%;
+    filter: brightness(100);
 }
 
 .navbar a {
-  color: #fff;
+  color: #163451;
 }
 .navbar a:hover {
-  color: #163451;
+  color: #fff;
 }
 
 .navbar-links {
@@ -43,14 +44,14 @@ nav li {
 
 .navbar-links a {
   background-color: #5897c9;
-  color: #fff;
+  color: #000;
   display: block;
   padding: 1.5rem;
 }
 
 .navbar-links a:hover {
   border-radius: 25px;
-  color: #163451;
+  color: #fff;
 }
 
 .navbar-links ul {
@@ -84,7 +85,7 @@ nav li {
     justify-self: end;
   }
   .navbar-links ul {
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(5, auto);
   }
   .navbar-menu {
     display: none;

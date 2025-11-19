@@ -85,37 +85,37 @@
           </div>
         </section>
       </div>
-<div id="wrapper">
+      <div id="wrapper">
 
-  <h1>Recent NCRs</h1>
-  <div class="container">
-    <div class="filter-buttons">
-      <button class="filter-btn active" data-status="all">All NCR</button>
-      <button class="filter-btn" data-status="Active">Active</button>
-      <button class="filter-btn" data-status="Closed">Closed</button>
-    </div>
+        <h1>Recent NCRs</h1>
+        <div class="container">
+          <div class="filter-buttons">
+            <button class="filter-btn active" data-status="all">All NCR</button>
+            <button class="filter-btn" data-status="Active">Active</button>
+            <button class="filter-btn" data-status="Closed">Closed</button>
+          </div>
 
-    <input type="text" id="search"
-      placeholder="Filter results by NCR No, Supplier Name, Date or Status..." />
+          <input type="text" id="search"
+            placeholder="Filter results by NCR No, Supplier Name, Date or Status..." />
 
-    <div class="table-container">
-      <table id="ncrTable">
-        <thead>
-          <tr>
-            <th onclick="sortTable(0)">NCR No. ▲▼</th>
-            <th onclick="sortTable(1)">Current Status ▲▼</th>
-            <th onclick="sortTable(2)">Date Created ▲▼</th>
-            <th onclick="sortTable(3)">Supplier Name ▲▼</th>
-            <th colspan="2">Action</th>
-          </tr>
-        </thead>
-        <tbody id="ncrTableBody"></tbody>
-      </table>
-    </div>
+          <div class="table-container">
+            <table id="ncrTable">
+              <thead>
+                <tr>
+                  <th onclick="sortTable(0)">NCR No. ▲▼</th>
+                  <th onclick="sortTable(2)">Date Created ▲▼</th>
+                  <th onclick="sortTable(3)">Supplier Name ▲▼</th>
+                  <th onclick="sortTable(1)">Current Status ▲▼</th>
+                  <th colspan="2">Action</th>
+                </tr>
+              </thead>
+              <tbody id="ncrTableBody"></tbody>
+            </table>
+          </div>
 
-    <div class="pagination" id="pagination"></div>
-  </div>
-</div>
+          <div class="pagination" id="pagination"></div>
+        </div>
+      </div>
 
       <!-- Recent Notifications  -->
     </main>
@@ -180,11 +180,12 @@
         const row = `
             <tr>
               <td>${item.ncrNumber}</td>
-              <td>${item.currentStage.charAt(0).toUpperCase() +
-          item.currentStage.slice(1)
-          }</td>
+             
               <td>${formattedDate}</td>
               <td>${item.supplierName}</td>
+               <td>${item.currentStage.charAt(0).toUpperCase() +
+          item.currentStage.slice(1)
+          }</td>
               <td><a href="detailedViewNCR.html?ncr=${item.ncrNumber
           }" class="view-ncr">View</a></td>
               <td><a href="edit-ncr.html" onClick="selectedLog('${item.ncrNumber}')" class="view-ncr">Edit</a></td>

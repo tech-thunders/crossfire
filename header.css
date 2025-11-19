@@ -16,7 +16,7 @@ nav li {
   display: grid;
   font-size: 20px;
   font-weight: 600;
-  grid-template-columns: auto auto;
+  grid-template-columns: repeat(3, auto);
  
 }
 
@@ -37,7 +37,7 @@ nav li {
   grid-template-columns: 1fr;
   position: absolute;
   right: 0;
-  top: 14.5%;
+  top: 13%;
   width: 100%;
   z-index: 100;
 }
@@ -67,6 +67,41 @@ nav li {
   display: block;
   font-size: 3.5rem;
   justify-self: end;
+}
+
+.navbar-notification {
+  cursor: pointer;
+  display: block;
+  font-size: 2rem;
+  justify-self: end;
+}
+
+.navbar-notification:hover{
+  color: #fff;
+}
+
+.navbar-icons {
+  color: #000;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.notification-popup {
+  background: white;
+  border: #000 1px solid;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  padding: 15px;
+  position: absolute;
+  top: 90px;
+  right: 20px;
+  width: 250px;
+  z-index: 100;
 }
 
 @media screen and (min-width: 1024px) {

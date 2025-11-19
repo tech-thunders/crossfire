@@ -1,4 +1,6 @@
 const menuIcon = document.getElementById("menu-icon");
+const popup = document.getElementById("notificationPopup");
+popup.classList.add("hidden");
 menuIcon.className = "bi bi-list";
 document.getElementById("rd2").checked = true;
 
@@ -18,6 +20,7 @@ document.getElementById("rd2").checked = true;
 // 	renderPagination();
 // });
 
+// Toggle Menu for Mobile View
 function toggleMenu() {
 	const navLinks = document.querySelector(".navbar-links");
 	if (navLinks.style.display === "" || navLinks.style.display === "none") {
@@ -28,6 +31,12 @@ function toggleMenu() {
 		menuIcon.className = "bi bi-list";
 	}
 }
+
+// Notification popup
+function closePopUp(){
+	popup.classList.toggle("hidden");
+}
+
 
 function selectedLog(ncrNumber) {
 	localStorage.setItem("selectedNCR", ncrNumber);

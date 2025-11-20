@@ -1,0 +1,162 @@
+[
+  {
+    "userId": 1,
+    "firstName": "Michael",
+    "lastName": "Thompson",
+    "email": "michael.thompson@example.com",
+    "username": "mthompson",
+    "isActive": true
+  },
+  {
+    "userId": 2,
+    "firstName": "Sarah",
+    "lastName": "Lewis",
+    "email": "sarah.lewis@example.com",
+    "username": "slewis",
+    "isActive": true
+  },
+  {
+    "userId": 3,
+    "firstName": "John",
+    "lastName": "Carter",
+    "email": "john.carter@example.com",
+    "username": "jcarter",
+    "isActive": true
+  },
+  {
+    "userId": 4,
+    "firstName": "David",
+    "lastName": "Smith",
+    "email": "david.smith@example.com",
+    "username": "dsmith",
+    "isActive": true
+  },
+  {
+    "userId": 5,
+    "firstName": "Emma",
+    "lastName": "Johnson",
+    "email": "emma.johnson@example.com",
+    "username": "ejohnson",
+    "isActive": true
+  },
+  {
+    "userId": 6,
+    "firstName": "Daniel",
+    "lastName": "Brown",
+    "email": "daniel.brown@example.com",
+    "username": "dbrown",
+    "isActive": true
+  },
+  {
+    "userId": 7,
+    "firstName": "Olivia",
+    "lastName": "Martinez",
+    "email": "olivia.martinez@example.com",
+    "username": "omartinez",
+    "isActive": true
+  },
+  {
+    "userId": 8,
+    "firstName": "Christopher",
+    "lastName": "Allen",
+    "email": "christopher.allen@example.com",
+    "username": "callen",
+    "isActive": true
+  },
+  {
+    "userId": 9,
+    "firstName": "Liam",
+    "lastName": "Chen",
+    "email": "liam.chen@example.com",
+    "username": "lchen",
+    "isActive": true
+  },
+  {
+    "userId": 10,
+    "firstName": "Sophia",
+    "lastName": "Adams",
+    "email": "sophia.adams@example.com",
+    "username": "sadams",
+    "isActive": true
+  },
+  {
+    "userId": 11,
+    "firstName": "Ryan",
+    "lastName": "Lee",
+    "email": "ryan.lee@example.com",
+    "username": "rlee",
+    "isActive": true
+  },
+  {
+    "userId": 12,
+    "firstName": "Grace",
+    "lastName": "Turner",
+    "email": "grace.turner@example.com",
+    "username": "gturner",
+    "isActive": true
+  },
+  {
+    "userId": 13,
+    "firstName": "Benjamin",
+    "lastName": "Moore",
+    "email": "benjamin.moore@example.com",
+    "username": "bmoore",
+    "isActive": true
+  },
+  {
+    "userId": 14,
+    "firstName": "Ethan",
+    "lastName": "Rodriguez",
+    "email": "ethan.rodriguez@example.com",
+    "username": "erodriguez",
+    "isActive": true
+  },
+  {
+    "userId": 15,
+    "firstName": "Ella",
+    "lastName": "Davis",
+    "email": "ella.davis@example.com",
+    "username": "edavis",
+    "isActive": true
+  },
+  {
+    "userId": 16,
+    "firstName": "Jacob",
+    "lastName": "Evans",
+    "email": "jacob.evans@example.com",
+    "username": "jevans",
+    "isActive": true
+  },
+  {
+    "userId": 17,
+    "firstName": "Kevin",
+    "lastName": "Brown",
+    "email": "kevin.brown@example.com",
+    "username": "kbrown",
+    "isActive": true
+  },
+  {
+    "userId": 18,
+    "firstName": "Noah",
+    "lastName": "Thompson",
+    "email": "noah.thompson@example.com",
+    "username": "nthompson",
+    "isActive": true
+  },
+  {
+    "userId": 19,
+    "firstName": "Chloe",
+    "lastName": "Anderson",
+    "email": "chloe.anderson@example.com",
+    "username": "canderson",
+    "isActive": true
+  },
+  {
+    "userId": 20,
+    "firstName": "Ava",
+    "lastName": "Williams",
+    "email": "ava.williams@example.com",
+    "username": "awilliams",
+    "isActive": true
+  }
+]

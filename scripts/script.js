@@ -16,12 +16,10 @@ function toggleMenu() {
 }
 
 // Notification popup
-function closePopUp(){
+function closePopUp() {
 	popup.classList.toggle("hidden");
 }
-
 
 function selectedLog(ncrNumber) {
 	localStorage.setItem("selectedNCR", ncrNumber);
 }
-

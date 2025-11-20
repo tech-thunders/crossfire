@@ -1,0 +1,34 @@
+[
+	{
+		"id": 1,
+		"ncrNumber": "2025-001",
+		"type": "create",
+		"message": "NCR 2025-001 was created",
+		"time": "5 mins ago",
+		"unread": true
+	},
+	{
+		"id": 2,
+		"ncrNumber": "2025-014",
+		"type": "update",
+		"message": "NCR 2025-014 was updated",
+		"time": "20 mins ago",
+		"unread": true
+	},
+	{
+		"id": 3,
+		"ncrNumber": "2025-003",
+		"type": "update",
+		"message": "NCR 2025-003 was deleted",
+		"time": "Yesterday",
+		"unread": false
+	},
+	{
+		"id": 5,
+		"ncrNumber": "2025-010",
+		"type": "create",
+		"message": "NCR 2025-010 was created",
+		"time": "3 days ago",
+		"unread": false
+	}
+]

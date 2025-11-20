@@ -1,0 +1,47 @@
+.notification-title {
+	font-size: 1.2rem;
+	font-weight: 600;
+	margin-bottom: 0.75rem;
+}
+
+.notification-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.notification-item {
+	display: flex;
+	align-items: center;
+	padding: 0.75rem;
+	border-bottom: 1px solid #eee;
+	gap: 10px;
+}
+
+.notif-content {
+	flex: 1;
+}
+
+.notification-item:hover {
+	background-color: #eee;
+}
+
+.notif-text {
+	margin: 0;
+	font-size: 0.95rem;
+}
+
+.notif-time {
+	display: block;
+	margin-top: 4px;
+	font-size: 0.8rem;
+	color: #777;
+}
+
+/* Unread indicator only */
+.notif-status-dot {
+	width: 10px;
+	height: 10px;
+	background: #5897c9;
+	border-radius: 50%;
+}

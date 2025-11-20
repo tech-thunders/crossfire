@@ -91,6 +91,17 @@ function displayNotifications() {
 
 		list.appendChild(li);
 	});
+
+	const indicator = document.getElementById("notification-indicator");
+	const unreadCount = notifications.filter((n) => n.unread).length;
+
+	if (unreadCount === 0) {
+		indicator.classList.add("hidden");
+		indicator.textContent = "";
+	} else {
+		indicator.classList.remove("hidden");
+		indicator.textContent = unreadCount;
+	}
 }
 
 document.addEventListener("DOMContentLoaded", displayNotifications);

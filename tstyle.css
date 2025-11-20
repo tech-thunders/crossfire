@@ -1,7 +1,7 @@
 .role-tab {
 	position: relative;
 }
-.role-tab input {
+.role-tab .tab-input {
 	position: absolute;
 	opacity: 0;
 	z-index: -1;
@@ -62,75 +62,75 @@
 
 /* eng  */
 .radio-group {
-  display: flex;
-  /* flex-direction: column; */
+	display: flex;
+	/* flex-direction: column; */
 }
 
 .radio-label {
-  display: flex;
-  align-items: center;
-  padding: 0.5em;
-  margin-bottom: 0.5em;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  transition: background-color 0.2s, border-color 0.2s;
+	display: flex;
+	align-items: center;
+	padding: 0.5em;
+	margin-bottom: 0.5em;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	transition: background-color 0.2s, border-color 0.2s;
 }
 
 .radio-label:hover {
-  background-color: #e6e6e6;
+	background-color: #e6e6e6;
 }
 
 .radio-input {
-  position: absolute;
-  opacity: 0;
+	position: absolute;
+	opacity: 0;
 }
 
 .radio-input:checked + .radio-label {
-  background-color: #5896c959;
-  border-color: var(--theme);
+	background-color: #5896c959;
+	border-color: var(--theme);
 }
 
 .radio-input:focus + .radio-label {
-  outline: 1px solid var(--theme);
+	outline: 1px solid var(--theme);
 }
 
 .radio-inner-circle {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  border: 2px solid #888;
-  border-radius: 50%;
-  margin-right: 0.5em;
-  transition: border-color 0.2s;
-  position: relative;
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	border: 2px solid #888;
+	border-radius: 50%;
+	margin-right: 0.5em;
+	transition: border-color 0.2s;
+	position: relative;
 }
 
 .radio-label:hover .radio-inner-circle {
-  border-color: #555;
+	border-color: #555;
 }
 
 .radio-input:checked + .radio-label .radio-inner-circle {
-  border-color: var(--theme);
+	border-color: var(--theme);
 }
 
 .radio-input:checked + .radio-label .radio-inner-circle::after {
-  content: '';
-  display: block;
-  width: 0.5em;
-  height: 0.5em;
-  background-color: var(--theme);
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+	content: "";
+	display: block;
+	width: 0.5em;
+	height: 0.5em;
+	background-color: var(--theme);
+	border-radius: 50%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 /* #showMessageBox{
 	display: none;
 } */
-    
+
 /* Arrow animation */
 .role-tab input:not(:checked) + .tab__label:hover::after {
 	animation: bounce 0.5s infinite;

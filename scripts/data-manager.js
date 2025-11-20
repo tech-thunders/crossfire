@@ -151,7 +151,7 @@ const NCRDataManager = {
 
 		// Save to localStorage
 		localStorage.setItem(this.STORAGE_KEYS.NCRS, JSON.stringify(ncrs));
-
+		addNotification(ncrData.ncrNumber, "create");
 		console.log("✅ NCR saved:", ncrData.ncrNumber);
 		return ncrData;
 	},

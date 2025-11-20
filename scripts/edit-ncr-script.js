@@ -118,6 +118,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 		);
 		if (dispositionRadio) dispositionRadio.checked = true;
 	}
+	if (record.engineering.dispositionType === "Repair" || record.engineering.dispositionType === "Rework") {
+		document.getElementById("disposition-message").style.display = "block";
+		document.getElementById("disposition_description").value =
+			record.engineering.dispositionDetails;
+	}
 
 	if (record.engineering.notificationRequired !== null) {
 		const val = record.engineering.notificationRequired ? "yes" : "no";
@@ -127,6 +132,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 		);
 
 		if (radio) radio.checked = true;
+
+		if (val === "yes") {
+			document.getElementById("showMessageBox").style.display = "block";
+			document.getElementById("engineer-message").value =
+				record.engineering.engineerNote;
+		}
 	}
 	if (record.engineering.drawingUpdateRequired !== null) {
 		const val = record.engineering.drawingUpdateRequired ? "yes" : "no";
@@ -159,7 +170,7 @@ noBtn.addEventListener("change", () => {
 
 // Disposition Sequence if Repair or Rework
 const logType = document.querySelectorAll('input[name="log-type"]');
-const dispositionMessage = document.getElementById("disposition-message");
+const dispositionDetails = document.getElementById("disposition-message");
 
 const showDisposition = () => {
 	const selected = document.querySelector('input[name="log-type"]:checked');
@@ -168,8 +179,53 @@ const showDisposition = () => {
 	const shouldShow =
 		selected && (selected.id === "repair" || selected.id === "rework");
 
-	dispositionMessage.style.display = shouldShow ? "block" : "none";
+	dispositionDetails.style.display = shouldShow ? "block" : "none";
 };
 
-dispositionMessage.style.display = "none";
+dispositionDetails.style.display = "none";
 logType.forEach((r) => r.addEventListener("change", showDisposition));
+
+//Update Engineering Form
+document
+	.getElementById("submitEngineerForm")
+	.addEventListener("click", function (e) {
+		e.preventDefault();
+
+		const selectedNCR = localStorage.getItem("selectedNCR");
+		let allRecords = JSON.parse(localStorage.getItem("ncr_records")) || [];
+
+		let record = allRecords.find((r) => r.ncrNumber === selectedNCR);
+		if (!record) return alert("NCR not found");
+
+		// get the new values
+		const dispositionType =
+			document.querySelector('input[name="log-type"]:checked')?.value || "";
+		const requiresNotification =
+			document.querySelector('input[name="ncr-notification"]:checked')
+				?.value === "yes";
+		const drawingUpdate =
+			document.querySelector('input[name="drawing-update"]:checked')?.value ===
+			"yes";
+		const dispositionDetails = document.getElementById(
+			"disposition_description"
+		).value;
+		const engineerMessage = document.getElementById("engineer-message").value;
+
+		const today = new Date().toISOString().split("T")[0];
+
+		// update json data
+		record.engineering.dispositionType = dispositionType;
+		record.engineering.notificationRequired = requiresNotification;
+		record.engineering.drawingUpdateRequired = drawingUpdate;
+		record.engineering.dispositionDetails = dispositionDetails;
+		record.engineering.engineerNote = engineerMessage;
+		record.engineering.dispositionDate = today;
+
+		// Save to localStorage
+		localStorage.setItem("ncr_records", JSON.stringify(allRecords));
+
+		addNotification(record.ncrNumber, "update");
+
+		alert("NCR updated successfully");
+		window.location.href = "edit-ncr.html";
+	});

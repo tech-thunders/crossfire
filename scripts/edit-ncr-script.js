@@ -45,8 +45,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 	//Header
 	document.getElementById("ncr-number-display").textContent =
 		record.ncrNumber || "";
-	document.getElementById("ncr-number-displayy").textContent =
-		record.ncrNumber || "";
 	document.getElementById("created-by-display").textContent = user
 		? `${user?.firstName} ${user?.lastName}`
 		: "";
@@ -109,16 +107,35 @@ document.addEventListener("DOMContentLoaded", async () => {
 		.dispositionDate
 		? record.engineering.dispositionDate
 		: todayDate.toLocaleDateString();
-	document.getElementById("engineer-status").innerHTML = record.engineering
-		.completed
-		? "Completed"
-		: "Draft";
+	document.getElementById("revision-number").innerHTML =
+		record.engineering.originalRevNumber || "";
+	document.getElementById("updated-revision-number").textContent =
+		record.engineering.updatedRevNumber || "";
 
 	if (record.engineering.dispositionType) {
 		const dispositionRadio = document.querySelector(
 			`input[name="log-type"][value="${record.engineering.dispositionType.trim()}"]`
 		);
 		if (dispositionRadio) dispositionRadio.checked = true;
+	}
+
+	if (record.engineering.notificationRequired !== null) {
+		const val = record.engineering.notificationRequired ? "yes" : "no";
+
+		const radio = document.querySelector(
+			`input[name="ncr-notification"][value="${val}"]`
+		);
+
+		if (radio) radio.checked = true;
+	}
+	if (record.engineering.drawingUpdateRequired !== null) {
+		const val = record.engineering.drawingUpdateRequired ? "yes" : "no";
+
+		const radio = document.querySelector(
+			`input[name="drawing-update"][value="${val}"]`
+		);
+
+		if (radio) radio.checked = true;
 	}
 
 	// --------------------------------------------------------

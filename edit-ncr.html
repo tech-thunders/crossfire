@@ -403,18 +403,18 @@
                     <div class="meta-item">
                       <span class="meta-label">Updated On</span>
                       <time datetime="2025-11-08" class="meta-value"
-                        id="date-updated-eng">Loading..</time>
+                        id="date-updated-eng">-</time>
                     </div>
                     <div class="meta-item">
                       <span class="meta-label">Revision Number</span>
                       <span class="meta-value"
-                        id="revision-number">A1</span>
+                        id="revision-number">#</span>
                     </div>
                     <div class="meta-item">
                       <span class="meta-label">Updated Revision No</span>
                       <span class="meta-value" id="updated-revision-number"
                         role="status"
-                        aria-live="polite">A1</span>
+                        aria-live="polite">#</span>
                     </div>
                   </div>
                 </header>
@@ -428,8 +428,9 @@
                     required
                   </aside>
 
-                  <div>
-                    <p>Select Type</p>
+                  <div class="spacing-form">
+                    <div>
+                      <p>Select Type</p>
                     <div class="radio-group">
                       <input class="radio-input" name="log-type" id="use-as-is"
                         value="Use As Is" type="radio">
@@ -458,6 +459,7 @@
                         <span class="radio-inner-circle"></span>
                         Scrap
                       </label>
+                    </div>
                     </div>
 
                     <div>
@@ -516,17 +518,38 @@
                       </div>
                     </div>
 
+                    <div>
+                      <p>Revision Number</p>
+                      <input
+                                type="text"
+                                id="revision-input"
+                                name="revisionNumber"
+                                placeholder="13244"
+                                required
+                                aria-required="true">
+                    </div>
+                    <div>
+                      <p>Updated Revision Number</p>
+                      <input
+                                type="text"
+                                id="updated-revision-input"
+                                name="updatedRevisionNumber"
+                                placeholder="13244"
+                                required
+                                aria-required="true">
+                    </div>
+
                     <footer class="form-footer">
                       <button type="button" class="btn-outline"
                         onclick="window.location.href='index.html'">
                         <i class="bi bi-x-circle" aria-hidden="true"></i>
                         <span>Cancel</span>
                       </button>
-                      <button type="button" class="btn-secondary"
+                      <!-- <button type="button" class="btn-secondary"
                         id="saveEngineerDraft">
                         <i class="bi bi-save" aria-hidden="true"></i>
                         <span>Save as Draft</span>
-                      </button>
+                      </button> -->
                       <button type="submit" class="btn-primary"
                         id="submitEngineerForm">
                         <i class="bi bi-send" aria-hidden="true"></i>

@@ -1,872 +1,926 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+		<link rel="stylesheet" href="header.css" />
+		<link rel="stylesheet" href="notification.css" />
+		<title>View NCRs</title>
+		<style>
+			a {
+				text-decoration: none;
+			}
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <link rel="stylesheet" href="header.css" />
-  <link rel="stylesheet" href="notification.css">
-  <title>View NCRs</title>
-  <style>
-    a {
-      text-decoration: none;
-    }
+			body {
+				background-color: #fff;
+				font-family: "Poppins", sans-serif;
+				font-size: 16px;
+				margin: 0;
+				padding: 0;
+			}
 
-    body {
-      background-color: #fff;
-      font-family: "Poppins", sans-serif;
-      font-size: 16px;
-      margin: 0;
-      padding: 0;
-    }
+			#wrapper {
+				padding: 20px 0px;
+				width: 100%;
+				max-width: 1420px;
+				margin: 0 auto;
+			}
 
-    #wrapper {
-      padding: 20px 0px;
-      width: 100%;
-      max-width: 1420px;
-      margin: 0 auto;
-    }
+			/* Page Content */
+			h1 {
+				text-align: center;
+				color: #333;
+				background-color: #e0e0e0;
+				padding: 20px;
+				max-width: 100%;
+			}
 
-    /* Page Content */
-    h1 {
-      text-align: center;
-      color: #333;
-      background-color: #e0e0e0;
-      padding: 20px;
-      max-width: 100%;
-    }
+			.container {
+				width: auto;
+				background-color: white;
+				margin: 30px auto;
+				padding: 20px;
+				border-radius: 10px;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			}
 
-    .container {
-      width: auto;
-      background-color: white;
-      margin: 30px auto;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
+			.filter-buttons {
+				text-align: center;
+				margin-bottom: 20px;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				gap: 10px;
+			}
 
-    .filter-buttons {
-      text-align: center;
-      margin-bottom: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
+			.filter-buttons button {
+				background-color: #e0e0e0;
+				border: none;
+				padding: 10px 15px;
+				border-radius: 5px;
+				cursor: pointer;
+				font-weight: 500;
+			}
 
-    .filter-buttons button {
-      background-color: #e0e0e0;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: 500;
-    }
+			.filter-buttons button.active {
+				background-color: #2f6ea3;
+				color: #fff;
+			}
 
-    .filter-buttons button.active {
-      background-color: #2F6EA3;
-      color: #fff;
-    }
+			input {
+				width: 60%;
+				padding: 10px;
+				margin: 20px auto;
+				display: block;
+				border-radius: 6px;
+				border: 1px solid #ccc;
+			}
 
-    input {
-      width: 60%;
-      padding: 10px;
-      margin: 20px auto;
-      display: block;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
+			/* Table Responsiveness */
+			.table-container {
+				width: 100%;
+				overflow-x: auto;
+				-webkit-overflow-scrolling: touch;
+				border-radius: 10px;
+			}
 
-    /* Table Responsiveness */
-    .table-container {
-      width: 100%;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      border-radius: 10px;
-    }
+			table {
+				width: 100%;
+				border-collapse: collapse;
+				background-color: #fff;
+				border-radius: 8px;
+				min-width: 600px;
+			}
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background-color: #fff;
-      border-radius: 8px;
-      min-width: 600px;
-    }
+			th,
+			td {
+				padding: 15px;
+				text-align: center;
+				color: #333;
+			}
 
-    th,
-    td {
-      padding: 15px;
-      text-align: center;
-      color: #333;
-    }
+			th {
+				background-color: #e0e0e0;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				cursor: pointer;
+			}
 
-    th {
-      background-color: #e0e0e0;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      cursor: pointer;
-    }
+			tr:nth-child(odd) {
+				background-color: #f7f7f7;
+			}
 
-    tr:nth-child(odd) {
-      background-color: #f7f7f7;
-    }
+			tr:hover {
+				background-color: #e0f0ff;
+				transition: 0.3s;
+			}
 
-    tr:hover {
-      background-color: #e0f0ff;
-      transition: 0.3s;
-    }
+			.view-ncr {
+				padding: 6px 12px;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+				font-weight: bold;
+				text-decoration: none;
+				color: #fff;
+				background-color: #2f6ea3;
+			}
 
-    .view-ncr {
-      padding: 6px 12px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      text-decoration: none;
-      color: #fff;
-      background-color: #2f6ea3;
-    }
+			.view-ncr:hover {
+				background-color: #4a8bc0;
+			}
 
-    .view-ncr:hover {
-      background-color: #4a8bc0;
-    }
+			.generate-pdf-btn {
+				padding: 6px 12px;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+				font-weight: bold;
+				color: white;
+				background-color: #6b7280;
+				margin: 0 2px;
+				font-size: 16px;
+			}
 
-    .generate-pdf-btn {
-      padding: 6px 12px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      color: white;
-      background-color: #6b7280;
-      margin: 0 2px;
-      font-size: 16px;
-    }
+			.generate-pdf-btn:hover {
+				background-color: #4b5563;
+			}
 
-    .generate-pdf-btn:hover {
-      background-color: #4b5563;
-    }
+			.pagination {
+				text-align: center;
+				margin-top: 20px;
+			}
 
-    .pagination {
-      text-align: center;
-      margin-top: 20px;
-    }
+			.pagination button {
+				background-color: #e0e0e0;
+				border: none;
+				padding: 8px 12px;
+				margin: 0 5px;
+				border-radius: 5px;
+				cursor: pointer;
+			}
 
-    .pagination button {
-      background-color: #e0e0e0;
-      border: none;
-      padding: 8px 12px;
-      margin: 0 5px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+			.pagination button.active {
+				background-color: #2f6ea3;
+				color: white;
+			}
 
-    .pagination button.active {
-      background-color: #2f6ea3;
-      color: white;
-    }
+			th i {
+				font-size: 20px;
+			}
 
-    th i {
-      font-size: 20px;
-    }
+			/* Container for all filters */
+			.filter-container {
+				display: flex;
+				flex-wrap: wrap;
+				/* Wrap on small screens */
+				justify-content: center;
+				align-items: flex-end;
+				gap: 15px;
+				margin-bottom: 10px;
+			}
 
-    /* Container for all filters */
-    .filter-container {
-      display: flex;
-      flex-wrap: wrap;
-      /* Wrap on small screens */
-      justify-content: center;
-      align-items: flex-end;
-      gap: 15px;
-      margin-bottom: 10px;
-    }
+			/* Each input/select wrapper */
+			.filter-item {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				font-size: 14px;
+				gap: 5px;
+			}
 
-    /* Each input/select wrapper */
-    .filter-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 14px;
-      gap: 5px;
-    }
+			/* Inputs & selects */
+			.filter-item input {
+				padding: 4px 8px;
+				margin: 0;
+				height: 28px;
+				line-height: 1;
+				font-size: 14px;
+				border-radius: 5px;
+				border: 1px solid #ccc;
+				min-width: 140px;
+				margin-bottom: 20px;
+			}
 
-    /* Inputs & selects */
-    .filter-item input {
-      padding: 4px 8px;
-      margin: 0;
-      height: 28px;
-      line-height: 1;
-      font-size: 14px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      min-width: 140px;
-      margin-bottom: 20px;
-    }
+			/* Collapsible filter section */
+			.collapse {
+				display: none;
+				/* hidden by default */
+			}
 
-    /* Collapsible filter section */
-    .collapse {
-      display: none;
-      /* hidden by default */
-    }
+			/* Optional: styling toggle button */
+			.filter-toggle-btn {
+				background-color: #2f6ea3;
+				color: white;
+				padding: 8px 12px;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+				margin-bottom: 10px;
+			}
 
-    /* Optional: styling toggle button */
-    .filter-toggle-btn {
-      background-color: #2f6ea3;
-      color: white;
-      padding: 8px 12px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-bottom: 10px;
-    }
+			.filter-toggle-btn:hover {
+				background-color: #4a8bc0;
+			}
 
-    .filter-toggle-btn:hover {
-      background-color: #4a8bc0;
-    }
+			/* Mobile responsiveness */
+			@media screen and (max-width: 600px) {
+				.filter-container {
+					flex-direction: column;
+					align-items: stretch;
+				}
 
-    /* Mobile responsiveness */
-    @media screen and (max-width: 600px) {
-      .filter-container {
-        flex-direction: column;
-        align-items: stretch;
-      }
+				.filter-item input {
+					width: 100%;
+				}
+			}
 
-      .filter-item input {
-        width: 100%;
-      }
-    }
+			/* 📱 Mobile Responsive Styles */
+			@media screen and (max-width: 768px) {
+				.container {
+					width: 95%;
+					padding: 15px;
+				}
 
-    /* 📱 Mobile Responsive Styles */
-    @media screen and (max-width: 768px) {
-      .container {
-        width: 95%;
-        padding: 15px;
-      }
+				h1 {
+					font-size: 22px;
+					padding: 15px;
+				}
 
-      h1 {
-        font-size: 22px;
-        padding: 15px;
-      }
+				input {
+					width: 90%;
+					font-size: 14px;
+				}
 
-      input {
-        width: 90%;
-        font-size: 14px;
-      }
+				.filter-buttons button {
+					padding: 8px 12px;
+					font-size: 14px;
+				}
 
-      .filter-buttons button {
-        padding: 8px 12px;
-        font-size: 14px;
-      }
+				table {
+					font-size: 14px;
+					min-width: 500px;
+				}
 
-      table {
-        font-size: 14px;
-        min-width: 500px;
-      }
+				th,
+				td {
+					padding: 10px;
+				}
+			}
 
-      th,
-      td {
-        padding: 10px;
-      }
-    }
+			@media screen and (max-width: 480px) {
+				h1 {
+					font-size: 20px;
+				}
 
-    @media screen and (max-width: 480px) {
-      h1 {
-        font-size: 20px;
-      }
+				.filter-buttons button {
+					font-size: 13px;
+					padding: 6px 10px;
+				}
 
-      .filter-buttons button {
-        font-size: 13px;
-        padding: 6px 10px;
-      }
+				table {
+					min-width: 400px;
+					font-size: 13px;
+				}
 
-      table {
-        min-width: 400px;
-        font-size: 13px;
-      }
+				input {
+					font-size: 13px;
+				}
+			}
+		</style>
+	</head>
 
-      input {
-        font-size: 13px;
-      }
-    }
-  </style>
-</head>
+	<body>
+		<header>
+			<nav>
+				<div class="navbar">
+					<div>
+						<a href="index.html"
+							><img
+								src="images/crossfire-logo-transparent.png"
+								alt="Crossfire Logo"
+								class="logo"
+						/></a>
+					</div>
+					<div class="navbar-links">
+						<ul>
+							<li>
+								<a href="index.html"
+									><i class="bi bi-house-fill"></i> Dashboard</a
+								>
+							</li>
+							<li>
+								<a href="view-ncr.html"
+									><i
+										class="bi bi-file-earmark-bar-graph-fill"
+										style="font-weight: 900"></i>
+									NCR Log</a
+								>
+							</li>
+							<li>
+								<a href="create-ncr.html"
+									><i class="bi bi-file-earmark-plus-fill"></i> Create NCR</a
+								>
+							</li>
+						</ul>
+					</div>
+					<div class="navbar-icons">
+						<div
+							onclick="closePopUp()"
+							title="Notifications"
+							class="navbar-notification">
+							<i id="notification-icon" class="bi bi-bell-fill"></i>
+							<div id="notification-indicator" class="notification-indicator">
+								4
+							</div>
+						</div>
+						<div onclick="toggleMenu()" title="Menu" class="navbar-menu">
+							<i id="menu-icon"></i>
+						</div>
+					</div>
+					<div
+						id="notificationPopup"
+						title="Notifications"
+						class="notification-popup hidden">
+						<!-- Notifications -->
+						<div>
+							<h3 class="notification-title">Notifications</h3>
+							<p id="no-notifications" class="no-notifications">
+								No notifications yet
+							</p>
+							<ul class="notification-list"></ul>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</header>
+		<div id="wrapper">
+			<h1>View NCRs</h1>
+			<div class="container">
+				<div class="filter-buttons">
+					<button class="filter-btn active" data-status="all">All NCR</button>
+					<button class="filter-btn" data-status="Active">Active</button>
+					<button class="filter-btn" data-status="Closed">Closed</button>
+				</div>
 
-<body>
-   <header>
-      <nav>
-        <div class="navbar">
-          <div>
-            <a href="index.html"><img
-                src="images/crossfire-logo-transparent.png"
-                alt="Crossfire Logo"
-                class="logo"></a>
-          </div>
-          <div class="navbar-links">
-            <ul>
-              <li>
-                <a href="index.html"><i class="bi bi-house-fill"></i>
-                  Dashboard</a>
-              </li>
-              <li>
-                <a href="view-ncr.html"><i
-                    class="bi bi-file-earmark-bar-graph-fill"
-                    style="font-weight: 900"></i>
-                  NCR Log</a>
-              </li>
-              <li>
-                <a href="create-ncr.html"><i
-                    class="bi bi-file-earmark-plus-fill"></i> Create NCR</a>
-              </li>
-            </ul>
-          </div>
-          <div class="navbar-icons">
-            <div
-              onclick="closePopUp()"
-              title="Notifications"
-              class="navbar-notification">
-              <i id="notification-icon" class="bi bi-bell-fill"></i>
-              <div id="notification-indicator" class="notification-indicator">4</div>
-            </div>
-            <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
-              <i id="menu-icon"></i>
-            </div>
-          </div>
-          <div
-            id="notificationPopup"
-            title="Notifications"
-            class="notification-popup hidden">
-            <!-- Notifications -->
-            <div>
-              <h3 class="notification-title">Notifications</h3>
-              <p id="no-notifications" class="no-notifications">No notifications
-                yet</p>
-              <ul class="notification-list"></ul>
-            </div>
+				<button id="toggle-filters" class="filter-toggle-btn">
+					Show Filters
+				</button>
+				<div class="filter-container collapse">
+					<div class="filter-item">
+						<label for="filter-ncr">NCR No:</label>
+						<input
+							type="text"
+							id="filter-ncr"
+							placeholder="Filter by NCR No." />
+					</div>
 
-          </div>
-        </div>
-      </nav>
-    </header>
-  <div id="wrapper">
-    <h1>View NCRs</h1>
-    <div class="container">
-      <div class="filter-buttons">
-        <button class="filter-btn active" data-status="all">All NCR</button>
-        <button class="filter-btn" data-status="Active">Active</button>
-        <button class="filter-btn" data-status="Closed">Closed</button>
-      </div>
+					<div class="filter-item">
+						<label for="filter-supplier">Supplier:</label>
+						<input
+							type="text"
+							id="filter-supplier"
+							placeholder="Filter by Supplier" />
+					</div>
 
-      <button id="toggle-filters" class="filter-toggle-btn">
-        Show Filters
-      </button>
-      <div class="filter-container collapse">
-        <div class="filter-item">
-          <label for="filter-ncr">NCR No:</label>
-          <input type="text" id="filter-ncr" placeholder="Filter by NCR No." />
-        </div>
+					<div class="filter-item">
+						<label for="filter-start-date">Start Date:</label>
+						<input type="date" id="filter-start-date" />
+					</div>
 
-        <div class="filter-item">
-          <label for="filter-supplier">Supplier:</label>
-          <input type="text" id="filter-supplier" placeholder="Filter by Supplier" />
-        </div>
+					<div class="filter-item">
+						<label for="filter-end-date">End Date:</label>
+						<input type="date" id="filter-end-date" />
+					</div>
+				</div>
 
-        <div class="filter-item">
-          <label for="filter-start-date">Start Date:</label>
-          <input type="date" id="filter-start-date" />
-        </div>
+				<div class="table-container">
+					<table id="ncrTable">
+						<thead>
+							<tr>
+								<th onclick="sortTable(0)">
+									NCR No. <i class="bi bi-arrow-down-up"></i>
+								</th>
+								<th onclick="sortTable(1)">
+									Current Status <i class="bi bi-arrow-down-up"></i>
+								</th>
+								<th onclick="sortTable(2)">
+									Date Created <i class="bi bi-arrow-down-up"></i>
+								</th>
+								<th onclick="sortTable(3)">
+									Supplier <i class="bi bi-arrow-down-up"></i>
+								</th>
+								<th colspan="3">Action</th>
+							</tr>
+						</thead>
+						<tbody id="ncrTableBody"></tbody>
+					</table>
+				</div>
 
-        <div class="filter-item">
-          <label for="filter-end-date">End Date:</label>
-          <input type="date" id="filter-end-date" />
-        </div>
-      </div>
+				<div class="pagination" id="pagination"></div>
+			</div>
+		</div>
 
-      <div class="table-container">
-        <table id="ncrTable">
-          <thead>
-            <tr>
-              <th onclick="sortTable(0)">
-                NCR No. <i class="bi bi-arrow-down-up"></i>
-              </th>
-              <th onclick="sortTable(1)">
-                Current Status <i class="bi bi-arrow-down-up"></i>
-              </th>
-              <th onclick="sortTable(2)">
-                Date Created <i class="bi bi-arrow-down-up"></i>
-              </th>
-              <th onclick="sortTable(3)">
-                Supplier <i class="bi bi-arrow-down-up"></i>
-              </th>
-              <th colspan="3">Action</th>
-            </tr>
-          </thead>
-          <tbody id="ncrTableBody"></tbody>
-        </table>
-      </div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+		<script src="scripts/script.js"></script>
+    <script src="scripts/notifications.js"></script>
+		<script>
+			// Navbar toggle
+			function toggleMenu() {
+				const navLinks = document.querySelector(".navbar-links");
+				const menuIcon = document.getElementById("menu-icon");
+				if (
+					navLinks.style.display === "" ||
+					navLinks.style.display === "none"
+				) {
+					navLinks.style.display = "grid";
+					menuIcon.className = "bi bi-x";
+				} else {
+					navLinks.style.display = "none";
+					menuIcon.className = "bi bi-list";
+				}
+			}
 
-      <div class="pagination" id="pagination"></div>
-    </div>
-  </div>
+			// Initialize menu icon
+			document.getElementById("menu-icon").className = "bi bi-list";
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="scripts/notifications.js"></script>
-  <script>
-    // Navbar toggle
-    function toggleMenu() {
-      const navLinks = document.querySelector(".navbar-links");
-      const menuIcon = document.getElementById("menu-icon");
-      if (
-        navLinks.style.display === "" ||
-        navLinks.style.display === "none"
-      ) {
-        navLinks.style.display = "grid";
-        menuIcon.className = "bi bi-x";
-      } else {
-        navLinks.style.display = "none";
-        menuIcon.className = "bi bi-list";
-      }
-    }
+			// Notification Pop-up
+			const popup = document.getElementById("notificationPopup");
+			popup.classList.add("hidden");
 
-    // Initialize menu icon
-    document.getElementById("menu-icon").className = "bi bi-list";
+			function closePopUp() {
+				popup.classList.toggle("hidden");
+			}
+		</script>
+		<script>
+			let ncrData = [];
+			let filteredData = [];
+			let currentPage = 1;
+			const rowsPerPage = 5;
+			let sortColumn = -1;
+			let sortAsc = true;
+let users =  [];
+			// Load NCR data
+			fetch("data/ncrData2.json")
+				.then((response) => response.json())
+				.then((data) => {
+					const records = localStorage.getItem("ncr_records");
+          users = JSON.parse(localStorage.getItem("users")) || [];
+					// ncrData = records ? records : data;
+					if (records) {
+						try {
+							ncrData = JSON.parse(records); // ← FIX
+						} catch (e) {
+							console.error("Invalid NCR localStorage data – resetting.", e);
+							ncrData = data;
+						}
+					} else {
+						ncrData = data; // fallback to JSON file
+					}
+					filteredData = [...ncrData];
+					renderTable();
+				})
+				.catch((error) => console.error("Error loading NCR data:", error));
 
-    // Notification Pop-up
-    const popup = document.getElementById("notificationPopup");
-    popup.classList.add("hidden");
+			function formatDate(dateString) {
+				const date = new Date(dateString);
+				return date.toLocaleDateString("en-US", {
+					year: "numeric",
+					month: "long",
+					day: "numeric",
+				});
+			}
 
-    function closePopUp(){
-      popup.classList.toggle("hidden");
-    }
-  </script>
-  <script>
-    let ncrData = [];
-    let filteredData = [];
-    let currentPage = 1;
-    const rowsPerPage = 5;
-    let sortColumn = -1;
-    let sortAsc = true;
+			function renderTable() {
+				const tableBody = document.getElementById("ncrTableBody");
+				const start = (currentPage - 1) * rowsPerPage;
+				const end = start + rowsPerPage;
+				const pageData = filteredData.slice(start, end);
 
-    // Load NCR data
-    fetch("data/ncrData2.json")
-      .then((response) => response.json())
-      .then((data) => {
-        ncrData = data;
-        filteredData = [...ncrData];
-        renderTable();
-      })
-      .catch((error) => console.error("Error loading NCR data:", error));
+				tableBody.innerHTML = "";
 
-    function formatDate(dateString) {
-      const date = new Date(dateString);
-      return date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
-    }
+				pageData.forEach((item) => {
+					const formattedDate = formatDate(item.dateCreated);
 
-    function renderTable() {
-      const tableBody = document.getElementById("ncrTableBody");
-      const start = (currentPage - 1) * rowsPerPage;
-      const end = start + rowsPerPage;
-      const pageData = filteredData.slice(start, end);
-
-      tableBody.innerHTML = "";
-
-      pageData.forEach((item) => {
-        const formattedDate = formatDate(item.dateCreated);
-
-        const row = `
+					const row = `
             <tr>
               <td>${item.ncrNumber}</td>
-              <td>${item.currentStage.charAt(0).toUpperCase() +
-          item.currentStage.slice(1)
-          }</td>
+              <td>${
+								item.currentStage.charAt(0).toUpperCase() +
+								item.currentStage.slice(1)
+							}</td>
               <td>${formattedDate}</td>
               <td>${item.supplierName}</td>
-              <td><a href="detailedViewNCR.html?ncr=${item.ncrNumber
-          }" class="view-ncr">View</a></td>
-              <td><a href="edit-ncr.html" onClick="selectedLog('${item.ncrNumber
-          }')" class="view-ncr">Edit</a></td>
-              <td><button class="generate-pdf-btn" onclick='generateSinglePDF("${item.id
-          }")'>PDF</button></td>
+              <td><a href="detailedViewNCR.html" onClick="selectedLog('${
+								item.ncrNumber
+							}')" class="view-ncr">View</a></td>
+              <td><a href="edit-ncr.html" onClick="selectedLog('${
+								item.ncrNumber
+							}')" class="view-ncr">Edit</a></td>
+              <td><button class="generate-pdf-btn" onclick='generateSinglePDF("${
+								item.ncrId
+							}")'>PDF</button></td>
             </tr>
           `;
-        tableBody.innerHTML += row;
-      });
+					tableBody.innerHTML += row;
+				});
 
-      renderPagination();
-    }
+				renderPagination();
+			}
 
-    function renderPagination() {
-      const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-      const pagination = document.getElementById("pagination");
-      pagination.innerHTML = "";
+			function renderPagination() {
+				const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+				const pagination = document.getElementById("pagination");
+				pagination.innerHTML = "";
 
-      for (let i = 1; i <= totalPages; i++) {
-        pagination.innerHTML += `<button class="${i === currentPage ? "active" : ""
-          }" onclick="goToPage(${i})">${i}</button>`;
-      }
-    }
+				for (let i = 1; i <= totalPages; i++) {
+					pagination.innerHTML += `<button class="${
+						i === currentPage ? "active" : ""
+					}" onclick="goToPage(${i})">${i}</button>`;
+				}
+			}
 
-    function goToPage(page) {
-      currentPage = page;
-      renderTable();
-    }
+			function goToPage(page) {
+				currentPage = page;
+				renderTable();
+			}
 
-    // Search
-    const toggleBtn = document.getElementById("toggle-filters");
-    const filterContainer = document.querySelector(".filter-container");
+			// Search
+			const toggleBtn = document.getElementById("toggle-filters");
+			const filterContainer = document.querySelector(".filter-container");
 
-    toggleBtn.addEventListener("click", () => {
-      if (filterContainer.style.display === "flex") {
-        filterContainer.style.display = "none";
-        toggleBtn.textContent = "Show Filters";
-      } else {
-        filterContainer.style.display = "flex";
-        toggleBtn.textContent = "Hide Filters";
-      }
-    });
+			toggleBtn.addEventListener("click", () => {
+				if (filterContainer.style.display === "flex") {
+					filterContainer.style.display = "none";
+					toggleBtn.textContent = "Show Filters";
+				} else {
+					filterContainer.style.display = "flex";
+					toggleBtn.textContent = "Hide Filters";
+				}
+			});
 
-    function applyFilters() {
-      const ncrQuery = document
-        .getElementById("filter-ncr")
-        .value.toLowerCase();
-      const supplierQuery = document
-        .getElementById("filter-supplier")
-        .value.toLowerCase();
-      const startDate = document.getElementById("filter-start-date").value;
-      const endDate = document.getElementById("filter-end-date").value;
+			function applyFilters() {
+				const ncrQuery = document
+					.getElementById("filter-ncr")
+					.value.toLowerCase();
+				const supplierQuery = document
+					.getElementById("filter-supplier")
+					.value.toLowerCase();
+				const startDate = document.getElementById("filter-start-date").value;
+				const endDate = document.getElementById("filter-end-date").value;
 
-      filteredData = ncrData.filter((item) => {
-        const itemDate = new Date(item.dateCreated);
+				filteredData = ncrData.filter((item) => {
+					const itemDate = new Date(item.dateCreated);
 
-        const matchesNCR = item.ncrNumber.toLowerCase().includes(ncrQuery);
-        const matchesSupplier = item.supplierName
-          .toLowerCase()
-          .includes(supplierQuery);
-        const matchesStart = startDate
-          ? itemDate >= new Date(startDate)
-          : true;
-        const matchesEnd = endDate ? itemDate <= new Date(endDate) : true;
+					const matchesNCR = item.ncrNumber.toLowerCase().includes(ncrQuery);
+					const matchesSupplier = item.supplierName
+						.toLowerCase()
+						.includes(supplierQuery);
+					const matchesStart = startDate
+						? itemDate >= new Date(startDate)
+						: true;
+					const matchesEnd = endDate ? itemDate <= new Date(endDate) : true;
 
-        return matchesNCR && matchesSupplier && matchesStart && matchesEnd;
-      });
+					return matchesNCR && matchesSupplier && matchesStart && matchesEnd;
+				});
 
-      currentPage = 1;
-      renderTable();
-    }
-    document
-      .getElementById("filter-ncr")
-      .addEventListener("input", applyFilters);
-    document
-      .getElementById("filter-supplier")
-      .addEventListener("input", applyFilters);
-    document
-      .getElementById("filter-start-date")
-      .addEventListener("change", applyFilters);
-    document
-      .getElementById("filter-end-date")
-      .addEventListener("change", applyFilters);
+				currentPage = 1;
+				renderTable();
+			}
+			document
+				.getElementById("filter-ncr")
+				.addEventListener("input", applyFilters);
+			document
+				.getElementById("filter-supplier")
+				.addEventListener("input", applyFilters);
+			document
+				.getElementById("filter-start-date")
+				.addEventListener("change", applyFilters);
+			document
+				.getElementById("filter-end-date")
+				.addEventListener("change", applyFilters);
 
-    // Filter buttons
-    document.querySelectorAll(".filter-btn").forEach((btn) =>
-      btn.addEventListener("click", () => {
-        document
-          .querySelectorAll(".filter-btn")
-          .forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-        const status = btn.dataset.status;
-        filteredData =
-          status === "all"
-            ? [...ncrData]
-            : ncrData.filter((item) => item.status === status);
-        currentPage = 1;
-        renderTable();
-      })
-    );
+			// Filter buttons
+			document.querySelectorAll(".filter-btn").forEach((btn) =>
+				btn.addEventListener("click", () => {
+					document
+						.querySelectorAll(".filter-btn")
+						.forEach((b) => b.classList.remove("active"));
+					btn.classList.add("active");
+					const status = btn.dataset.status;
+					filteredData =
+						status === "all"
+							? [...ncrData]
+							: ncrData.filter((item) => item.status === status);
+					currentPage = 1;
+					renderTable();
+				})
+			);
 
-    // Sorting
-    function sortTable(colIndex) {
-      const keys = [
-        "ncrNumber",
-        "currentStage",
-        "dateCreated",
-        "supplierName",
-      ];
-      if (sortColumn === colIndex) sortAsc = !sortAsc;
-      else sortAsc = true;
-      sortColumn = colIndex;
+			// Sorting
+			function sortTable(colIndex) {
+				const keys = [
+					"ncrNumber",
+					"currentStage",
+					"dateCreated",
+					"supplierName",
+				];
+				if (sortColumn === colIndex) sortAsc = !sortAsc;
+				else sortAsc = true;
+				sortColumn = colIndex;
 
-      filteredData.sort((a, b) => {
-        const valA = a[keys[colIndex]].toLowerCase();
-        const valB = b[keys[colIndex]].toLowerCase();
-        return (valA > valB ? 1 : valA < valB ? -1 : 0) * (sortAsc ? 1 : -1);
-      });
-      renderTable();
-    }
+				filteredData.sort((a, b) => {
+					const valA = a[keys[colIndex]].toLowerCase();
+					const valB = b[keys[colIndex]].toLowerCase();
+					return (valA > valB ? 1 : valA < valB ? -1 : 0) * (sortAsc ? 1 : -1);
+				});
+				renderTable();
+			}
 
-    // PDF Generation Functions
-    function generateSinglePDF(ncrId) {
-      const ncr = ncrData.find((n) => n.id === ncrId);
-      if (!ncr) {
-        alert("NCR not found!");
-        return;
-      }
+			// PDF Generation Functions
+			function generateSinglePDF(ncrId) {
+				const ncr = ncrData.find((n) => n.ncrId === Number(ncrId));
+        
+        console.log(ncrId);
+        
+				if (!ncr) {
+					alert("NCR not found!");
+					return;
+				}
+        const creator = users.find(u => Number(u.userId) === Number(ncr.createdBy));
+        const creatorName = creator ? `${creator.firstName} ${creator.lastName}` : "Unknown";
+        const creatorEmail = creator ? creator.email : "N/A";
 
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      const logo = "images/Crossfire Logo-transparent.png";
+        const inspector = users.find(u => Number(u.userId) === Number(ncr.quality.inspectorId));
+        const inspectorName = inspector ? `${inspector.firstName} ${inspector.lastName}` : "Unknown";
+				
+        const { jsPDF } = window.jspdf;
+				const doc = new jsPDF();
+				const logo = "images/Crossfire Logo-transparent.png";
 
-      const pageWidth = doc.internal.pageSize.getWidth();
-      const imgWidth = 60;
-      const imgHeight = 20;
+				const pageWidth = doc.internal.pageSize.getWidth();
+				const imgWidth = 60;
+				const imgHeight = 20;
 
-      const x = (pageWidth - imgWidth) / 2; // center horizontally
-      const y = 5; // top position
+				const x = (pageWidth - imgWidth) / 2; // center horizontally
+				const y = 5; // top position
 
-      // Header
-      doc.setFillColor(88, 151, 201);
-      doc.rect(0, 0, 210, 40, "F");
+				// Header
+				doc.setFillColor(88, 151, 201);
+				doc.rect(0, 0, 210, 40, "F");
 
-      doc.setTextColor(255, 255, 255);
-      doc.setFontSize(24);
-      doc.setFont(undefined, "bold");
-      //   doc.text("NON-CONFORMANCE REPORT", 105, 20, { align: "center" });
+				doc.setTextColor(255, 255, 255);
+				doc.setFontSize(24);
+				doc.setFont(undefined, "bold");
+				//   doc.text("NON-CONFORMANCE REPORT", 105, 20, { align: "center" });
 
-      doc.addImage(logo, "PNG", x, y, imgWidth, imgHeight);
+				doc.addImage(logo, "PNG", x, y, imgWidth, imgHeight);
 
-      doc.setFontSize(12);
-      doc.setFont(undefined, "normal");
-      doc.text(`NCR Number: ${ncr.ncrNumber}`, 105, 30, { align: "center" });
+				doc.setFontSize(12);
+				doc.setFont(undefined, "normal");
+				doc.text(`NCR Number: ${ncr.ncrNumber}`, 105, 30, { align: "center" });
 
-      // Reset text color
-      doc.setTextColor(0, 0, 0);
-      let yPos = 50;
+				// Reset text color
+				doc.setTextColor(0, 0, 0);
+				let yPos = 50;
 
-      // Status Badge
-      doc.roundedRect(150, yPos - 5, 40, 10, 2, 2, "F");
-      doc.setFontSize(10);
-      doc.setFont(undefined, "bold");
-      doc.text(ncr.status, 170, yPos, { align: "center" });
+				// Status Badge
+				doc.roundedRect(150, yPos - 5, 40, 10, 2, 2, "F");
+				doc.setFontSize(10);
+				doc.setFont(undefined, "bold");
+				doc.text(ncr.status, 170, yPos, { align: "center" });
 
-      yPos += 15;
+				yPos += 15;
 
-      // Section: General Information
-      doc.setFillColor(248, 249, 250);
-      doc.rect(10, yPos, 190, 8, "F");
-      doc.setFontSize(12);
-      doc.setFont(undefined, "bold");
-      doc.setTextColor(88, 151, 201);
-      doc.text("GENERAL INFORMATION", 15, yPos + 5);
-      doc.setTextColor(0, 0, 0);
-      yPos += 15;
+				// Section: General Information
+				doc.setFillColor(248, 249, 250);
+				doc.rect(10, yPos, 190, 8, "F");
+				doc.setFontSize(12);
+				doc.setFont(undefined, "bold");
+				doc.setTextColor(88, 151, 201);
+				doc.text("GENERAL INFORMATION", 15, yPos + 5);
+				doc.setTextColor(0, 0, 0);
+				yPos += 15;
 
-      doc.setFontSize(10);
-      doc.setFont(undefined, "bold");
-      doc.text("Created By:", 15, yPos);
-      doc.setFont(undefined, "normal");
-      doc.text(ncr.createdBy, 50, yPos);
+				doc.setFontSize(10);
+				doc.setFont(undefined, "bold");
+				doc.text("Created By:", 15, yPos);
+				doc.setFont(undefined, "normal");
+				doc.text(String(creatorName), 50, yPos);
 
-      doc.setFont(undefined, "bold");
-      doc.text("Email:", 120, yPos);
-      doc.setFont(undefined, "normal");
-      doc.text(ncr.createdByEmail, 140, yPos);
-      yPos += 7;
+				doc.setFont(undefined, "bold");
+				doc.text("Email:", 120, yPos);
+				doc.setFont(undefined, "normal");
+				doc.text(creatorEmail, 140, yPos);
+				yPos += 7;
 
-      doc.setFont(undefined, "bold");
-      doc.text("Date Created:", 15, yPos);
-      doc.setFont(undefined, "normal");
-      doc.text(formatDate(ncr.dateCreated), 50, yPos);
+				doc.setFont(undefined, "bold");
+				doc.text("Date Created:", 15, yPos);
+				doc.setFont(undefined, "normal");
+				doc.text(formatDate(ncr.dateCreated), 50, yPos);
 
-      doc.setFont(undefined, "bold");
-      doc.text("Inspection Date:", 120, yPos);
-      doc.setFont(undefined, "normal");
-      doc.text(formatDate(ncr.inspectionDate), 155, yPos);
-      yPos += 7;
+				doc.setFont(undefined, "bold");
+				doc.text("Inspection Date:", 120, yPos);
+				doc.setFont(undefined, "normal");
+				doc.text(formatDate(ncr.quality.inspectionDate), 155, yPos);
+				yPos += 7;
 
-      doc.setFont(undefined, "bold");
-      doc.text("Inspector ID:", 15, yPos);
-      doc.setFont(undefined, "normal");
-      doc.text(ncr.inspectorId, 50, yPos);
+				doc.setFont(undefined, "bold");
+				doc.text("Inspector ID:", 15, yPos);
+				doc.setFont(undefined, "normal");
+				doc.text(inspectorName, 50, yPos);
 
-      doc.setFont(undefined, "bold");
-      doc.text("Current Stage:", 120, yPos);
-      doc.setFont(undefined, "normal");
-      doc.text(ncr.currentStage.toUpperCase(), 155, yPos);
-      yPos += 15;
+				doc.setFont(undefined, "bold");
+				doc.text("Current Stage:", 120, yPos);
+				doc.setFont(undefined, "normal");
+				doc.text(ncr.currentStage.toUpperCase(), 155, yPos);
+				yPos += 15;
 
-      // Section: Item Details
-      doc.setFillColor(248, 249, 250);
-      doc.rect(10, yPos, 190, 8, "F");
-      doc.setFontSize(12);
-      doc.setFont(undefined, "bold");
-      doc.setTextColor(88, 151, 201);
-      doc.text("ITEM DETAILS", 15, yPos + 5);
-      doc.setTextColor(0, 0, 0);
-      yPos += 15;
+				// Section: Item Details
+				doc.setFillColor(248, 249, 250);
+				doc.rect(10, yPos, 190, 8, "F");
+				doc.setFontSize(12);
+				doc.setFont(undefined, "bold");
+				doc.setTextColor(88, 151, 201);
+				doc.text("ITEM DETAILS", 15, yPos + 5);
+				doc.setTextColor(0, 0, 0);
+				yPos += 15;
 
-      doc.setFontSize(10);
-      doc.setFont(undefined, "bold");
-      doc.text("Supplier:", 15, yPos);
-      doc.setFont(undefined, "normal");
-      doc.text(ncr.supplierName, 50, yPos);
-      yPos += 7;
+				doc.setFontSize(10);
+				doc.setFont(undefined, "bold");
+				doc.text("Supplier:", 15, yPos);
+				doc.setFont(undefined, "normal");
+				doc.text(ncr.supplierName, 50, yPos);
+				yPos += 7;
 
-      doc.setFont(undefined, "bold");
-      doc.text("Item Description:", 15, yPos);
-      doc.setFont(undefined, "normal");
-      const itemDesc = doc.splitTextToSize(ncr.itemDescription, 130);
-      doc.text(itemDesc, 50, yPos);
-      yPos += itemDesc.length * 7;
+				doc.setFont(undefined, "bold");
+				doc.text("Item Description:", 15, yPos);
+				doc.setFont(undefined, "normal");
+				const itemDesc = doc.splitTextToSize(ncr.quality.itemDescription, 130);
+				doc.text(itemDesc, 50, yPos);
+				yPos += itemDesc.length * 7;
 
-      doc.setFont(undefined, "bold");
-      doc.text("PO Number:", 15, yPos);
-      doc.setFont(undefined, "normal");
-      doc.text(ncr.poNumber, 50, yPos);
+				doc.setFont(undefined, "bold");
+				doc.text("PO Number:", 15, yPos);
+				doc.setFont(undefined, "normal");
+				doc.text(ncr.quality.poNumber, 50, yPos);
 
-      doc.setFont(undefined, "bold");
-      doc.text("SO Number:", 120, yPos);
-      doc.setFont(undefined, "normal");
-      doc.text(ncr.salesOrderNumber, 155, yPos);
-      yPos += 7;
+				doc.setFont(undefined, "bold");
+				doc.text("SO Number:", 120, yPos);
+				doc.setFont(undefined, "normal");
+				doc.text(ncr.quality.salesOrderNumber, 155, yPos);
+				yPos += 7;
 
-      doc.setFont(undefined, "bold");
-      doc.text("Process Type:", 15, yPos);
-      doc.setFont(undefined, "normal");
-      doc.text(ncr.processType.toUpperCase(), 50, yPos);
-      yPos += 15;
+				doc.setFont(undefined, "bold");
+				doc.text("Process Type:", 15, yPos);
+				doc.setFont(undefined, "normal");
+				doc.text(ncr.ncrType.toUpperCase(), 50, yPos);
+				yPos += 15;
 
-      // Section: Quantity Information
-      doc.setFillColor(248, 249, 250);
-      doc.rect(10, yPos, 190, 8, "F");
-      doc.setFontSize(12);
-      doc.setFont(undefined, "bold");
-      doc.setTextColor(88, 151, 201);
-      doc.text("QUANTITY INFORMATION", 15, yPos + 5);
-      doc.setTextColor(0, 0, 0);
-      yPos += 15;
+				// Section: Quantity Information
+				doc.setFillColor(248, 249, 250);
+				doc.rect(10, yPos, 190, 8, "F");
+				doc.setFontSize(12);
+				doc.setFont(undefined, "bold");
+				doc.setTextColor(88, 151, 201);
+				doc.text("QUANTITY INFORMATION", 15, yPos + 5);
+				doc.setTextColor(0, 0, 0);
+				yPos += 15;
 
-      doc.setFontSize(10);
-      doc.setFont(undefined, "bold");
-      doc.text("Quantity Received:", 15, yPos);
-      doc.setFont(undefined, "normal");
-      doc.text(ncr.quantityReceived.toString(), 60, yPos);
+				doc.setFontSize(10);
+				doc.setFont(undefined, "bold");
+				doc.text("Quantity Received:", 15, yPos);
+				doc.setFont(undefined, "normal");
+				doc.text(ncr.quality.quantityReceived.toString(), 60, yPos);
 
-      doc.setFont(undefined, "bold");
-      doc.text("Quantity Defective:", 120, yPos);
-      doc.setFont(undefined, "normal");
-      doc.text(ncr.quantityDefective.toString(), 165, yPos);
-      yPos += 7;
+				doc.setFont(undefined, "bold");
+				doc.text("Quantity Defective:", 120, yPos);
+				doc.setFont(undefined, "normal");
+				doc.text(ncr.quality.quantityDefective.toString(), 165, yPos);
+				yPos += 7;
 
-      doc.setFont(undefined, "bold");
-      doc.text("Item Status:", 15, yPos);
-      doc.setFont(undefined, "normal");
-      doc.text(ncr.itemStatus.toUpperCase(), 60, yPos);
-      yPos += 15;
+				doc.setFont(undefined, "bold");
+				doc.text("Item Status:", 15, yPos);
+				doc.setFont(undefined, "normal");
+				doc.text(ncr.quality.itemMarkedNonconforming ? "NON-CONFORMING" : "CONFORMING", 60, yPos);
+				yPos += 15;
 
-      // Section: Defect Description
-      doc.setFillColor(248, 249, 250);
-      doc.rect(10, yPos, 190, 8, "F");
-      doc.setFontSize(12);
-      doc.setFont(undefined, "bold");
-      doc.setTextColor(88, 151, 201);
-      doc.text("DEFECT DESCRIPTION", 15, yPos + 5);
-      doc.setTextColor(0, 0, 0);
-      yPos += 15;
+				// Section: Defect Description
+				doc.setFillColor(248, 249, 250);
+				doc.rect(10, yPos, 190, 8, "F");
+				doc.setFontSize(12);
+				doc.setFont(undefined, "bold");
+				doc.setTextColor(88, 151, 201);
+				doc.text("DEFECT DESCRIPTION", 15, yPos + 5);
+				doc.setTextColor(0, 0, 0);
+				yPos += 15;
 
-      doc.setFontSize(10);
-      doc.setFont(undefined, "normal");
-      const defectDesc = doc.splitTextToSize(ncr.defectDescription, 180);
-      doc.text(defectDesc, 15, yPos);
-      yPos += defectDesc.length * 7 + 10;
+				doc.setFontSize(10);
+				doc.setFont(undefined, "normal");
+				const defectDesc = doc.splitTextToSize(ncr.quality.defectDescription, 180);
+				doc.text(defectDesc, 15, yPos);
+				yPos += defectDesc.length * 7 + 10;
 
-      // Section: Engineering & Resolution
-      if (yPos > 250) {
-        doc.addPage();
-        yPos = 20;
-      }
+				// Section: Engineering & Resolution
+				if (yPos > 250) {
+					doc.addPage();
+					yPos = 20;
+				}
 
-      doc.setFillColor(248, 249, 250);
-      doc.rect(10, yPos, 190, 8, "F");
-      doc.setFontSize(12);
-      doc.setFont(undefined, "bold");
-      doc.setTextColor(88, 151, 201);
-      doc.text("ENGINEERING & RESOLUTION", 15, yPos + 5);
-      doc.setTextColor(0, 0, 0);
-      yPos += 15;
+				doc.setFillColor(248, 249, 250);
+				doc.rect(10, yPos, 190, 8, "F");
+				doc.setFontSize(12);
+				doc.setFont(undefined, "bold");
+				doc.setTextColor(88, 151, 201);
+				doc.text("ENGINEERING & RESOLUTION", 15, yPos + 5);
+				doc.setTextColor(0, 0, 0);
+				yPos += 15;
 
-      doc.setFontSize(10);
-      doc.setFont(undefined, "bold");
-      doc.text("Engineering Required:", 15, yPos);
-      doc.setFont(undefined, "normal");
-      doc.text(ncr.engineeringRequired ? "YES" : "NO", 65, yPos);
-      yPos += 7;
+				doc.setFontSize(10);
+				doc.setFont(undefined, "bold");
+				doc.text("Engineering Required:", 15, yPos);
+				doc.setFont(undefined, "normal");
+				doc.text(ncr.quality.engineeringRequired ? "YES" : "NO", 65, yPos);
+				yPos += 7;
 
-      doc.setFont(undefined, "bold");
-      doc.text("Quality Completed:", 15, yPos);
-      doc.setFont(undefined, "normal");
-      doc.text(ncr.qualityCompleted ? "YES" : "NO", 65, yPos);
+				doc.setFont(undefined, "bold");
+				doc.text("Quality Completed:", 15, yPos);
+				doc.setFont(undefined, "normal");
+				doc.text(ncr.quality.completed ? "YES" : "NO", 65, yPos);
 
-      if (ncr.qualityCompletedAt) {
-        doc.setFont(undefined, "bold");
-        doc.text("Completed At:", 120, yPos);
-        doc.setFont(undefined, "normal");
-        doc.text(formatDate(ncr.qualityCompletedAt), 155, yPos);
-      }
-      yPos += 10;
+				if (ncr.quality.completedAt) {
+					doc.setFont(undefined, "bold");
+					doc.text("Completed At:", 120, yPos);
+					doc.setFont(undefined, "normal");
+					doc.text(formatDate(ncr.quality.completedAt), 155, yPos);
+				}
+				yPos += 10;
 
-      if (ncr.resolutionSummary) {
-        doc.setFont(undefined, "bold");
-        doc.text("Resolution Summary:", 15, yPos);
-        yPos += 7;
-        doc.setFont(undefined, "normal");
-        const resolutionText = doc.splitTextToSize(
-          ncr.resolutionSummary,
-          180
-        );
-        doc.text(resolutionText, 15, yPos);
-        yPos += resolutionText.length * 7 + 10;
-      }
+				// if (ncr.resolutionSummary) {
+				// 	doc.setFont(undefined, "bold");
+				// 	doc.text("Resolution Summary:", 15, yPos);
+				// 	yPos += 7;
+				// 	doc.setFont(undefined, "normal");
+				// 	const resolutionText = doc.splitTextToSize(
+				// 		ncr.resolutionSummary,
+				// 		180
+				// 	);
+				// 	doc.text(resolutionText, 15, yPos);
+				// 	yPos += resolutionText.length * 7 + 10;
+				// }
 
-      if (ncr.status === "Closed") {
-        doc.setFont(undefined, "bold");
-        doc.text("Closed By:", 15, yPos);
-        doc.setFont(undefined, "normal");
-        doc.text(ncr.closedBy || "N/A", 50, yPos);
+        if (ncr.engineering && ncr.engineering.dispositionDetails) {
+	doc.setFont(undefined, "bold");
+	doc.text("Resolution Summary:", 15, yPos);
+	yPos += 7;
 
-        doc.setFont(undefined, "bold");
-        doc.text("Date Closed:", 120, yPos);
-        doc.setFont(undefined, "normal");
-        doc.text(
-          ncr.dateClosed ? formatDate(ncr.dateClosed) : "N/A",
-          155,
-          yPos
-        );
-      }
+	doc.setFont(undefined, "normal");
+	const resolutionText = doc.splitTextToSize(ncr.engineering.dispositionDetails, 180);
+	doc.text(resolutionText, 15, yPos);
+	yPos += resolutionText.length * 7 + 10;
+}
 
-      // Footer
-      const pageCount = doc.internal.getNumberOfPages();
-      for (let i = 1; i <= pageCount; i++) {
-        doc.setPage(i);
-        doc.setFontSize(8);
-        doc.setTextColor(128, 128, 128);
-        doc.text(
-          `Generated on ${new Date().toLocaleDateString()} | Page ${i} of ${pageCount}`,
-          105,
-          287,
-          { align: "center" }
-        );
-      }
 
-      // Save PDF
-      doc.save(`NCR_${ncr.ncrNumber}_Report.pdf`);
-    }
+				if (ncr.status === "Closed") {
+					doc.setFont(undefined, "bold");
+					doc.text("Closed By:", 15, yPos);
+					doc.setFont(undefined, "normal");
+					doc.text(String(ncr.closedBy || "N/A"), 50, yPos);
+
+					doc.setFont(undefined, "bold");
+					doc.text("Date Closed:", 120, yPos);
+					doc.setFont(undefined, "normal");
+					doc.text(
+						ncr.dateClosed ? formatDate(ncr.dateClosed) : "N/A",
+						155,
+						yPos
+					);
+				}
+
+				// Footer
+				const pageCount = doc.internal.getNumberOfPages();
+				for (let i = 1; i <= pageCount; i++) {
+					doc.setPage(i);
+					doc.setFontSize(8);
+					doc.setTextColor(128, 128, 128);
+					doc.text(
+						`Generated on ${new Date().toLocaleDateString()} | Page ${i} of ${pageCount}`,
+						105,
+						287,
+						{ align: "center" }
+					);
+				}
+
+				// Save PDF
+				doc.save(`NCR_${ncr.ncrNumber}_Report.pdf`);
+			}
+	
   </script>
-  
-</body>
-
+	</body>
 </html>

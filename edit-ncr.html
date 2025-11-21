@@ -23,6 +23,8 @@
   </head>
 
   <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Header section  -->
     <header>
       <nav>
@@ -80,12 +82,12 @@
       </nav>
     </header>
 
-    <main id="main-content">
+    <main id="main-content" role="main">
       <!-- Quality Section  -->
       <div class="accordion accordion--radio">
         <div id="quality-section" class="role-tab">
           <input type="checkbox" id="rd1" class="tab-input">
-          <label for="rd1" class="tab__label">Quality Inspector Section</label>
+          <label for="rd1" aria-controls="section-quality" aria-label="Quality Inspection Section" class="tab__label">Quality Inspector Section</label>
           <div class="tab_content">
             <div class="accordion-container">
               <div class="role-head">
@@ -388,7 +390,7 @@
       <div class="accordion accordion--radio">
         <div class="role-tab">
           <input type="checkbox" id="rd2" class="tab-input">
-          <label for="rd2" class="tab__label">Engineering Section</label>
+          <label for="rd2" class="tab__label" aria-controls="section-engineer" aria-label="Engineering Section">Engineering Section</label>
           <div class="tab_content">
             <div class="accordion-container">
               <div class="role-head">

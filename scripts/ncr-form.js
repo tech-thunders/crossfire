@@ -275,18 +275,11 @@ const NCRFormHandler = {
 	confirmAndSave() {
 		const form = this.collectFormData();
 
-		NCRDataManager.saveNewRecord(form);
+		const newNCR = NCRDataManager.saveNewRecord(form);
 		this.closePreviewModal();
+		// this.showSuccessToast(`NCR ${newNCR.ncrNumber} created successfully!`);
+		alert(`NCR ${newNCR.ncrNumber} created successfully!`);
 		window.location.href = "view-ncr.html";
-		// 	if (this.editMode) {
-		// 		NCRDataManager.updateNCR(this.editingId, form);
-		// 	} else {
-		// 		const newRecord = NCRDataManager.createNCRFromFormData(form)
-		// 		NCRDataManager.saveNCR(newRecord);
-		// 	}
-
-		// 	this.closePreviewModal();
-		// 	window.location.href = "view-ncr.html";
 	},
 };
 

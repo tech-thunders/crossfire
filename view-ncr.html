@@ -517,9 +517,9 @@ let users =  [];
 							}</td>
               <td>${formattedDate}</td>
               <td>${item.supplierName}</td>
-              <td><a href="detailedViewNCR.html?ncr=${
+              <td><a href="detailedViewNCR.html" onClick="selectedLog('${
 								item.ncrNumber
-							}" class="view-ncr">View</a></td>
+							}')" class="view-ncr">View</a></td>
               <td><a href="edit-ncr.html" onClick="selectedLog('${
 								item.ncrNumber
 							}')" class="view-ncr">Edit</a></td>

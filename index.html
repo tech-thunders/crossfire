@@ -162,10 +162,20 @@
 			fetch("data/logData.json")
 				.then((response) => response.json())
 				.then((data) => {
-					ncrData = data;
+					const records = localStorage.getItem("ncr_records");
+					// ncrData = records ? records : data;
+					if (records) {
+						try {
+							ncrData = JSON.parse(records); // ← FIX
+						} catch (e) {
+							console.error("Invalid NCR localStorage data – resetting.", e);
+							ncrData = data;
+						}
+					} else {
+						ncrData = data; // fallback to JSON file
+					}
 					filteredData = [...ncrData];
-					console.log(filteredData);
-
+					
 					renderTable();
 				})
 				.catch((error) => console.error("Error loading NCR data:", error));

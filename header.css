@@ -124,6 +124,19 @@ nav li {
 	overflow-y: auto;
 	max-height: 450px;
 }
+.skip-link {
+	position: absolute;
+	top: -40px;
+	left: 0;
+	background: #000;
+	color: #fff;
+	padding: 8px 12px;
+	z-index: 999;
+	transition: top 0.2s;
+}
+.skip-link:focus {
+	top: 0;
+}
 
 @media screen and (min-width: 1024px) {
 	nav li {

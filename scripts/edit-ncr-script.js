@@ -99,6 +99,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 	const todayDate = new Date();
 	console.log(todayDate.toLocaleDateString());
 
+	if (!record.engineering.engineerId) {
+		if (users.length > 0) {
+			const selectedEngineer = users[0];
+
+			record.engineering.engineerId = selectedEngineer.userId;
+
+			localStorage.setItem("ncr_records", JSON.stringify(allRecords));
+		}
+	}
+
 	const engineer = findUser(record.engineering.engineerId);
 	document.getElementById(
 		"engineerId"
@@ -108,8 +118,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 		? record.engineering.dispositionDate
 		: todayDate.toLocaleDateString();
 	document.getElementById("revision-number").innerHTML =
-		record.engineering.originalRevNumber || "";
+		`#${record.engineering.originalRevNumber}` || "#";
 	document.getElementById("updated-revision-number").textContent =
+		`#${record.engineering.updatedRevNumber}` || "#";
+
+	document.getElementById("revision-input").value =
+		record.engineering.originalRevNumber || "";
+	document.getElementById("updated-revision-input").value =
 		record.engineering.updatedRevNumber || "";
 
 	if (record.engineering.dispositionType) {
@@ -118,7 +133,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 		);
 		if (dispositionRadio) dispositionRadio.checked = true;
 	}
-	if (record.engineering.dispositionType === "Repair" || record.engineering.dispositionType === "Rework") {
+	if (
+		record.engineering.dispositionType === "Repair" ||
+		record.engineering.dispositionType === "Rework"
+	) {
 		document.getElementById("disposition-message").style.display = "block";
 		document.getElementById("disposition_description").value =
 			record.engineering.dispositionDetails;
@@ -211,6 +229,11 @@ document
 		).value;
 		const engineerMessage = document.getElementById("engineer-message").value;
 
+		const originalRev = document.getElementById("revision-input").value.trim();
+		const updatedRev = document
+			.getElementById("updated-revision-input")
+			.value.trim();
+
 		const today = new Date().toISOString().split("T")[0];
 
 		// update json data
@@ -220,6 +243,8 @@ document
 		record.engineering.dispositionDetails = dispositionDetails;
 		record.engineering.engineerNote = engineerMessage;
 		record.engineering.dispositionDate = today;
+		record.engineering.originalRevNumber = originalRev;
+		record.engineering.updatedRevNumber = updatedRev;
 
 		// Save to localStorage
 		localStorage.setItem("ncr_records", JSON.stringify(allRecords));

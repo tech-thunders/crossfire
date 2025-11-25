@@ -26,13 +26,14 @@
 .tab__label,
 .tab__close {
 	display: flex;
-	color: #fff;
+	color: #000;
 	background: var(--theme);
 	cursor: pointer;
 }
 .tab__label {
 	justify-content: space-between;
 	padding: 1rem;
+	color: #000;
 }
 .tab__label::after {
 	content: "\276F";
@@ -126,7 +127,14 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
+.spacing-form {
+	display: grid;
+	gap: 20px;
+}
 
+.spacing-form footer {
+	margin-top: 10px;
+}
 /* #showMessageBox{
 	display: none;
 } */

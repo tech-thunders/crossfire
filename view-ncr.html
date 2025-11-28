@@ -125,6 +125,13 @@
         color: white;
         background-color: #2f6ea3;
       }
+      td.action-cell {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 4px;
+        margin: 6px auto;
+      }
 
       .view-ncr:hover {
         background-color: #4a8bc0;
@@ -138,7 +145,6 @@
         font-weight: bold;
         color: white;
         background-color: #6b7280;
-        margin: 0 2px;
         font-size: 16px;
       }
 
@@ -461,15 +467,15 @@
               }</td>
               <td>${formattedDate}</td>
               <td>${item.supplierName}</td>
-              <td><a href="detailedViewNCR.html?ncr=${
+              <td class="action-cell"><a href="detailedViewNCR.html?ncr=${
                 item.ncrNumber
-              }" class="view-ncr">View</a></td>
-              <td><a href="edit-ncr.html" onClick="selectedLog('${
+              }" class="view-ncr">View</a>
+              <a href="edit-ncr.html" onClick="selectedLog('${
                 item.ncrNumber
-              }')" class="view-ncr">Edit</a></td>
-              <td><button class="generate-pdf-btn" onclick='generateSinglePDF("${
+              }')" class="view-ncr">Edit</a>
+              <a class="generate-pdf-btn" onclick='generateSinglePDF("${
                 item.id
-              }")'>PDF</button></td>
+              }")'>PDF</a></td>
             </tr>
           `;
           tableBody.innerHTML += row;

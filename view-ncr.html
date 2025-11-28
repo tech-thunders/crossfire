@@ -12,6 +12,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
     <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="notification.css" />
     <title>View NCRs</title>
     <style>
       a {
@@ -26,6 +27,13 @@
         padding: 0;
       }
 
+      #wrapper {
+        padding: 20px 0px;
+        width: 100%;
+        max-width: 1420px;
+        margin: 0 auto;
+      }
+
       /* Page Content */
       h1 {
         text-align: center;
@@ -36,7 +44,7 @@
       }
 
       .container {
-        width: 85%;
+        width: auto;
         background-color: white;
         margin: 30px auto;
         padding: 20px;
@@ -64,7 +72,7 @@
 
       .filter-buttons button.active {
         background-color: #2f6ea3;
-        color: white;
+        color: #fff;
       }
 
       input {
@@ -115,16 +123,16 @@
         transition: 0.3s;
       }
 
-      .view-ncr {
-        padding: 6px 12px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: bold;
-        text-decoration: none;
-        color: white;
-        background-color: #2f6ea3;
-      }
+			.view-ncr {
+				padding: 6px 12px;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+				font-weight: bold;
+				text-decoration: none;
+				color: #fff;
+				background-color: #2f6ea3;
+			}
       td.action-cell {
         display: flex;
         align-items: center;
@@ -178,7 +186,8 @@
       /* Container for all filters */
       .filter-container {
         display: flex;
-        flex-wrap: wrap; /* Wrap on small screens */
+        flex-wrap: wrap;
+        /* Wrap on small screens */
         justify-content: center;
         align-items: flex-end;
         gap: 15px;
@@ -209,7 +218,8 @@
 
       /* Collapsible filter section */
       .collapse {
-        display: none; /* hidden by default */
+        display: none;
+        /* hidden by default */
       }
 
       /* Optional: styling toggle button */
@@ -301,7 +311,7 @@
           <div>
             <a href="index.html"
               ><img
-                src="images/Crossfire Logo-transparent.png"
+                src="images/crossfire-logo-transparent.png"
                 alt="Crossfire Logo"
                 class="logo"
             /></a>
@@ -319,7 +329,7 @@
                     class="bi bi-file-earmark-bar-graph-fill"
                     style="font-weight: 900"
                   ></i>
-                  View NCR Log</a
+                  NCR Log</a
                 >
               </li>
               <li>
@@ -329,77 +339,111 @@
               </li>
             </ul>
           </div>
-          <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
-            <i id="menu-icon"></i>
+          <div class="navbar-icons">
+            <div
+              onclick="closePopUp()"
+              title="Notifications"
+              class="navbar-notification"
+            >
+              <i id="notification-icon" class="bi bi-bell-fill"></i>
+              <div id="notification-indicator" class="notification-indicator">
+                4
+              </div>
+            </div>
+            <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
+              <i id="menu-icon"></i>
+            </div>
+          </div>
+          <div
+            id="notificationPopup"
+            title="Notifications"
+            class="notification-popup hidden"
+          >
+            <!-- Notifications -->
+            <div>
+              <h3 class="notification-title">Notifications</h3>
+              <p id="no-notifications" class="no-notifications">
+                No notifications yet
+              </p>
+              <ul class="notification-list"></ul>
+            </div>
           </div>
         </div>
       </nav>
     </header>
-    <h1>View NCRs</h1>
-    <div class="container">
-      <div class="filter-buttons">
-        <button class="filter-btn active" data-status="all">All NCR</button>
-        <button class="filter-btn" data-status="Active">Active</button>
-        <button class="filter-btn" data-status="Closed">Closed</button>
+    <div id="wrapper">
+      <h1>View NCRs</h1>
+      <div class="container">
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-status="all">All NCR</button>
+          <button class="filter-btn" data-status="Active">Active</button>
+          <button class="filter-btn" data-status="Closed">Closed</button>
+        </div>
+
+        <button id="toggle-filters" class="filter-toggle-btn">
+          Show Filters
+        </button>
+        <div class="filter-container collapse">
+          <div class="filter-item">
+            <label for="filter-ncr">NCR No:</label>
+            <input
+              type="text"
+              id="filter-ncr"
+              placeholder="Filter by NCR No."
+            />
+          </div>
+
+          <div class="filter-item">
+            <label for="filter-supplier">Supplier:</label>
+            <input
+              type="text"
+              id="filter-supplier"
+              placeholder="Filter by Supplier"
+            />
+          </div>
+
+          <div class="filter-item">
+            <label for="filter-start-date">Start Date:</label>
+            <input type="date" id="filter-start-date" />
+          </div>
+
+          <div class="filter-item">
+            <label for="filter-end-date">End Date:</label>
+            <input type="date" id="filter-end-date" />
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table id="ncrTable">
+            <thead>
+              <tr>
+                <th onclick="sortTable(0)">
+                  NCR No. <i class="bi bi-arrow-down-up"></i>
+                </th>
+
+                <th onclick="sortTable(2)">
+                  Date Created <i class="bi bi-arrow-down-up"></i>
+                </th>
+                <th onclick="sortTable(3)">
+                  Supplier <i class="bi bi-arrow-down-up"></i>
+                </th>
+                <th onclick="sortTable(1)">
+                  Current Status <i class="bi bi-arrow-down-up"></i>
+                </th>
+                <th colspan="3">Action</th>
+              </tr>
+            </thead>
+            <tbody id="ncrTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="pagination" id="pagination"></div>
       </div>
-
-      <!-- Multi-column Filters -->
-      <button id="toggle-filters" class="filter-toggle-btn">
-        Show Filters
-      </button>
-      <div class="filter-container collapse">
-        <div class="filter-item">
-          <label for="filter-ncr">NCR No:</label>
-          <input type="text" id="filter-ncr" placeholder="Filter by NCR No." />
-        </div>
-
-        <div class="filter-item">
-          <label for="filter-supplier">Supplier:</label>
-          <input
-            type="text"
-            id="filter-supplier"
-            placeholder="Filter by Supplier"
-          />
-        </div>
-
-        <div class="filter-item">
-          <label for="filter-start-date">Start Date:</label>
-          <input type="date" id="filter-start-date" />
-        </div>
-
-        <div class="filter-item">
-          <label for="filter-end-date">End Date:</label>
-          <input type="date" id="filter-end-date" />
-        </div>
-      </div>
-
-      <div class="table-container">
-        <table id="ncrTable">
-          <thead>
-            <tr>
-              <th onclick="sortTable(0)">
-                NCR No. <i class="bi bi-arrow-down-up"></i>
-              </th>
-              <th onclick="sortTable(1)">
-                Current Status <i class="bi bi-arrow-down-up"></i>
-              </th>
-              <th onclick="sortTable(2)">
-                Date Created <i class="bi bi-arrow-down-up"></i>
-              </th>
-              <th onclick="sortTable(3)">
-                Supplier <i class="bi bi-arrow-down-up"></i>
-              </th>
-              <th colspan="3">Action</th>
-            </tr>
-          </thead>
-          <tbody id="ncrTableBody"></tbody>
-        </table>
-      </div>
-
-      <div class="pagination" id="pagination"></div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="scripts/script.js"></script>
+    <script src="scripts/notifications.js"></script>
     <script>
       // Navbar toggle
       function toggleMenu() {
@@ -419,6 +463,14 @@
 
       // Initialize menu icon
       document.getElementById("menu-icon").className = "bi bi-list";
+
+      // Notification Pop-up
+      const popup = document.getElementById("notificationPopup");
+      popup.classList.add("hidden");
+
+      function closePopUp() {
+        popup.classList.toggle("hidden");
+      }
     </script>
     <script>
       let ncrData = [];
@@ -427,12 +479,24 @@
       const rowsPerPage = 5;
       let sortColumn = -1;
       let sortAsc = true;
-
+      let users = [];
       // Load NCR data
       fetch("data/ncrData2.json")
         .then((response) => response.json())
         .then((data) => {
-          ncrData = data;
+          const records = localStorage.getItem("ncr_records");
+          users = JSON.parse(localStorage.getItem("users")) || [];
+          // ncrData = records ? records : data;
+          if (records) {
+            try {
+              ncrData = JSON.parse(records); // ← FIX
+            } catch (e) {
+              console.error("Invalid NCR localStorage data – resetting.", e);
+              ncrData = data;
+            }
+          } else {
+            ncrData = data; // fallback to JSON file
+          }
           filteredData = [...ncrData];
           renderTable();
         })
@@ -461,21 +525,12 @@
           const row = `
             <tr>
               <td>${item.ncrNumber}</td>
-              <td>${
-                item.currentStage.charAt(0).toUpperCase() +
-                item.currentStage.slice(1)
-              }</td>
+              
               <td>${formattedDate}</td>
               <td>${item.supplierName}</td>
-              <td class="action-cell"><a href="detailedViewNCR.html?ncr=${
-                item.ncrNumber
-              }" class="view-ncr">View</a>
-              <a href="edit-ncr.html" onClick="selectedLog('${
-                item.ncrNumber
-              }')" class="view-ncr">Edit</a>
-              <a class="generate-pdf-btn" onclick='generateSinglePDF("${
-                item.id
-              }")'>PDF</a></td>
+              <td><a href="detailedViewNCR.html?ncr=${item.ncrNumber}" class="view-ncr">View</a></td>
+              <td><a href="edit-ncr.html" onClick="selectedLog('${item.ncrNumber}')" class="view-ncr">Edit</a></td>
+              <td><button class="generate-pdf-btn" onclick='generateSinglePDF("${item.id}")'>PDF</button></td>
             </tr>
           `;
           tableBody.innerHTML += row;
@@ -595,11 +650,28 @@
 
       // PDF Generation Functions
       function generateSinglePDF(ncrId) {
-        const ncr = ncrData.find((n) => n.id === ncrId);
+        const ncr = ncrData.find((n) => n.ncrId === Number(ncrId));
+
+        console.log(ncrId);
+
         if (!ncr) {
           alert("NCR not found!");
           return;
         }
+        const creator = users.find(
+          (u) => Number(u.userId) === Number(ncr.createdBy)
+        );
+        const creatorName = creator
+          ? `${creator.firstName} ${creator.lastName}`
+          : "Unknown";
+        const creatorEmail = creator ? creator.email : "N/A";
+
+        const inspector = users.find(
+          (u) => Number(u.userId) === Number(ncr.quality.inspectorId)
+        );
+        const inspectorName = inspector
+          ? `${inspector.firstName} ${inspector.lastName}`
+          : "Unknown";
 
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
@@ -653,12 +725,12 @@
         doc.setFont(undefined, "bold");
         doc.text("Created By:", 15, yPos);
         doc.setFont(undefined, "normal");
-        doc.text(ncr.createdBy, 50, yPos);
+        doc.text(String(creatorName), 50, yPos);
 
         doc.setFont(undefined, "bold");
         doc.text("Email:", 120, yPos);
         doc.setFont(undefined, "normal");
-        doc.text(ncr.createdByEmail, 140, yPos);
+        doc.text(creatorEmail, 140, yPos);
         yPos += 7;
 
         doc.setFont(undefined, "bold");
@@ -669,13 +741,13 @@
         doc.setFont(undefined, "bold");
         doc.text("Inspection Date:", 120, yPos);
         doc.setFont(undefined, "normal");
-        doc.text(formatDate(ncr.inspectionDate), 155, yPos);
+        doc.text(formatDate(ncr.quality.inspectionDate), 155, yPos);
         yPos += 7;
 
         doc.setFont(undefined, "bold");
         doc.text("Inspector ID:", 15, yPos);
         doc.setFont(undefined, "normal");
-        doc.text(ncr.inspectorId, 50, yPos);
+        doc.text(inspectorName, 50, yPos);
 
         doc.setFont(undefined, "bold");
         doc.text("Current Stage:", 120, yPos);
@@ -703,25 +775,25 @@
         doc.setFont(undefined, "bold");
         doc.text("Item Description:", 15, yPos);
         doc.setFont(undefined, "normal");
-        const itemDesc = doc.splitTextToSize(ncr.itemDescription, 130);
+        const itemDesc = doc.splitTextToSize(ncr.quality.itemDescription, 130);
         doc.text(itemDesc, 50, yPos);
         yPos += itemDesc.length * 7;
 
         doc.setFont(undefined, "bold");
         doc.text("PO Number:", 15, yPos);
         doc.setFont(undefined, "normal");
-        doc.text(ncr.poNumber, 50, yPos);
+        doc.text(ncr.quality.poNumber, 50, yPos);
 
         doc.setFont(undefined, "bold");
         doc.text("SO Number:", 120, yPos);
         doc.setFont(undefined, "normal");
-        doc.text(ncr.salesOrderNumber, 155, yPos);
+        doc.text(ncr.quality.salesOrderNumber, 155, yPos);
         yPos += 7;
 
         doc.setFont(undefined, "bold");
         doc.text("Process Type:", 15, yPos);
         doc.setFont(undefined, "normal");
-        doc.text(ncr.processType.toUpperCase(), 50, yPos);
+        doc.text(ncr.ncrType.toUpperCase(), 50, yPos);
         yPos += 15;
 
         // Section: Quantity Information
@@ -738,18 +810,22 @@
         doc.setFont(undefined, "bold");
         doc.text("Quantity Received:", 15, yPos);
         doc.setFont(undefined, "normal");
-        doc.text(ncr.quantityReceived.toString(), 60, yPos);
+        doc.text(ncr.quality.quantityReceived.toString(), 60, yPos);
 
         doc.setFont(undefined, "bold");
         doc.text("Quantity Defective:", 120, yPos);
         doc.setFont(undefined, "normal");
-        doc.text(ncr.quantityDefective.toString(), 165, yPos);
+        doc.text(ncr.quality.quantityDefective.toString(), 165, yPos);
         yPos += 7;
 
         doc.setFont(undefined, "bold");
         doc.text("Item Status:", 15, yPos);
         doc.setFont(undefined, "normal");
-        doc.text(ncr.itemStatus.toUpperCase(), 60, yPos);
+        doc.text(
+          ncr.quality.itemMarkedNonconforming ? "NON-CONFORMING" : "CONFORMING",
+          60,
+          yPos
+        );
         yPos += 15;
 
         // Section: Defect Description
@@ -764,7 +840,10 @@
 
         doc.setFontSize(10);
         doc.setFont(undefined, "normal");
-        const defectDesc = doc.splitTextToSize(ncr.defectDescription, 180);
+        const defectDesc = doc.splitTextToSize(
+          ncr.quality.defectDescription,
+          180
+        );
         doc.text(defectDesc, 15, yPos);
         yPos += defectDesc.length * 7 + 10;
 
@@ -787,29 +866,43 @@
         doc.setFont(undefined, "bold");
         doc.text("Engineering Required:", 15, yPos);
         doc.setFont(undefined, "normal");
-        doc.text(ncr.engineeringRequired ? "YES" : "NO", 65, yPos);
+        doc.text(ncr.quality.engineeringRequired ? "YES" : "NO", 65, yPos);
         yPos += 7;
 
         doc.setFont(undefined, "bold");
         doc.text("Quality Completed:", 15, yPos);
         doc.setFont(undefined, "normal");
-        doc.text(ncr.qualityCompleted ? "YES" : "NO", 65, yPos);
+        doc.text(ncr.quality.completed ? "YES" : "NO", 65, yPos);
 
-        if (ncr.qualityCompletedAt) {
+        if (ncr.quality.completedAt) {
           doc.setFont(undefined, "bold");
           doc.text("Completed At:", 120, yPos);
           doc.setFont(undefined, "normal");
-          doc.text(formatDate(ncr.qualityCompletedAt), 155, yPos);
+          doc.text(formatDate(ncr.quality.completedAt), 155, yPos);
         }
         yPos += 10;
 
-        if (ncr.resolutionSummary) {
+        // if (ncr.resolutionSummary) {
+        // 	doc.setFont(undefined, "bold");
+        // 	doc.text("Resolution Summary:", 15, yPos);
+        // 	yPos += 7;
+        // 	doc.setFont(undefined, "normal");
+        // 	const resolutionText = doc.splitTextToSize(
+        // 		ncr.resolutionSummary,
+        // 		180
+        // 	);
+        // 	doc.text(resolutionText, 15, yPos);
+        // 	yPos += resolutionText.length * 7 + 10;
+        // }
+
+        if (ncr.engineering && ncr.engineering.dispositionDetails) {
           doc.setFont(undefined, "bold");
           doc.text("Resolution Summary:", 15, yPos);
           yPos += 7;
+
           doc.setFont(undefined, "normal");
           const resolutionText = doc.splitTextToSize(
-            ncr.resolutionSummary,
+            ncr.engineering.dispositionDetails,
             180
           );
           doc.text(resolutionText, 15, yPos);
@@ -820,7 +913,7 @@
           doc.setFont(undefined, "bold");
           doc.text("Closed By:", 15, yPos);
           doc.setFont(undefined, "normal");
-          doc.text(ncr.closedBy || "N/A", 50, yPos);
+          doc.text(String(ncr.closedBy || "N/A"), 50, yPos);
 
           doc.setFont(undefined, "bold");
           doc.text("Date Closed:", 120, yPos);

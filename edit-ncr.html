@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="create-ncr.css">
     <link rel="stylesheet" href="tstyle.css">
     <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="notification.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,67 +23,71 @@
   </head>
 
   <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Header section  -->
     <header>
-			<nav>
-				<div class="navbar">
-					<div>
-						<a href="index.html"
-							><img
-								src="images/Crossfire Logo-transparent.png"
-								alt="Crossfire Logo"
-								class="logo"
-						/></a>
-					</div>
-					<div class="navbar-links">
-						<ul>
-							<li>
-								<a href="index.html"
-									><i class="bi bi-house-fill"></i> Dashboard</a
-								>
-							</li>
-							<li>
-								<a href="view-ncr.html"
-									><i
-										class="bi bi-file-earmark-bar-graph-fill"
-										style="font-weight: 900"></i>
-									NCR Log</a
-								>
-							</li>
-							<li>
-								<a href="create-ncr.html"
-									><i class="bi bi-file-earmark-plus-fill"></i> Create NCR</a
-								>
-							</li>
-						</ul>
-					</div>
-					<div class="navbar-icons">
-						<div
-							onclick="closePopUp()"
-							title="Notifications"
-							class="navbar-notification">
-							<i id="notification-icon" class="bi bi-bell-fill"></i>
-						</div>
-						<div onclick="toggleMenu()" title="Menu" class="navbar-menu">
-							<i id="menu-icon"></i>
-						</div>
-					</div>
-					<div
-						id="notificationPopup"
-						title="Notifications"
-						class="notification-popup hidden">
-						<p>No new notifications</p>
-					</div>
-				</div>
-			</nav>
-		</header>
+      <nav>
+        <div class="navbar">
+          <div>
+            <a href="dashboard.html"><img
+                src="images/crossfire-logo-transparent.png"
+                alt="Crossfire Logo"
+                class="logo"></a>
+          </div>
+          <div class="navbar-links">
+            <ul>
+              <li>
+                <a href="dashboard.html"><i class="bi bi-house-fill"></i>
+                  Dashboard</a>
+              </li>
+              <li>
+                <a href="view-ncr.html"><i
+                    class="bi bi-file-earmark-bar-graph-fill"
+                    style="font-weight: 900"></i>
+                  NCR Log</a>
+              </li>
+              <li>
+                <a href="create-ncr.html"><i
+                    class="bi bi-file-earmark-plus-fill"></i> Create NCR</a>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-icons">
+            <div
+              onclick="closePopUp()"
+              title="Notifications"
+              class="navbar-notification">
+              <i id="notification-icon" class="bi bi-bell-fill"></i>
+              <div id="notification-indicator" class="notification-indicator">4</div>
+            </div>
+            <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
+              <i id="menu-icon"></i>
+            </div>
+          </div>
+          <div
+            id="notificationPopup"
+            title="Notifications"
+            class="notification-popup hidden">
+            <!-- Notifications -->
+            <div>
+              <h3 class="notification-title">Notifications</h3>
+              <p id="no-notifications" class="no-notifications">No notifications
+                yet</p>
+              <ul class="notification-list"></ul>
+            </div>
 
-    <main id="main-content">
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content" role="main">
       <!-- Quality Section  -->
       <div class="accordion accordion--radio">
-        <div class="role-tab">
+        <div id="quality-section" class="role-tab">
           <input type="checkbox" id="rd1" class="tab-input">
-          <label for="rd1" class="tab__label">Quality Inspector Section</label>
+          <label for="rd1" aria-controls="section-quality" aria-label="Quality Inspection Section" class="tab__label">Quality Inspector Section</label>
           <div class="tab_content">
             <div class="accordion-container">
               <div class="role-head">
@@ -385,7 +390,7 @@
       <div class="accordion accordion--radio">
         <div class="role-tab">
           <input type="checkbox" id="rd2" class="tab-input">
-          <label for="rd2" class="tab__label">Engineering Section</label>
+          <label for="rd2" class="tab__label" aria-controls="section-engineer" aria-label="Engineering Section">Engineering Section</label>
           <div class="tab_content">
             <div class="accordion-container">
               <div class="role-head">
@@ -400,18 +405,18 @@
                     <div class="meta-item">
                       <span class="meta-label">Updated On</span>
                       <time datetime="2025-11-08" class="meta-value"
-                        id="date-updated-eng">Loading..</time>
+                        id="date-updated-eng">-</time>
                     </div>
                     <div class="meta-item">
                       <span class="meta-label">Revision Number</span>
                       <span class="meta-value"
-                        id="revision-number">A1</span>
+                        id="revision-number">#</span>
                     </div>
                     <div class="meta-item">
                       <span class="meta-label">Updated Revision No</span>
                       <span class="meta-value" id="updated-revision-number"
                         role="status"
-                        aria-live="polite">A1</span>
+                        aria-live="polite">#</span>
                     </div>
                   </div>
                 </header>
@@ -425,8 +430,9 @@
                     required
                   </aside>
 
-                  <div>
-                    <p>Select Type</p>
+                  <div class="spacing-form">
+                    <div>
+                      <p>Select Type</p>
                     <div class="radio-group">
                       <input class="radio-input" name="log-type" id="use-as-is"
                         value="Use As Is" type="radio">
@@ -456,6 +462,7 @@
                         Scrap
                       </label>
                     </div>
+                    </div>
 
                     <div>
                       <p>Does the customer require notification of NCR?</p>
@@ -478,7 +485,7 @@
 
                     <div id="showMessageBox">
                       <p>Message</p>
-                      <textarea name="item_description"
+                      <textarea id="engineer-message" name="item_description"
                         placeholder="Enter issue details addressed by customer."
                         required aria-required="true"
                         aria-describedby="item_help"></textarea>
@@ -513,17 +520,38 @@
                       </div>
                     </div>
 
+                    <div>
+                      <p>Revision Number</p>
+                      <input
+                                type="text"
+                                id="revision-input"
+                                name="revisionNumber"
+                                placeholder="13244"
+                                required
+                                aria-required="true">
+                    </div>
+                    <div>
+                      <p>Updated Revision Number</p>
+                      <input
+                                type="text"
+                                id="updated-revision-input"
+                                name="updatedRevisionNumber"
+                                placeholder="13244"
+                                required
+                                aria-required="true">
+                    </div>
+
                     <footer class="form-footer">
                       <button type="button" class="btn-outline"
                         onclick="window.location.href='index.html'">
                         <i class="bi bi-x-circle" aria-hidden="true"></i>
                         <span>Cancel</span>
                       </button>
-                      <button type="button" class="btn-secondary"
+                      <!-- <button type="button" class="btn-secondary"
                         id="saveEngineerDraft">
                         <i class="bi bi-save" aria-hidden="true"></i>
                         <span>Save as Draft</span>
-                      </button>
+                      </button> -->
                       <button type="submit" class="btn-primary"
                         id="submitEngineerForm">
                         <i class="bi bi-send" aria-hidden="true"></i>
@@ -661,8 +689,20 @@
     <!-- <script src="scripts/data-manager.js"></script> -->
 
     <!-- <script src="scripts/ncr-form.js"></script> -->
+    <script>
+   document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(
+    "#quality-section input, #quality-section textarea, #quality-section select, #quality-section button"
+  ).forEach((el) => {
+    el.disabled = true;
+  });
 
+  document.getElementById("rd1").disabled = false;
+  document.getElementById("rd2").disabled = false;
+});
+</script>
     <script src="scripts/script.js"></script>
+    <script src="scripts/notifications.js"></script>
     <script src="scripts/edit-ncr-script.js"></script>
   </body>
 </html>

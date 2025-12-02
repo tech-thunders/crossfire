@@ -11,6 +11,10 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="header.css" />
     <link rel="stylesheet" href="notification.css" />
     <title>View NCRs</title>
@@ -183,60 +187,6 @@
         font-size: 20px;
       }
 
-      /* Container for all filters */
-      .filter-container {
-        display: flex;
-        flex-wrap: wrap;
-        /* Wrap on small screens */
-        justify-content: center;
-        align-items: flex-end;
-        gap: 15px;
-        margin-bottom: 10px;
-      }
-
-      /* Each input/select wrapper */
-      .filter-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-size: 14px;
-        gap: 5px;
-      }
-
-      /* Inputs & selects */
-      .filter-item input {
-        padding: 4px 8px;
-        margin: 0;
-        height: 28px;
-        line-height: 1;
-        font-size: 14px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        min-width: 140px;
-        margin-bottom: 20px;
-      }
-
-      /* Collapsible filter section */
-      .collapse {
-        display: none;
-        /* hidden by default */
-      }
-
-      /* Optional: styling toggle button */
-      .filter-toggle-btn {
-        background-color: #2f6ea3;
-        color: white;
-        padding: 8px 12px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-bottom: 10px;
-      }
-
-      .filter-toggle-btn:hover {
-        background-color: #4a8bc0;
-      }
-
       /* Mobile responsiveness */
       @media screen and (max-width: 600px) {
         .filter-container {
@@ -380,36 +330,94 @@
           <button class="filter-btn" data-status="Closed">Closed</button>
         </div>
 
-        <button id="toggle-filters" class="filter-toggle-btn">
+        <!-- Filter Button -->
+        <button
+          id="toggle-filters"
+          data-bs-toggle="collapse"
+          data-bs-target="#filtersBox"
+          style="
+            background-color: #2f6ea3;
+            min-width: 150px;
+            color: #fff;
+            padding: 5px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: 1px solid #2f6ea3;
+          "
+        >
           Show Filters
         </button>
-        <div class="filter-container collapse">
-          <div class="filter-item">
-            <label for="filter-ncr">NCR No:</label>
-            <input
-              type="text"
-              id="filter-ncr"
-              placeholder="Filter by NCR No."
-            />
-          </div>
 
-          <div class="filter-item">
-            <label for="filter-supplier">Supplier:</label>
-            <input
-              type="text"
-              id="filter-supplier"
-              placeholder="Filter by Supplier"
-            />
-          </div>
+        <div id="filtersBox" class="collapse">
+          <div
+            class="p-4 rounded-3 shadow-sm"
+            style="
+              background: #f8f9fa;
+              border: 1px solid #ddd;
+              margin-bottom: 10px;
+            "
+          >
+            <div class="row g-3">
+              <div class="col-md-3">
+                <label for="filter-ncr" class="form-label fw-semibold"
+                  >NCR No:</label
+                >
+                <input
+                  type="text"
+                  id="filter-ncr"
+                  placeholder="Filter by NCR No."
+                  class="form-control border-secondary"
+                />
+              </div>
 
-          <div class="filter-item">
-            <label for="filter-start-date">Start Date:</label>
-            <input type="date" id="filter-start-date" />
-          </div>
+              <div class="col-md-3">
+                <label for="filter-supplier" class="form-label fw-semibold"
+                  >Supplier:</label
+                >
+                <input
+                  type="text"
+                  id="filter-supplier"
+                  placeholder="Filter by Supplier"
+                  class="form-control border-secondary"
+                />
+              </div>
 
-          <div class="filter-item">
-            <label for="filter-end-date">End Date:</label>
-            <input type="date" id="filter-end-date" />
+              <div class="col-md-3">
+                <label for="filter-start-date" class="form-label fw-semibold"
+                  >Start Date:</label
+                >
+                <input
+                  type="date"
+                  id="filter-start-date"
+                  class="form-control border-secondary"
+                />
+              </div>
+
+              <div class="col-md-3">
+                <label for="filter-end-date" class="form-label fw-semibold"
+                  >End Date:</label
+                >
+                <input
+                  type="date"
+                  id="filter-end-date"
+                  class="form-control border-secondary"
+                />
+              </div>
+            </div>
+            <button
+              id="clear-filters"
+              style="
+                background-color: #2f6ea3;
+                min-width: 150px;
+                color: #fff;
+                padding: 5px;
+                margin-bottom: 10px;
+                border-radius: 8px;
+                border: 1px solid #2f6ea3;
+              "
+            >
+              Clear Filters
+            </button>
           </div>
         </div>
 
@@ -559,16 +567,16 @@
 
       // Search
       const toggleBtn = document.getElementById("toggle-filters");
-      const filterContainer = document.querySelector(".filter-container");
+      const filtersBox = document.getElementById("filtersBox");
 
-      toggleBtn.addEventListener("click", () => {
-        if (filterContainer.style.display === "flex") {
-          filterContainer.style.display = "none";
-          toggleBtn.textContent = "Show Filters";
-        } else {
-          filterContainer.style.display = "flex";
-          toggleBtn.textContent = "Hide Filters";
-        }
+      // When collapse is shown
+      filtersBox.addEventListener("shown.bs.collapse", () => {
+        toggleBtn.textContent = "Hide Filters";
+      });
+
+      // When collapse is hidden
+      filtersBox.addEventListener("hidden.bs.collapse", () => {
+        toggleBtn.textContent = "Show Filters";
       });
 
       function applyFilters() {
@@ -628,6 +636,28 @@
           renderTable();
         })
       );
+
+      //Clear filter
+      document.getElementById("clear-filters").addEventListener("click", () => {
+        // Clear all filter inputs
+        document.getElementById("filter-ncr").value = "";
+        document.getElementById("filter-supplier").value = "";
+        document.getElementById("filter-start-date").value = "";
+        document.getElementById("filter-end-date").value = "";
+
+        // Reset filtered data
+        filteredData = [...ncrData];
+        currentPage = 1;
+        renderTable();
+
+        // Reset filter buttons
+        document
+          .querySelectorAll(".filter-btn")
+          .forEach((b) => b.classList.remove("active"));
+        document
+          .querySelector('.filter-btn[data-status="all"]')
+          .classList.add("active");
+      });
 
       // Sorting
       function sortTable(colIndex) {
@@ -945,4 +975,5 @@
       }
     </script>
   </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </html>

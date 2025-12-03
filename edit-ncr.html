@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit NCR - CrossFire</title>
 
-    <link rel="stylesheet" href="create-ncr.css">
+    <link rel="stylesheet" href="edit-ncr.css">
     <link rel="stylesheet" href="tstyle.css">
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="notification.css">
@@ -565,6 +565,406 @@
           </div>
         </div>
       </div>
+      <!-- Purchasing Section  -->
+       <div class="accordion accordion--radio">
+        <div class="role-tab">
+          <input type="checkbox" id="rd3" class="tab-input">
+          <label for="rd3" class="tab__label" aria-controls="section-purchasing" aria-label="Purchasing Section">Purchasing Section</label>
+          <div class="tab_content">
+            <div class="accordion-container">
+              <div class="role-head">
+                <header class="form-header">
+                       <div class="meta-info" role="contentinfo" aria-label="NCR metadata">
+          <div class="meta-item">
+            <span class="meta-label">Updated By</span>
+            <span class="meta-value" id="purchasingOperationsId">-</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Updated On</span>
+            <time datetime="" class="meta-value" id="date-updated-purch-ops">-</time>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Status</span>
+            <span class="meta-value" id="purch-ops-status">Pending</span>
+          </div>
+        </div>  
+                  
+                </header>
+                <!-- Form  -->
+                      <form id="purchasing-operations-form" action="#" method="post">
+        <aside class="notice" role="note" aria-label="Required fields notice">
+          <i class="bi bi-info-circle" aria-hidden="true"></i>
+          Fields marked with <span class="required">*</span> are required
+        </aside>
+
+        <!-- OPERATIONS PRELIMINARY DECISION FIELDSET -->
+        <fieldset>
+          <legend>
+            <i class="bi bi-gear-fill" aria-hidden="true"></i>
+            Operations Preliminary Decision
+          </legend>
+
+          <div class="spacing-form">
+            <!-- 1. Preliminary Decision -->
+            <div class="form-group">
+              <label for="preliminary-decision">
+                Preliminary Decision <span class="required">*</span>
+              </label>
+              <div class="radio-group">
+                <input class="radio-input" name="preliminary-decision" 
+                       id="return-supplier" value="Return to Supplier" type="radio" required>
+                <label class="radio-label" for="return-supplier">
+                  <span class="radio-inner-circle"></span>
+                  Return to Supplier
+                </label>
+
+                <input class="radio-input" name="preliminary-decision" 
+                       id="rework-inhouse" value="Rework In-House" type="radio" required>
+                <label class="radio-label" for="rework-inhouse">
+                  <span class="radio-inner-circle"></span>
+                  Rework In-House
+                </label>
+
+                <input class="radio-input" name="preliminary-decision" 
+                       id="scrap-inhouse" value="Scrap in House" type="radio" required>
+                <label class="radio-label" for="scrap-inhouse">
+                  <span class="radio-inner-circle"></span>
+                  Scrap in House
+                </label>
+              </div>
+            </div>
+
+            <!-- 2. Operations Manager -->
+            <div class="form-group">
+              <label for="operations-manager">
+                Operations Manager <span class="required">*</span>
+              </label>
+              <select id="operations-manager" name="operations-manager" required>
+                <option value="">Select Operations Manager</option>
+                <option value="OM001">Sarah Mitchell</option>
+                <option value="OM002">David Park</option>
+                <option value="OM003">Jennifer Liu</option>
+                <option value="OM004">Michael Stevens</option>
+              </select>
+            </div>
+
+            <!-- 3. Action Date -->
+            <div class="form-group">
+              <label for="action-date">
+                Action Date <span class="required">*</span>
+              </label>
+              <input type="date" id="action-date" name="action-date" required>
+            </div>
+
+            <!-- 4. Action Taken -->
+            <div class="form-group">
+              <label for="action-taken">
+                Action Taken <span class="required">*</span>
+              </label>
+              <textarea id="action-taken" name="action-taken" 
+                        placeholder="Describe the action taken to address this NCR..." 
+                        required></textarea>
+            </div>
+
+            <!-- 5. CAR Required -->
+            <div class="form-group">
+              <div class="checkbox-group">
+                <input type="checkbox" id="car-required" name="car-required" 
+                       class="checkbox-input">
+                <label for="car-required" class="checkbox-label">
+                  <span class="checkbox-box"></span>
+                  Corrective Action Request (CAR) Required
+                </label>
+              </div>
+            </div>
+
+            <!-- 6. CAR Number (conditional - hidden by default) -->
+            <div class="form-group" id="car-number-group" style="display: none;">
+              <label for="car-number">
+                CAR Number <span class="required">*</span>
+              </label>
+              <input type="text" id="car-number" name="car-number" 
+                     placeholder="e.g., CAR-2025-001">
+            </div>
+
+            <!-- 7. Follow-up Required -->
+            <div class="form-group">
+              <div class="checkbox-group">
+                <input type="checkbox" id="follow-up-required" name="follow-up-required" 
+                       class="checkbox-input">
+                <label for="follow-up-required" class="checkbox-label">
+                  <span class="checkbox-box"></span>
+                  Follow-up Required
+                </label>
+              </div>
+            </div>
+
+            <!-- 8. Follow-up Type (conditional - hidden by default) -->
+            <div class="form-group" id="follow-up-type-group" style="display: none;">
+              <label for="follow-up-type">
+                Follow-up Type <span class="required">*</span>
+              </label>
+              <input type="text" id="follow-up-type" name="follow-up-type" 
+                     placeholder="e.g., Supplier audit, Process review, etc.">
+            </div>
+
+            <!-- 9. Expected Date (conditional - hidden by default) -->
+            <div class="form-group" id="expected-date-group" style="display: none;">
+              <label for="expected-date">
+                Expected Completion Date <span class="required">*</span>
+              </label>
+              <input type="date" id="expected-date" name="expected-date">
+            </div>
+          </div>
+        </fieldset>
+
+               <fieldset>
+          <legend>
+            <i class="bi bi-truck" aria-hidden="true"></i>
+            Purchasing / Supplier Coordination
+          </legend>
+
+          <div class="spacing-form">
+            <!-- 10. Buyer/Purchasing Agent -->
+            <div class="form-group">
+              <label for="buyer-id">
+                Purchasing Agent <span class="required">*</span>
+              </label>
+              <select id="buyer-id" name="buyer-id" required>
+                <option value="">Select Purchasing Agent</option>
+                <option value="PA001">Robert Chen</option>
+                <option value="PA002">Amanda Rodriguez</option>
+                <option value="PA003">Thomas Anderson</option>
+                <option value="PA004">Lisa Wong</option>
+              </select>
+            </div>
+
+            <!-- 11. Supplier Return -->
+            <div class="form-group">
+              <label>
+                Does Supplier Want Items Returned? <span class="required">*</span>
+              </label>
+              <div class="radio-group">
+                <input class="radio-input" name="supplier-return" 
+                       id="supplier-return-yes" value="Yes" type="radio" required>
+                <label class="radio-label" for="supplier-return-yes">
+                  <span class="radio-inner-circle"></span>
+                  Yes
+                </label>
+
+                <input class="radio-input" name="supplier-return" 
+                       id="supplier-return-no" value="No" type="radio" required>
+                <label class="radio-label" for="supplier-return-no">
+                  <span class="radio-inner-circle"></span>
+                  No
+                </label>
+              </div>
+            </div>
+
+            <!-- 12. RMA Number (conditional - hidden by default) -->
+            <div class="form-group" id="rma-number-group" style="display: none;">
+              <label for="rma-number">
+                RMA Number <span class="required">*</span>
+              </label>
+              <input type="text" id="rma-number" name="rma-number" 
+                     placeholder="Return Material Authorization number">
+            </div>
+
+            <!-- 13. Carrier Account (conditional - hidden by default) -->
+            <div class="form-group" id="carrier-account-group" style="display: none;">
+              <label for="carrier-account">
+                Carrier Account Information <span class="required">*</span>
+              </label>
+              <input type="text" id="carrier-account" name="carrier-account" 
+                     placeholder="Shipping carrier and account number">
+            </div>
+
+            <!-- 14. Dispose On-Site (conditional - hidden by default) -->
+            <div class="form-group" id="dispose-onsite-group" style="display: none;">
+              <div class="checkbox-group">
+                <input type="checkbox" id="dispose-onsite" name="dispose-onsite" 
+                       class="checkbox-input">
+                <label for="dispose-onsite" class="checkbox-label">
+                  <span class="checkbox-box"></span>
+                  Dispose of items on-site
+                </label>
+              </div>
+            </div>
+
+            <!-- 15. Replacement Date -->
+            <div class="form-group">
+              <label for="replacement-date">
+                Expected Replacement/Rework Date <span class="required">*</span>
+              </label>
+              <input type="date" id="replacement-date" name="replacement-date" required>
+            </div>
+
+            <!-- 16. SAP Completed -->
+            <div class="form-group">
+              <div class="checkbox-group">
+                <input type="checkbox" id="sap-completed" name="sap-completed" 
+                       class="checkbox-input">
+                <label for="sap-completed" class="checkbox-label">
+                  <span class="checkbox-box"></span>
+                  SAP System Updated
+                </label>
+              </div>
+            </div>
+
+            <!-- 17. Credit Expected -->
+            <div class="form-group">
+              <div class="checkbox-group">
+                <input type="checkbox" id="credit-expected" name="credit-expected" 
+                       class="checkbox-input">
+                <label for="credit-expected" class="checkbox-label">
+                  <span class="checkbox-box"></span>
+                  Expecting Credit from Supplier
+                </label>
+              </div>
+            </div>
+
+            <!-- 18. Credit Amount (conditional - hidden by default) -->
+            <div class="form-group" id="credit-amount-group" style="display: none;">
+              <label for="credit-amount">
+                Credit Amount <span class="required">*</span>
+              </label>
+              <input type="number" id="credit-amount" name="credit-amount" 
+                     min="0" step="0.01" placeholder="0.00">
+            </div>
+
+            <!-- 19. Billing Supplier -->
+            <div class="form-group">
+              <div class="checkbox-group">
+                <input type="checkbox" id="billing-supplier" name="billing-supplier" 
+                       class="checkbox-input">
+                <label for="billing-supplier" class="checkbox-label">
+                  <span class="checkbox-box"></span>
+                  Billing Supplier for Expenses
+                </label>
+              </div>
+            </div>
+
+            <!-- 20. Billing Amount (conditional - hidden by default) -->
+            <div class="form-group" id="billing-amount-group" style="display: none;">
+              <label for="billing-amount">
+                Billing Amount <span class="required">*</span>
+              </label>
+              <input type="number" id="billing-amount" name="billing-amount" 
+                     min="0" step="0.01" placeholder="0.00">
+            </div>
+          </div>
+        </fieldset>
+              <fieldset>
+          <legend>
+            <i class="bi bi-check-circle" aria-hidden="true"></i>
+            Re-Inspection & Closure
+          </legend>
+
+          <div class="spacing-form">
+            <!-- 21. Re-Inspection Acceptable -->
+            <div class="form-group">
+              <label>
+                Re-Inspection Result <span class="required">*</span>
+              </label>
+              <div class="radio-group">
+                <input class="radio-input" name="re-inspection-acceptable" 
+                       id="re-inspection-yes" value="Yes" type="radio" required>
+                <label class="radio-label" for="re-inspection-yes">
+                  <span class="radio-inner-circle"></span>
+                  Acceptable - Close NCR
+                </label>
+
+                <input class="radio-input" name="re-inspection-acceptable" 
+                       id="re-inspection-no" value="No" type="radio" required>
+                <label class="radio-label" for="re-inspection-no">
+                  <span class="radio-inner-circle"></span>
+                  Not Acceptable - Create New NCR
+                </label>
+              </div>
+            </div>
+
+            <!-- 22. New NCR Number (conditional - hidden by default) -->
+            <div class="form-group" id="new-ncr-number-group" style="display: none;">
+              <label for="new-ncr-number">
+                New NCR Number <span class="required">*</span>
+              </label>
+              <input type="text" id="new-ncr-number" name="new-ncr-number" 
+                     placeholder="e.g., 2025-XXX" readonly>
+              <small style="color: #6b7280; font-size: 0.75rem;">
+                Auto-generated when you save
+              </small>
+            </div>
+
+            <!-- 23. New NCR Reason (conditional - hidden by default) -->
+            <div class="form-group" id="new-ncr-reason-group" style="display: none;">
+              <label for="new-ncr-reason">
+                Reason for New NCR <span class="required">*</span>
+              </label>
+              <textarea id="new-ncr-reason" name="new-ncr-reason" 
+                        placeholder="Explain why the corrective action was not acceptable..."></textarea>
+            </div>
+
+            <!-- 24. Inspector ID -->
+            <div class="form-group">
+              <label for="inspector-id">
+                Quality Inspector <span class="required">*</span>
+              </label>
+              <select id="inspector-id" name="inspector-id" required>
+                <option value="">Select Inspector</option>
+                <option value="QI001">Emma Johnson</option>
+                <option value="QI002">Michael Chen</option>
+                <option value="QI003">Sarah Williams</option>
+                <option value="QI004">David Martinez</option>
+              </select>
+            </div>
+
+            <!-- 25. Re-Inspection Date -->
+            <div class="form-group">
+              <label for="re-inspection-date">
+                Re-Inspection Date <span class="required">*</span>
+              </label>
+              <input type="date" id="re-inspection-date" name="re-inspection-date" required>
+            </div>
+
+            <!-- 26. NCR Closed Date (auto-filled, read-only) -->
+            <div class="form-group">
+              <label for="ncr-closed-date">
+                NCR Closed Date
+              </label>
+              <input type="date" id="ncr-closed-date" name="ncr-closed-date" readonly>
+              <small style="color: #6b7280; font-size: 0.75rem;">
+                Auto-filled when NCR is closed
+              </small>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- FORM ACTION BUTTONS -->
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" id="cancel-btn">
+            <i class="bi bi-x-circle" aria-hidden="true"></i>
+            Cancel
+          </button>
+          <button type="button" class="btn btn-outline" id="save-draft-btn">
+            <i class="bi bi-save" aria-hidden="true"></i>
+            Save Draft
+          </button>
+          <button type="submit" class="btn btn-primary" id="complete-close-btn">
+            <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
+            Complete & Close NCR
+          </button>
+        </div>
+                      </form>
+
+
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+             
+
     </main>
 
     <div id="preview-modal" class="modal-overlay">

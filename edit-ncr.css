@@ -771,3 +771,72 @@ select.success {
         bottom: 1rem;
     }
 }
+
+/* ============================================
+   PURCHASING/OPERATIONS SECTION SPECIFIC STYLES
+   ============================================ */
+
+/* Form Actions Buttons Container */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+    border-top: 2px solid #e5e7eb;
+    flex-wrap: wrap;
+}
+
+input[readonly] {
+    background-color: #f3f4f6;
+    cursor: not-allowed;
+    color: #6b7280;
+}
+
+input[readonly]:focus {
+    border-color: #d1d5db;
+    box-shadow: none;
+    background-color: #f3f4f6;
+}
+
+/* Number Input - Remove spinner arrows for currency */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/* Legend icon color */
+legend i {
+    color: #5897c9;
+}
+
+/* Disabled button state */
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* ============================================
+   RESPONSIVE ADDITIONS FOR PURCHASING/OPERATIONS
+   ============================================ */
+
+/* Tablet (768px+) */
+@media (min-width: 768px) {
+    .form-actions {
+        flex-wrap: nowrap;
+    }
+}
+
+/* Mobile (<768px) */
+@media (max-width: 767px) {
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .form-actions button {
+        width: 100%;
+    }
+}

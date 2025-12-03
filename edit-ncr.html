@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit NCR - CrossFire</title>
 
-    <link rel="stylesheet" href="create-ncr.css">
+    <link rel="stylesheet" href="edit-ncr.css">
     <link rel="stylesheet" href="tstyle.css">
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="notification.css">
@@ -565,6 +565,310 @@
           </div>
         </div>
       </div>
+      <!-- Purchasing Section  -->
+       <div class="accordion accordion--radio">
+  <div id="operations-section" class="role-tab">
+    <input type="checkbox" id="rd3" class="tab-input">
+    <label for="rd3" class="tab__label">Operations Section</label>
+    <div class="tab_content">
+      <div class="accordion-container">
+        <div class="role-head">
+          <header class="form-header">
+            <div class="meta-info" role="contentinfo" aria-label="Operations metadata">
+              <div class="meta-item">
+                <span class="meta-label">Updated By</span>
+                <span class="meta-value" id="operationsManagerName">-</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Updated On</span>
+                <time datetime="" class="meta-value" id="date-updated-ops">-</time>
+              </div>
+            </div>
+          </header>
+
+          <form action="#" method="post">
+            <aside class="notice" role="note">
+              <i class="bi bi-info-circle"></i>
+              Fields marked with <span class="required">*</span> are required
+            </aside>
+
+            <div class="spacing-form">
+              
+              <!-- 1. Preliminary Decision -->
+              <div>
+                <p>Purchasing's Preliminary Decision <span class="required">*</span></p>
+                <div class="radio-group">
+                  <input class="radio-input" name="ops-decision" 
+                         id="return-supplier" value="Return to Supplier" type="radio">
+                  <label class="radio-label" for="return-supplier">
+                    <span class="radio-inner-circle"></span>
+                    Return to Supplier (rework/replacement)
+                  </label>
+
+                  <input class="radio-input" name="ops-decision" 
+                         id="rework-inhouse" value="Rework In-House" type="radio">
+                  <label class="radio-label" for="rework-inhouse">
+                    <span class="radio-inner-circle"></span>
+                    Rework In-House
+                  </label>
+
+                  <input class="radio-input" name="ops-decision" 
+                         id="scrap-inhouse" value="Scrap" type="radio">
+                  <label class="radio-label" for="scrap-inhouse">
+                    <span class="radio-inner-circle"></span>
+                    Scrap in House
+                  </label>
+                </div>
+              </div>
+
+              <!-- 2. CAR Required -->
+              <div>
+                <p>Was CAR (Corrective Action Report) raised?</p>
+                <div class="radio-group">
+                  <input class="radio-input" name="car-required" 
+                         id="car-yes" value="yes" type="radio">
+                  <label class="radio-label" for="car-yes">
+                    <span class="radio-inner-circle"></span>
+                    Yes
+                  </label>
+
+                  <input class="radio-input" name="car-required" 
+                         id="car-no" value="no" type="radio">
+                  <label class="radio-label" for="car-no">
+                    <span class="radio-inner-circle"></span>
+                    No
+                  </label>
+                </div>
+              </div>
+
+              <!-- 3. CAR Number (conditional - only if Yes) -->
+              <div id="car-number-field" style="display: none;">
+                <p>CAR Number</p>
+                <input type="text" id="car-number" name="carNumber" 
+                       placeholder="CAR-XXX">
+              </div>
+
+              <!-- 4. Follow-up Required -->
+              <div>
+                <p>Follow-up Required?</p>
+                <div class="radio-group">
+                  <input class="radio-input" name="followup-required" 
+                         id="followup-yes" value="yes" type="radio">
+                  <label class="radio-label" for="followup-yes">
+                    <span class="radio-inner-circle"></span>
+                    Yes
+                  </label>
+
+                  <input class="radio-input" name="followup-required" 
+                         id="followup-no" value="no" type="radio">
+                  <label class="radio-label" for="followup-no">
+                    <span class="radio-inner-circle"></span>
+                    No
+                  </label>
+                </div>
+              </div>
+
+              <!-- 5. Follow-up Details (conditional - only if Yes) -->
+              <div id="followup-details-field" style="display: none;">
+                <p>Follow-up Type</p>
+                <input type="text" id="followup-type" name="followupType" 
+                       placeholder="e.g., Re-inspection, Quality check">
+                
+                <p style="margin-top: 10px;">Expected Follow-up Date</p>
+                <input type="date" id="followup-date" name="followupDate">
+              </div>
+
+              <!-- 6. Re-Inspection Acceptable -->
+              <div>
+                <p>Re-Inspected Acceptable?</p>
+                <div class="radio-group">
+                  <input class="radio-input" name="reinspection" 
+                         id="reinspect-yes" value="yes" type="radio">
+                  <label class="radio-label" for="reinspect-yes">
+                    <span class="radio-inner-circle"></span>
+                    Yes
+                  </label>
+
+                  <input class="radio-input" name="reinspection" 
+                         id="reinspect-no" value="no" type="radio">
+                  <label class="radio-label" for="reinspect-no">
+                    <span class="radio-inner-circle"></span>
+                    No (Create new NCR)
+                  </label>
+                </div>
+              </div>
+
+
+
+              <!-- 8. Date -->
+              <div>
+                <p>Date <span class="required">*</span></p>
+                <input type="date" id="ops-date" name="opsDate" required>
+              </div>
+
+              <!-- Footer Buttons -->
+              <footer class="form-footer">
+                <button type="button" class="btn-outline" 
+                        onclick="window.location.href='view-ncr.html'">
+                  <i class="bi bi-x-circle"></i>
+                  <span>Cancel</span>
+                </button>
+                <button type="submit" class="btn-primary" id="submitOperationsForm">
+                  <i class="bi bi-send"></i>
+                  <span>Publish & Send to Procurement</span>
+                </button>
+              </footer>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Procurement/Purchase section -->
+
+      <div class="accordion accordion--radio">
+  <div id="procurement-section" class="role-tab">
+    <input type="checkbox" id="rd4" class="tab-input">
+    <label for="rd4" class="tab__label">Procurement/Purchasing Section</label>
+    <div class="tab_content">
+      <div class="accordion-container">
+        <div class="role-head">
+          <header class="form-header">
+            <div class="meta-info">
+              <div class="meta-item">
+                <span class="meta-label">Updated By</span>
+                <span class="meta-value" id="buyerName">-</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Updated On</span>
+                <time class="meta-value" id="date-updated-proc">-</time>
+              </div>
+            </div>
+          </header>
+
+          <form action="#" method="post">
+            <aside class="notice">
+              <i class="bi bi-info-circle"></i>
+              Fields marked with <span class="required">*</span> are required
+            </aside>
+
+            <div class="spacing-form">
+              
+              <!-- 1. Supplier Return Decision -->
+              <div>
+                <p>Does supplier want items returned? <span class="required">*</span></p>
+                <div class="radio-group">
+                  <input class="radio-input" name="supplier-return" 
+                         id="return-yes" value="yes" type="radio">
+                  <label class="radio-label" for="return-yes">
+                    <span class="radio-inner-circle"></span>
+                    Yes
+                  </label>
+
+                  <input class="radio-input" name="supplier-return" 
+                         id="return-no" value="no" type="radio">
+                  <label class="radio-label" for="return-no">
+                    <span class="radio-inner-circle"></span>
+                    No
+                  </label>
+                </div>
+              </div>
+
+              <!-- 2. Return Details (conditional - if Yes) -->
+              <div id="return-details-field" style="display: none;">
+                <p>RMA Number (Return Material Authorization)</p>
+                <input type="text" id="rma-number" name="rmaNumber" 
+                       placeholder="RMA-XXXXX">
+                
+                <p style="margin-top: 10px;">Carrier Information with Account Number</p>
+                <input type="text" id="carrier-info" name="carrierInfo" 
+                       placeholder="e.g., FedEx-123456, UPS-789012">
+              </div>
+
+              <!-- 3. Dispose On-Site (conditional - if No) -->
+              <div id="dispose-field" style="display: none;">
+                <div class="checkbox-group">
+                  <label>
+                    <input type="checkbox" id="dispose-onsite" name="disposeOnsite">
+                    <span>Dispose on-site (items will not be returned)</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- 4. Replacement Date -->
+              <div>
+                <p>Replacement/Rework Date <span class="required">*</span></p>
+                <small class="help-text">When will replacement or reworked items be received?</small>
+                <input type="date" id="replacement-date" name="replacementDate" required>
+              </div>
+
+              <!-- 5. SAP Completed -->
+              <div>
+                <div class="checkbox-group">
+                  <label>
+                    <input type="checkbox" id="sap-completed" name="sapCompleted">
+                    <span><strong>SAP Completed <span class="required">*</span></strong></span>
+                    <small class="help-text" style="display: block; margin-top: 0.25rem;">
+                      Supplier return has been tracked in SAP system
+                    </small>
+                  </label>
+                </div>
+              </div>
+
+              <!-- 6. Expecting Credit -->
+              <div>
+                <div class="checkbox-group">
+                  <label>
+                    <input type="checkbox" id="credit-expected" name="creditExpected">
+                    <span>Expecting credit from supplier</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- 7. Billing Supplier -->
+              <div>
+                <div class="checkbox-group">
+                  <label>
+                    <input type="checkbox" id="billing-supplier" name="billingSupplier">
+                    <span>Billing supplier for expenses incurred</span>
+                  </label>
+                </div>
+              </div>
+
+
+
+              <!-- 9. Date -->
+              <div>
+                <p>Date <span class="required">*</span></p>
+                <input type="date" id="procurement-date" name="procurementDate" required>
+              </div>
+
+              <!-- Footer Buttons -->
+              <footer class="form-footer">
+                <button type="button" class="btn-outline" 
+                        onclick="window.location.href='view-ncr.html'">
+                  <i class="bi bi-x-circle"></i>
+                  <span>Cancel</span>
+                </button>
+                <button type="submit" class="btn-primary" id="submitProcurementForm">
+                  <i class="bi bi-check-circle"></i>
+                  <span>Complete & Close NCR</span>
+                </button>
+              </footer>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+     
+             
+
     </main>
 
     <div id="preview-modal" class="modal-overlay">

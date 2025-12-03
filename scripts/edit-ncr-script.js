@@ -254,3 +254,60 @@ document
 		alert("NCR updated successfully");
 		window.location.href = "edit-ncr.html";
 	});
+
+
+// Add to edit-ncr-script.js
+
+// === OPERATIONS CONDITIONAL LOGIC ===
+
+// Show/hide CAR number field
+const carYes = document.getElementById('car-yes');
+const carNo = document.getElementById('car-no');
+const carNumberField = document.getElementById('car-number-field');
+
+if (carYes && carNo && carNumberField) {
+  carYes.addEventListener('change', () => {
+    if (carYes.checked) carNumberField.style.display = 'block';
+  });
+  carNo.addEventListener('change', () => {
+    if (carNo.checked) carNumberField.style.display = 'none';
+  });
+}
+
+// Show/hide follow-up details
+const followupYes = document.getElementById('followup-yes');
+const followupNo = document.getElementById('followup-no');
+const followupField = document.getElementById('followup-details-field');
+
+if (followupYes && followupNo && followupField) {
+  followupYes.addEventListener('change', () => {
+    if (followupYes.checked) followupField.style.display = 'block';
+  });
+  followupNo.addEventListener('change', () => {
+    if (followupNo.checked) followupField.style.display = 'none';
+  });
+}
+
+// === PROCUREMENT CONDITIONAL LOGIC ===
+
+// Show/hide return details or dispose field
+const returnYes = document.getElementById('return-yes');
+const returnNo = document.getElementById('return-no');
+const returnDetailsField = document.getElementById('return-details-field');
+const disposeField = document.getElementById('dispose-field');
+
+if (returnYes && returnNo && returnDetailsField && disposeField) {
+  returnYes.addEventListener('change', () => {
+    if (returnYes.checked) {
+      returnDetailsField.style.display = 'block';
+      disposeField.style.display = 'none';
+    }
+  });
+  
+  returnNo.addEventListener('change', () => {
+    if (returnNo.checked) {
+      returnDetailsField.style.display = 'none';
+      disposeField.style.display = 'block';
+    }
+  });
+}

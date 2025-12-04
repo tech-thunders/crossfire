@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Under Construction</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #163451, #5897c9);
+      color: white;
+      text-align: center;
+    }
+
+    .content {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 25px;
+    }
+
+    .icon {
+      font-size: 5rem;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: white;
+      color: #163451;
+      border-radius: 10px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      background: #163451;
+      color: white;
+      border: 2px solid white;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <div class="icon">🚧</div>
+    <h1>Under Construction</h1>
+    <p>We're working on something awesome. Please check back soon!</p>
+
+    <a href="dashboard.html" class="btn">Back to Dashboard</a>
+  </div>
+</body>
+</html>

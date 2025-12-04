@@ -154,8 +154,8 @@
 }
 
 .profile-menu-item:hover {
-  background-color: rgba(88, 151, 201, 0.1);
-}
+  background-color: rgba(88, 151, 201, 0.15);  /* Light blue bg */
+  color: var(--primary) !important;}
 
 .profile-menu-item i {
   font-size: 18px;

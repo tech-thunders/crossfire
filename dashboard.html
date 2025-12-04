@@ -160,20 +160,29 @@
             placeholder="Filter results by NCR No, Supplier Name, Date or Status..."
           />
 
-          <div class="table-container">
+         <div class="table-container">
             <table id="ncrTable">
               <thead>
                 <tr>
-                  <th onclick="sortTable(0)">NCR No. ▲▼</th>
-                  <th onclick="sortTable(2)">Date Created ▲▼</th>
-                  <th onclick="sortTable(3)">Supplier Name ▲▼</th>
-                  <th onclick="sortTable(1)">Current Status ▲▼</th>
+                  <th onclick="sortTable(0)">
+                    NCR No. <i class="bi bi-arrow-down-up"></i>
+                  </th>
+                  <th onclick="sortTable(2)">
+                    Date Created <i class="bi bi-arrow-down-up"></i>
+                  </th>
+                  <th onclick="sortTable(3)">
+                    Supplier Name <i class="bi bi-arrow-down-up"></i>
+                  </th>
+                  <th onclick="sortTable(1)">
+                    Current Status <i class="bi bi-arrow-down-up"></i>
+                  </th>
                   <th colspan="2">Action</th>
                 </tr>
               </thead>
               <tbody id="ncrTableBody"></tbody>
             </table>
           </div>
+
 
           <div class="pagination" id="pagination"></div>
         </div>

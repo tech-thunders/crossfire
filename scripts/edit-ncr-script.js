@@ -1,5 +1,6 @@
 let users = [];
 let allRecords = [];
+let currentUser = {};
 
 const loadUsers = fetch("data/users.json")
 	.then((res) => {
@@ -8,6 +9,7 @@ const loadUsers = fetch("data/users.json")
 	})
 	.then((json) => {
 		allRecords = JSON.parse(localStorage.getItem("ncr_records")) || [];
+		currentUser = JSON.parse(localStorage.getItem("currentUser")) || {};
 		users = json;
 		console.log(users);
 	})
@@ -15,14 +17,12 @@ const loadUsers = fetch("data/users.json")
 
 function findUser(id) {
 	if (!Array.isArray(users)) return null;
-	return users.find((u) => u.userId === id) || null;
+	return users.find((u) => u.userId === Number(id)) || null;
 }
 // Populate the data into Inspector Section
 document.addEventListener("DOMContentLoaded", async () => {
 	await loadUsers;
 
-	// document.getElementById("total-ncr-summary").textContent = allRecords.length;
-	// document.getElementById("active-ncr").textContent = allRecords.filter((r) => r.ncrNumber = "2025-001").length;
 	const selectedNCR = localStorage.getItem("selectedNCR");
 
 	// First checking if there is a selected ncr number and if we have all mock data in the localStorage
@@ -38,8 +38,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 	}
 
 	console.log(record);
-	// If the records are found then populate the data
-	// const user = users && users.find((u) => u.userId === record.createdBy);
 	const user = findUser(record.createdBy);
 
 	//Header
@@ -168,6 +166,114 @@ document.addEventListener("DOMContentLoaded", async () => {
 	}
 
 	// --------------------------------------------------------
+	//populate operations
+	const operationManager = findUser(record.operations.operationsManagerId);
+	document.getElementById(
+		"operationsManagerName"
+	).innerHTML = `${operationManager.firstName} ${operationManager.lastName}`;
+	document.getElementById("date-updated-ops").innerHTML =
+		record.operations.completedAt;
+
+	if (record.operations.operationDecision) {
+		const decisionRadio = document.querySelector(
+			`input[name="ops-decision"][value="${record.operations.operationDecision.trim()}"]`
+		);
+		if (decisionRadio) decisionRadio.checked = true;
+	}
+
+	if (record.operations.carRequired !== null) {
+		const val = record.operations.carRequired ? "yes" : "no";
+
+		const radio = document.querySelector(
+			`input[name="car-required"][value="${val}"]`
+		);
+
+		if (radio) radio.checked = true;
+
+		if (val === "yes") {
+			document.getElementById("car-number-field").style.display = "block";
+			document.getElementById("car-number").value = record.operations.carNumber;
+		}
+	}
+	if (record.operations.followUpRequired !== null) {
+		const val = record.operations.followUpRequired ? "yes" : "no";
+
+		const radio = document.querySelector(
+			`input[name="followup-required"][value="${val}"]`
+		);
+
+		if (radio) radio.checked = true;
+
+		if (val === "yes") {
+			document.getElementById("followup-details-field").style.display = "block";
+			document.getElementById("followup-type").value =
+				record.operations.followUpType;
+			document.getElementById("followup-date").value =
+				record.operations.followUpDate;
+		}
+	}
+	if (record.operations.reInspected !== null) {
+		const val = record.operations.reInspected ? "yes" : "no";
+
+		const radio = document.querySelector(
+			`input[name="reinspection"][value="${val}"]`
+		);
+
+		if (radio) radio.checked = true;
+	}
+
+	if (record.operations.actionDate !== null) {
+		document.getElementById("ops-date").value = record.operations.actionDate;
+	}
+
+	//Populate purchasing
+	const procurementOfficer = findUser(record.procurement.procurementOfficer);
+	document.getElementById("procurementOfficer").textContent = procurementOfficer
+		? `${procurementOfficer.firstName} ${procurementOfficer.lastName}`
+		: "-";
+	document.getElementById("date-updated-proc").textContent =
+		record.procurement.completedAt || "-";
+
+	if (record.procurement.supplierReturn !== null) {
+		const val = record.procurement.supplierReturn ? "yes" : "no";
+
+		const radio = document.querySelector(
+			`input[name="supplier-return"][value="${val}"]`
+		);
+
+		if (radio) radio.checked = true;
+
+		if (val === "yes") {
+			document.getElementById("return-details-field").style.display = "block";
+			document.getElementById("dispose-field").style.display = "none";
+
+			document.getElementById("rma-number").value =
+				record.procurement.rmaNumber || "";
+			document.getElementById("carrier-info").value =
+				record.procurement.carrierAccount || "";
+		} else {
+			document.getElementById("dispose-field").style.display = "block";
+			document.getElementById("return-details-field").style.display = "none";
+
+			document.getElementById("dispose-onsite").checked =
+				record.procurement.disposeOnSite || false;
+		}
+	}
+	// Replacement Date
+	if (record.procurement.replacementDate) {
+		document.getElementById("replacement-date").value =
+			record.procurement.replacementDate;
+	}
+	document.getElementById("sap-completed").checked =
+		record.procurement.sapCompleted || false;
+	document.getElementById("credit-expected").checked =
+		record.procurement.creditExpected || false;
+	document.getElementById("billing-supplier").checked =
+		record.procurement.billingSupplier || false;
+	if (record.procurement.completedAt) {
+		document.getElementById("procurement-date").value =
+			record.procurement.completedAt;
+	}
 });
 
 // Customer require notification NCR
@@ -255,59 +361,182 @@ document
 		window.location.href = "edit-ncr.html";
 	});
 
-
 // Add to edit-ncr-script.js
 
-// === OPERATIONS CONDITIONAL LOGIC ===
+// === OPERATIONS ===
 
-// Show/hide CAR number field
-const carYes = document.getElementById('car-yes');
-const carNo = document.getElementById('car-no');
-const carNumberField = document.getElementById('car-number-field');
+//Car number
+const carYes = document.getElementById("car-yes");
+const carNo = document.getElementById("car-no");
+const carNumberField = document.getElementById("car-number-field");
 
-if (carYes && carNo && carNumberField) {
-  carYes.addEventListener('change', () => {
-    if (carYes.checked) carNumberField.style.display = 'block';
-  });
-  carNo.addEventListener('change', () => {
-    if (carNo.checked) carNumberField.style.display = 'none';
-  });
-}
+carYes.addEventListener("change", () => {
+	if (carYes.checked) {
+		carNumberField.style.display = "block";
+	}
+});
+carNo.addEventListener("change", () => {
+	if (carNo.checked) {
+		carNumberField.style.display = "none";
+	}
+});
 
-// Show/hide follow-up details
-const followupYes = document.getElementById('followup-yes');
-const followupNo = document.getElementById('followup-no');
-const followupField = document.getElementById('followup-details-field');
+// Follow-up Details
+const followYes = document.getElementById("followup-yes");
+const followNo = document.getElementById("followup-no");
+const followupDetails = document.getElementById("followup-details-field");
 
-if (followupYes && followupNo && followupField) {
-  followupYes.addEventListener('change', () => {
-    if (followupYes.checked) followupField.style.display = 'block';
-  });
-  followupNo.addEventListener('change', () => {
-    if (followupNo.checked) followupField.style.display = 'none';
-  });
-}
+followYes.addEventListener("change", () => {
+	if (followYes.checked) {
+		followupDetails.style.display = "block";
+	}
+});
+
+followNo.addEventListener("change", () => {
+	if (followNo.checked) {
+		followupDetails.style.display = "none";
+	}
+});
+//Update Operations Form
+document
+	.getElementById("submitOperationsForm")
+	.addEventListener("click", function (e) {
+		e.preventDefault();
+
+		const selectedNCR = localStorage.getItem("selectedNCR");
+		let allRecords = JSON.parse(localStorage.getItem("ncr_records")) || [];
+
+		let record = allRecords.find((r) => r.ncrNumber === selectedNCR);
+		if (!record) return alert("NCR not found");
+
+		// get the new values
+		const operationDecision =
+			document.querySelector('input[name="ops-decision"]:checked')?.value || "";
+		const carRequired =
+			document.querySelector('input[name="car-required"]:checked')?.value ===
+			"yes";
+		const carNumber = document.getElementById("car-number").value.trim();
+		const followUpRequired =
+			document.querySelector('input[name="followup-required"]:checked')
+				?.value === "yes";
+		const followupType = document.getElementById("followup-type").value.trim();
+		const followupDate = document.getElementById("followup-date").value;
+		const reInspected =
+			document.querySelector('input[name="reinspection"]:checked')?.value ===
+			"yes";
+		const actionDate = document.getElementById("ops-date").value;
+
+		const today = new Date().toISOString().split("T")[0];
+
+		// update json data
+		record.operations.operationDecision = operationDecision;
+		record.operations.carRequired = carRequired;
+		record.operations.carNumber = carNumber;
+
+		record.operations.followUpRequired = followUpRequired;
+		record.operations.followUpType = followupType;
+		record.operations.followUpDate = followupDate;
+
+		record.operations.reInspected = reInspected;
+		record.operations.actionDate = actionDate;
+
+		record.operations.completedAt = today;
+		record.operations.operationsManagerId = currentUser.userId;
+
+		// Save to localStorage
+		localStorage.setItem("ncr_records", JSON.stringify(allRecords));
+
+		addNotification(record.ncrNumber, "update");
+
+		alert("NCR updated successfully");
+		window.location.href = "edit-ncr.html";
+	});
 
 // === PROCUREMENT CONDITIONAL LOGIC ===
 
 // Show/hide return details or dispose field
-const returnYes = document.getElementById('return-yes');
-const returnNo = document.getElementById('return-no');
-const returnDetailsField = document.getElementById('return-details-field');
-const disposeField = document.getElementById('dispose-field');
+const returnYes = document.getElementById("return-yes");
+const returnNo = document.getElementById("return-no");
+const returnDetailsField = document.getElementById("return-details-field");
+const disposeField = document.getElementById("dispose-field");
 
-if (returnYes && returnNo && returnDetailsField && disposeField) {
-  returnYes.addEventListener('change', () => {
-    if (returnYes.checked) {
-      returnDetailsField.style.display = 'block';
-      disposeField.style.display = 'none';
-    }
-  });
-  
-  returnNo.addEventListener('change', () => {
-    if (returnNo.checked) {
-      returnDetailsField.style.display = 'none';
-      disposeField.style.display = 'block';
-    }
-  });
-}
+returnYes.addEventListener("change", () => {
+	if (returnYes.checked) {
+		returnDetailsField.style.display = "block";
+		disposeField.style.display = "none";
+	}
+});
+
+returnNo.addEventListener("change", () => {
+	if (returnNo.checked) {
+		returnDetailsField.style.display = "none";
+		disposeField.style.display = "block";
+	}
+});
+
+// --------------------------------------------------------
+// UPDATE PURCHASING FORM
+document
+	.getElementById("submitProcurementForm")
+	.addEventListener("click", function (e) {
+		e.preventDefault();
+
+		const selectedNCR = localStorage.getItem("selectedNCR");
+		let allRecords = JSON.parse(localStorage.getItem("ncr_records")) || [];
+
+		let record = allRecords.find((r) => r.ncrNumber === selectedNCR);
+		if (!record) return alert("NCR not found");
+
+		// get data from form
+		const supplierReturn =
+			document.querySelector('input[name="supplier-return"]:checked')?.value ===
+			"yes";
+
+		const rmaNumber = document.getElementById("rma-number").value.trim();
+		const carrierInfo = document.getElementById("carrier-info").value.trim();
+
+		const disposeOnsite =
+			document.getElementById("dispose-onsite").checked || false;
+
+		const replacementDate =
+			document.getElementById("replacement-date").value || "";
+
+		const sapCompleted =
+			document.getElementById("sap-completed").checked || false;
+
+		const creditExpected =
+			document.getElementById("credit-expected").checked || false;
+
+		const billingSupplier =
+			document.getElementById("billing-supplier").checked || false;
+
+		const procurementDate =
+			document.getElementById("procurement-date").value || "";
+
+		// update new data
+		record.procurement.supplierReturn = supplierReturn;
+		record.procurement.rmaNumber = supplierReturn ? rmaNumber : null;
+		record.procurement.carrierAccount = supplierReturn ? carrierInfo : null;
+
+		record.procurement.disposeOnSite = !supplierReturn ? disposeOnsite : false;
+
+		record.procurement.replacementDate = replacementDate;
+		record.procurement.sapCompleted = sapCompleted;
+		record.procurement.creditExpected = creditExpected;
+		record.procurement.billingSupplier = billingSupplier;
+
+		record.procurement.completedAt = procurementDate;
+		record.procurement.procurementOfficer = currentUser.userId;
+
+		//close ncr
+		record.status = "Closed";
+		record.closedBy = currentUser.userId;
+
+		// save data
+		localStorage.setItem("ncr_records", JSON.stringify(allRecords));
+
+		addNotification(record.ncrNumber, "closed");
+
+		alert("Purchasing data saved and NCR completed.");
+		window.location.href = "view-ncr.html";
+	});

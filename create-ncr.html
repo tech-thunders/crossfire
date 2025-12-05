@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="create-ncr.css" />
     <link rel="stylesheet" href="header.css" />
     <link rel="stylesheet" href="notification.css" />
+    <link rel="stylesheet" href="dashboard-profile.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -20,71 +21,104 @@
   </head>
   <body>
     <header>
-      <nav>
-        <div class="navbar">
-          <div>
-            <a href="dashboard.html"
-              ><img
-                src="images/crossfire-logo-transparent.png"
-                alt="Crossfire Logo"
-                class="logo"
-            /></a>
-          </div>
-          <div class="navbar-links">
-            <ul>
-              <li>
-                <a href="dashboard.html"
-                  ><i class="bi bi-house-fill"></i> Dashboard</a
-                >
-              </li>
-              <li>
-                <a href="view-ncr.html"
-                  ><i
-                    class="bi bi-file-earmark-bar-graph-fill"
-                    style="font-weight: 900"
-                  ></i>
-                  NCR Log</a
-                >
-              </li>
-              <li>
-                <a href="create-ncr.html"
-                  ><i class="bi bi-file-earmark-plus-fill"></i> Create NCR</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div class="navbar-icons">
-            <div
-              onclick="closePopUp()"
-              title="Notifications"
-              class="navbar-notification"
-            >
-              <i id="notification-icon" class="bi bi-bell-fill"></i>
-              <div id="notification-indicator" class="notification-indicator">
-                4
-              </div>
-            </div>
-            <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
+			<nav>
+				<div class="navbar">
+					<div>
+						<a href="dashboard.html"
+							><img
+								src="images/crossfire-logo-transparent.png"
+								alt="Crossfire Logo"
+								class="logo"
+						/></a>
+					</div>
+					<div class="navbar-links">
+						<ul>
+							<li>
+								<a href="dashboard.html"
+									><i class="bi bi-house-fill"></i> Dashboard</a
+								>
+							</li>
+							<li>
+								<a href="view-ncr.html"
+									><i
+										class="bi bi-file-earmark-bar-graph-fill"
+										style="font-weight: 900"></i>
+									NCR Log</a
+								>
+							</li>
+							<li id="create-ncr-menu">
+								<a href="create-ncr.html"
+									><i class="bi bi-file-earmark-plus-fill"></i> Create NCR</a
+								>
+							</li>
+						</ul>
+					</div>
+					<div class="navbar-icons">
+						<div
+							onclick="closePopUp()"
+							title="Notifications"
+							class="navbar-notification">
+							<i id="notification-icon" class="bi bi-bell-fill"></i>
+							<div id="notification-indicator" class="notification-indicator">
+								4
+							</div>
+						</div>
+						<!-- User Profile Dropdown -->
+						<div
+							class="navbar-profile"
+							onclick="toggleProfileMenu()"
+							title="Profile">
+							<i class="bi bi-person-circle"></i>
+							<span id="userName">User</span>
+							<i class="bi bi-chevron-down"></i>
+						</div>
+
+						<!-- Profile Dropdown Menu -->
+						<div id="profilePopup" class="profile-popup hidden">
+							<div class="profile-header">
+								<i class="bi bi-person-circle profile-icon"></i>
+								<div>
+									<h4 id="profileName">User Name</h4>
+									<p id="profileDepartment">Department</p>
+								</div>
+							</div>
+							<div class="profile-menu">
+								<a href="#" class="profile-menu-item">
+									<i class="bi bi-person"></i> My Profile
+								</a>
+								<a href="#" class="profile-menu-item">
+									<i class="bi bi-gear"></i> Settings
+								</a>
+								<hr class="profile-divider" />
+								<a
+									href="index.html"
+									class="profile-menu-item"
+									onclick="logout()">
+									<i class="bi bi-box-arrow-right"></i> Logout
+								</a>
+							</div>
+						</div>
+
+						<!-- <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
               <i id="menu-icon"></i>
-            </div>
-          </div>
-          <div
-            id="notificationPopup"
-            title="Notifications"
-            class="notification-popup hidden"
-          >
-            <!-- Notifications -->
-            <div>
-              <h3 class="notification-title">Notifications</h3>
-              <p id="no-notifications" class="no-notifications">
-                No notifications yet
-              </p>
-              <ul class="notification-list"></ul>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </header>
+            </div> -->
+					</div>
+					<div
+						id="notificationPopup"
+						title="Notifications"
+						class="notification-popup hidden">
+						<!-- Notifications -->
+						<div>
+							<h3 class="notification-title">Notifications</h3>
+							<p id="no-notifications" class="no-notifications">
+								No notifications yet
+							</p>
+							<ul class="notification-list"></ul>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</header>
     <main id="main-content" role="main">
       <article>
         <header class="form-header">
@@ -573,5 +607,6 @@
     <script src="scripts/ncr-form.js"></script>
 
     <script src="scripts/script.js"></script>
+    <script src="scripts/user-conditions.js"></script>
   </body>
 </html>

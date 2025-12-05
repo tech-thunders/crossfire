@@ -1,0 +1,22 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+}
+
+h1,
+h4 {
+  font-weight: 600;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.table td,
+.table th {
+  vertical-align: middle;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}

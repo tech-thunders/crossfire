@@ -38,7 +38,7 @@ nav li {
 	grid-template-columns: 1fr;
 	position: absolute;
 	right: 0;
-	top: 13%;
+	top: 19%;
 	width: 100%;
 	z-index: 100;
 }

@@ -1,7 +1,9 @@
 a {
 	text-decoration: none;
 }
-
+#create-ncr-menu {
+	display: none;
+}
 nav {
 	background-color: #5897c9;
 	border-bottom: 2px solid black;

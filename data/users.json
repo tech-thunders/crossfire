@@ -38,11 +38,6 @@
     "department": "Purchasing",
     "isActive": true
   },
-
-
-
-
-
   {
     "userId": 13,
     "firstName": "Benjamin",
@@ -52,9 +47,4 @@
     "department": "Admin",
     "isActive": true
   }
-
-
-
-
-
 ]

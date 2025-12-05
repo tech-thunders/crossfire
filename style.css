@@ -237,6 +237,7 @@ tr:hover {
   text-decoration: none;
   color: #fff;
   background-color: #2f6ea3;
+  margin-right: -20px;
 }
 
 .view-ncr:hover {

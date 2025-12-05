@@ -39,6 +39,7 @@ function addNotification(ncrNumber, actionType) {
 		time: new Date().toLocaleString(),
 		type: actionType,
 		unread: true,
+		ncrNumber: ncrNumber,
 	};
 
 	notifications.unshift(newNotification);
@@ -52,7 +53,7 @@ function addNotification(ncrNumber, actionType) {
 function markAsRead(id) {
 	const notifications = getNotifications();
 	const notification = notifications.find((n) => n.id === id);
-
+	// localStorage.setItem("selectedNCR", num);
 	if (notification) {
 		notification.unread = false;
 		saveNotifications(notifications);
@@ -82,10 +83,10 @@ function displayNotifications() {
 		li.setAttribute("onclick", `markAsRead(${notif.id})`);
 
 		li.innerHTML = `
-      <div class="notif-content">
+      <a href="/edit-ncr.html" class="notif-content">
         <p class="notif-text">${notif.message}</p>
         <span class="notif-time">${notif.time}</span>
-      </div>
+      </a>
       ${notif.unread ? `<span class="notif-status-dot"></span>` : ""}
     `;
 

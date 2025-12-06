@@ -1,6 +1,23 @@
+:root {
+  --primary: #5897c9;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --text: #1e293b;
+  --subtle: #64748b;
+  --border: #e2e8f0;
+  --black: #000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f7f7f7;
+  background-color: var(--background);
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 h1,

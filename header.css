@@ -7,7 +7,7 @@ a {
 nav {
 	background-color: #5897c9;
 	border-bottom: 2px solid black;
-	padding: 1.3rem;
+	padding: 1rem 0;
 }
 
 nav li {
@@ -19,6 +19,7 @@ nav li {
 	font-size: 20px;
 	font-weight: 600;
 	grid-template-columns: repeat(3, auto);
+	width: 100%;
 }
 
 .navbar .logo {
@@ -38,7 +39,7 @@ nav li {
 	grid-template-columns: 1fr;
 	position: absolute;
 	right: 0;
-	top: 19%;
+	top: 7.4rem;
 	width: 100%;
 	z-index: 100;
 }
@@ -84,7 +85,6 @@ nav li {
 
 .navbar-icons {
 	color: #000;
-	display: flex;
 	align-items: center;
 	gap: 1.5rem;
 }

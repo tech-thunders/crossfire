@@ -137,7 +137,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         
         console.log('Login successful:', userData);
-        window.location.href = 'dashboard.html';
+
+        // Rerouting to admin page if admin confirmed
+        if (userData.department.toLowerCase() == "admin") {
+            document.location.href="admin.html";
+        } else {
+            document.location.href="dashboard.html";
+        }
     });
 
     // Helper functions

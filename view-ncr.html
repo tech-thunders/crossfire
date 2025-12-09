@@ -137,7 +137,7 @@
         text-decoration: none;
         color: #fff;
         background-color: #2f6ea3;
-        margin-right: -20px;
+        margin-right: 40px;
       }
       td.action-cell {
         display: flex;
@@ -379,6 +379,7 @@
     </header>
     <div id="wrapper">
       <h1>All NCRs</h1>
+
       <div class="container">
         <div class="filter-buttons">
           <button class="filter-btn active" data-status="all">All NCR</button>
@@ -386,23 +387,50 @@
           <button class="filter-btn" data-status="Closed">Closed</button>
         </div>
 
-        <!-- Filter Button -->
-        <button
-          id="toggle-filters"
-          data-bs-toggle="collapse"
-          data-bs-target="#filtersBox"
+        <div
           style="
-            background-color: #2f6ea3;
-            min-width: 150px;
-            color: #fff;
-            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 10px;
-            border-radius: 8px;
-            border: 1px solid #2f6ea3;
           "
         >
-          Show Filters
-        </button>
+          <!-- Show Filters Button -->
+          <button
+            id="toggle-filters"
+            data-bs-toggle="collapse"
+            data-bs-target="#filtersBox"
+            style="
+              background-color: #2f6ea3;
+              min-width: 150px;
+              color: #fff;
+              padding: 5px;
+              border-radius: 8px;
+              border: 1px solid #2f6ea3;
+            "
+          >
+            Show Filters
+          </button>
+
+          <!-- Rows per page dropdown -->
+          <div>
+            <label
+              for="rowsPerPageSelect"
+              class="fw-semibold"
+              style="margin-right: 5px"
+              >Rows per page:</label
+            >
+            <select
+              id="rowsPerPageSelect"
+              style="padding: 5px; border-radius: 5px; border: 1px solid #ccc"
+            >
+              <option value="5" selected>5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+            </select>
+          </div>
+        </div>
 
         <div id="filtersBox" class="collapse">
           <div
@@ -540,7 +568,7 @@
       let ncrData = [];
       let filteredData = [];
       let currentPage = 1;
-      const rowsPerPage = 5;
+
       let sortColumn = -1;
       let sortAsc = true;
       let users = [];
@@ -575,6 +603,17 @@
         });
       }
 
+      let rowsPerPage = 5; // default
+
+      // Update rows per page when user selects
+      document
+        .getElementById("rowsPerPageSelect")
+        .addEventListener("change", function () {
+          rowsPerPage = Number(this.value);
+          currentPage = 1; // reset to first page
+          renderTable();
+        });
+
       function renderTable() {
         const tableBody = document.getElementById("ncrTableBody");
         const start = (currentPage - 1) * rowsPerPage;
@@ -586,34 +625,30 @@
         pageData.forEach((item) => {
           const formattedDate = formatDate(item.dateCreated);
 
-          // PDF button disabled if not Closed
-          const pdfButton = `
-      <td>
-        <button class="generate-pdf-btn" 
-                onclick='generateSinglePDF("${item.ncrId}")' 
-                ${
-                  item.status !== "Closed"
-                    ? "disabled style='opacity:0.5; cursor:not-allowed'"
-                    : ""
-                }>
-          PDF
-        </button>
+          // Determine buttons based on status
+          let actionButtons = `
+      <td class="action-cell">
+        <a href="detailedViewNCR.html?ncr=${
+          item.ncrNumber
+        }" class="view-ncr">View</a>
+        ${
+          item.status === "Closed"
+            ? `<button class="generate-pdf-btn" onclick='generateSinglePDF("${item.ncrId}")'>PDF</button>`
+            : `<a href="edit-ncr.html" onClick="selectedLog('${item.ncrNumber}')" class="view-ncr">Edit</a>`
+        }
       </td>
     `;
 
           const row = `
-            <tr>
-              <td>${item.ncrNumber}</td>
-              
-              <td>${formattedDate}</td>
-              <td>${item.supplierName}</td>
-              <td>${item.status}</td>
-              <td><a href="detailedViewNCR.html?ncr=${item.ncrNumber}" class="view-ncr">View</a></td>
-               <td><a href="edit-ncr.html" onClick="selectedLog('${item.ncrNumber}')" class="view-ncr">Edit</a></td>
-              ${pdfButton}
-            </tr>
+      <tr>
+        <td>${item.ncrNumber}</td>
+        <td>${formattedDate}</td>
+        <td>${item.supplierName}</td>
+        <td>${item.status}</td>
+        ${actionButtons}
+      </tr>
+    `;
 
-          `;
           tableBody.innerHTML += row;
         });
 
@@ -663,15 +698,30 @@
 
         filteredData = ncrData.filter((item) => {
           const itemDate = new Date(item.dateCreated);
+          // Only take the date part (ignore time)
+          const itemDateOnly = new Date(
+            itemDate.getFullYear(),
+            itemDate.getMonth(),
+            itemDate.getDate()
+          );
 
           const matchesNCR = item.ncrNumber.toLowerCase().includes(ncrQuery);
           const matchesSupplier = item.supplierName
             .toLowerCase()
             .includes(supplierQuery);
-          const matchesStart = startDate
-            ? itemDate >= new Date(startDate)
-            : true;
-          const matchesEnd = endDate ? itemDate <= new Date(endDate) : true;
+
+          let matchesStart = true;
+          let matchesEnd = true;
+
+          if (startDate) {
+            const start = new Date(startDate);
+            matchesStart = itemDateOnly >= start;
+          }
+          if (endDate) {
+            const end = new Date(endDate);
+            end.setDate(end.getDate() + 1);
+            matchesEnd = itemDateOnly <= end;
+          }
 
           return matchesNCR && matchesSupplier && matchesStart && matchesEnd;
         });

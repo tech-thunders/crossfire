@@ -322,7 +322,16 @@
           } else {
             ncrData = data; // fallback to JSON file
           }
-          filteredData = [...ncrData];
+          // Default: show only Active NCRs
+          filteredData = ncrData.filter((item) => item.status === "Active");
+
+          // Make Active button highlighted
+          document
+            .querySelector('.filter-btn[data-status="Active"]')
+            .classList.add("active");
+          document
+            .querySelector('.filter-btn[data-status="all"]')
+            .classList.remove("active");
 
           renderTable();
         })

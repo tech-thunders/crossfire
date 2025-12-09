@@ -1,39 +1,210 @@
-:root {
-  --primary: #5897c9;
-  --background: #f8fafc;
-  --surface: #ffffff;
-  --text: #1e293b;
-  --subtle: #64748b;
-  --border: #e2e8f0;
-  --black: #000;
-}
+/* Admin Panel CSS */
 
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background-color: var(--background);
   font-family: "Poppins", sans-serif;
-  font-size: 14px;
-  font-weight: 400;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  min-height: 100vh;
 }
 
-h1,
-h4 {
+/* Main Container */
+.main-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+/* Page Header */
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.page-header h1 {
+  color: #2f6ea3;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  color: #6c757d;
+  font-size: 1.1rem;
+}
+
+/* Cards */
+.custom-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: box-shadow 0.3s;
+}
+
+.custom-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-header-custom {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.card-header-custom h4 {
+  color: #2f6ea3;
   font-weight: 600;
+  margin: 0;
+  font-size: 1.5rem;
 }
 
-.card {
-  border-radius: 10px;
+.card-header-custom i {
+  font-size: 1.5rem;
+  color: #2f6ea3;
 }
 
-.table td,
-.table th {
+/* Form Styles */
+.form-label {
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+.form-control,
+.form-select {
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  padding: 0.75rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #2f6ea3;
+  box-shadow: 0 0 0 0.2rem rgba(47, 110, 163, 0.15);
+}
+
+/* Button Styles */
+.btn-primary-custom {
+  background-color: #2f6ea3;
+  border: none;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background-color 0.3s, transform 0.1s;
+  cursor: pointer;
+}
+
+.btn-primary-custom:hover {
+  background-color: #245380;
+  transform: translateY(-1px);
+}
+
+.btn-primary-custom:active {
+  transform: translateY(0);
+}
+
+/* Search Bar */
+.search-container {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.search-container i {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+}
+
+.search-container input {
+  padding-left: 2.75rem;
+  border-radius: 50px;
+  border: 2px solid #e9ecef;
+}
+
+.search-container input:focus {
+  border-color: #2f6ea3;
+}
+
+/* Table Styles */
+.table-custom {
+  margin: 0;
+}
+
+.table-custom thead {
+  background: linear-gradient(135deg, #2f6ea3 0%, #245380 100%);
+  color: white;
+}
+
+.table-custom thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  padding: 1rem;
+  border: none;
+}
+
+.table-custom tbody tr {
+  transition: background-color 0.2s;
+}
+
+.table-custom tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.table-custom tbody td {
+  padding: 1rem;
   vertical-align: middle;
 }
 
-.btn:hover {
-  opacity: 0.9;
+/* Action Buttons */
+.btn-action {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-edit {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.btn-edit:hover {
+  background-color: #e0a800;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .custom-card {
+    padding: 1.5rem;
+  }
 }

@@ -1,11 +1,19 @@
 const createNcrMenu = document.getElementById("create-ncr-menu");
+const adminPanelMenu = document.getElementById("admin-panel");
 
 document.addEventListener("DOMContentLoaded", () => {
 	const currentUser = JSON.parse(localStorage.getItem("currentUser")) || {};
 
+	adminPanelMenu.style.display = "none";
+	createNcrMenu.style.display = "none";
+
 	if (currentUser.department.toLowerCase() === "quality")
 		createNcrMenu.style.display = "block";
 	console.log(currentUser.department.toLowerCase());
+
+	if (currentUser.department.toLowerCase() === "admin")
+        adminPanelMenu.style.display = "block";
+    console.log(currentUser.department.toLowerCase());
 
 	//Section to be opened based on user department
 	switch (currentUser.department.toLowerCase()) {

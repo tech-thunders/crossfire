@@ -362,7 +362,7 @@ body.editing .detail-edit.edit-mode {
 
 .toast {
   background-color: #10b981; /* Success green */
-  color: white;
+  color: #fff;
   padding: 16px 20px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);

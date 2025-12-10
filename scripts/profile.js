@@ -30,6 +30,46 @@ function loadProfile() {
   displayProfile();
 }
 
+// ==========================================
+// TOAST NOTIFICATION
+// ==========================================
+
+function showToast(message) {
+  const container = document.getElementById('toastContainer');
+  
+  // Create toast element
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  
+  toast.innerHTML = `
+    <i class="bi bi-check-circle-fill toast-icon"></i>
+    <span class="toast-message">${message}</span>
+    <button class="toast-close" onclick="dismissToast(this)">
+      <i class="bi bi-x"></i>
+    </button>
+  `;
+  
+  // Add to container
+  container.appendChild(toast);
+  
+  // Trigger fade-in animation
+  setTimeout(() => {
+    toast.classList.add('show');
+  }, 10);
+}
+
+function dismissToast(button) {
+  const toast = button.closest('.toast');
+  
+  // Fade out
+  toast.classList.remove('show');
+  
+  // Remove from DOM after animation
+  setTimeout(() => {
+    toast.remove();
+  }, 300);
+}
+
 function displayProfile() {
   if (!currentUser) return;
 
@@ -170,8 +210,8 @@ function saveProfile() {
     alert('Please fix the errors before saving');
     return;
   }
-  
-  // Get new values
+
+  // Get new values FIRST (move this up!)
   const newFirstName = document.getElementById('editFirstName').value.trim();
   const newLastName = document.getElementById('editLastName').value.trim();
   const newEmail = document.getElementById('editEmail').value.trim();
@@ -182,8 +222,26 @@ function saveProfile() {
     newLastName === currentUser.lastName &&
     newEmail === currentUser.email
   ) {
-    alert('No changes detected');
+    showToast('No changes detected');
     cancelEdit();
+    return;
+  }
+
+  // Build confirmation message showing changes
+  let changes = [];
+  if (newFirstName !== currentUser.firstName) {
+    changes.push(`First Name: "${currentUser.firstName}" to "${newFirstName}"`);
+  }
+  if (newLastName !== currentUser.lastName) {
+    changes.push(`Last Name: "${currentUser.lastName}" to "${newLastName}"`);
+  }
+  if (newEmail !== currentUser.email) {
+    changes.push(`Email: "${currentUser.email}" to "${newEmail}"`);
+  }
+
+  // Show confirmation with changes
+  const confirmMessage = `Are you sure you want to save these changes?\n\n${changes.join('\n')}`;
+  if (!confirm(confirmMessage)) {
     return;
   }
   
@@ -208,12 +266,12 @@ function saveProfile() {
     cancelEdit();
     
     // Show success message
-    alert('Profile updated successfully! ✓');
+    showToast('Profile updated successfully! ✓');
+    
   } else {
     alert('Failed to update profile. Please try again.');
   }
 }
-
 // ==========================================
 // OTHER FUNCTIONS
 // ==========================================

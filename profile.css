@@ -1,4 +1,4 @@
-/* Profile Page Styles - Clean Version (No Grey Box) */
+/* Profile Page Styles - Fixed Version */
 
 .profile-container {
   max-width: 900px;
@@ -99,6 +99,7 @@
   padding: 20px 30px;
   border-bottom: 1px solid #e2e8f0;
   transition: background-color 0.2s ease;
+  min-height: 64px; /* FIX: Ensures consistent height for all rows */
 }
 
 .detail-row:last-child {
@@ -116,6 +117,7 @@
   font-weight: 500;
   color: var(--subtle);
   font-size: 14px;
+  flex-shrink: 0; /* Prevents label from shrinking */
 }
 
 .detail-label i {
@@ -130,14 +132,23 @@
   color: var(--text);
   font-size: 15px;
   text-align: right;
+  flex: 1; /* FIX: Takes remaining space */
 }
 
-/* Action Buttons */
+/* Action Buttons Container */
 .profile-actions {
   display: flex;
   gap: 15px;
   justify-content: center;
   margin-top: 30px;
+}
+
+/* FIX: Add flex display to both button containers */
+#viewModeButtons,
+#editModeButtons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
 }
 
 .btn-primary,
@@ -178,6 +189,71 @@
   color: var(--primary);
 }
 
+/* Edit Mode Styles */
+.detail-edit {
+  display: none;
+  flex-direction: column;
+  align-items: flex-end;
+  flex: 0 1 50%; /* Input container takes 50% width, right-aligned */
+  gap: 4px;
+  margin-right: 20px;
+}
+
+.edit-input {
+  width: 100%; /* FIX: Full width of parent container */
+  padding: 10px 12px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+  background-color: white;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(88, 151, 201, 0.1);
+}
+
+.edit-input.error {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+.error-message {
+  display: none;
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: right;
+  width: 100%;
+  padding-top: 2px; /* FIX: Reduced from 4px to minimize extra height */
+  line-height: 1.2; /* FIX: Tighter line height */
+}
+
+.error-message.show {
+  display: block;
+}
+
+/* DEFAULT STATE - View Mode */
+.detail-value.view-mode {
+  display: block;
+}
+
+.detail-edit.edit-mode {
+  display: none;
+}
+
+/* EDITING STATE - Edit Mode Active */
+body.editing .detail-value.view-mode {
+  display: none !important;
+}
+
+body.editing .detail-edit.edit-mode {
+  display: flex !important;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .profile-page-header {
@@ -201,16 +277,42 @@
     align-items: flex-start;
     gap: 8px;
     padding: 15px 20px;
+    min-height: auto; /* Remove fixed height on mobile */
+  }
+
+  .detail-label {
+    width: 100%;
   }
 
   .detail-value {
     text-align: left;
     font-size: 16px;
     color: var(--primary);
+    width: 100%;
+  }
+
+  .detail-edit {
+    align-items: flex-start; /* Left align on mobile */
+    width: 100%;
+  }
+
+  .edit-input {
+    width: 100%; /* Full width on mobile */
+  }
+
+  .error-message {
+    text-align: left; /* Left align error on mobile */
   }
 
   .profile-actions {
     flex-direction: column;
+  }
+
+  /* FIX: Stack buttons vertically on mobile */
+  #viewModeButtons,
+  #editModeButtons {
+    flex-direction: column;
+    width: 100%;
   }
 
   .btn-primary,
@@ -242,119 +344,87 @@
   }
 }
 
-/* Edit Mode Styles */
-/* Edit Mode Styles */
-.detail-edit {
-  display: none;
+/* ==========================================
+   TOAST NOTIFICATION STYLES
+   ========================================== */
+
+.toast-container {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
   flex-direction: column;
-  align-items: flex-end; /* Right align on desktop */
-  flex: 1;
-  gap: 4px;
+  gap: 10px;
+  pointer-events: none; /* Allows clicks to pass through empty space */
 }
 
-.edit-input {
-  width: 100%;
-  max-width: 350px; /* Reduced from full width */
-  padding: 10px 12px;
-  border: 2px solid var(--border);
-  border-radius: 6px;
-  font-size: 15px;
-  font-family: 'Poppins', sans-serif;
+.toast {
+  background-color: #10b981; /* Success green */
+  color: white;
+  padding: 16px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 300px;
+  max-width: 500px;
+  pointer-events: auto; /* Toast itself can be clicked */
+  opacity: 0;
+  transform: translateY(20px);
   transition: all 0.3s ease;
-  background-color: white;
 }
 
-.edit-input:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(88, 151, 201, 0.1);
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.edit-input.error {
-  border-color: #ef4444;
-  background-color: #fef2f2;
+.toast-icon {
+  font-size: 24px;
+  flex-shrink: 0;
 }
 
-.error-message {
-  display: none;
-  color: #ef4444;
-  font-size: 12px;
+.toast-message {
+  flex: 1;
+  font-size: 15px;
   font-weight: 500;
-  text-align: right;
-  width: 100%;
-  max-width: 350px;
-  padding-top: 4px;
-  line-height: 1.4;
 }
 
-.error-message.show {
-  display: block;
+.toast-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
 }
 
-/* DEFAULT STATE - View Mode */
-.detail-value.view-mode {
-  display: block;
+.toast-close:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
-.detail-edit.edit-mode {
-  display: none;
-}
-
-/* EDITING STATE - Edit Mode Active */
-body.editing .detail-value.view-mode {
-  display: none !important;
-}
-
-body.editing .detail-edit.edit-mode {
-  display: flex !important;
-}
-
-/* Responsive adjustments for edit inputs */
+/* Mobile Responsive */
 @media (max-width: 768px) {
-  .detail-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    padding: 15px 20px;
+  .toast-container {
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    transform: none;
   }
-
-  .detail-edit {
-    align-items: flex-start; /* Left align on mobile */
-    width: 100%;
-  }
-
-  .edit-input {
-    max-width: 100%; /* Full width on mobile */
-  }
-
-  .error-message {
-    text-align: left; /* Left align error on mobile */
-    max-width: 100%;
-  }
-
-  .detail-value {
-    text-align: left;
-    font-size: 16px;
-    color: var(--primary);
+  
+  .toast {
+    min-width: auto;
+    max-width: none;
   }
 }
-
-@media (max-width: 480px) {
-  .profile-container {
-    padding: 15px;
-  }
-
-  .profile-page-header {
-    padding: 20px 15px;
-  }
-
-  .profile-header-info h1 {
-    font-size: 22px;
-  }
-
-  .profile-card-header h2 {
-    font-size: 18px;
-  }
-}
-
-

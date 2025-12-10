@@ -572,54 +572,28 @@
       let sortColumn = -1;
       let sortAsc = true;
       let users = [];
-
-      // Load users data
-      fetch("data/users.json")
-        .then((response) => response.json())
-        .then((userData) => {
-          const storedUsers = localStorage.getItem("users");
-
-          // Use localStorage users if available, otherwise use JSON file
-          if (storedUsers) {
-            try {
-              users = JSON.parse(storedUsers);
-            } catch (e) {
-              console.error(
-                "Invalid users localStorage data – using JSON file.",
-                e
-              );
-              users = userData;
-            }
-          } else {
-            users = userData; // fallback to JSON file
-            // Optionally save to localStorage for future use
-            localStorage.setItem("users", JSON.stringify(userData));
-          }
-
-          console.log("Users loaded:", users); // Debug line
-
-          //load NCR data
-          return fetch("data/logData.json");
-        })
+      // Load NCR data
+      fetch("data/ncrData2.json")
         .then((response) => response.json())
         .then((data) => {
           const records = localStorage.getItem("ncr_records");
-
+          users = JSON.parse(localStorage.getItem("users")) || [];
+          // ncrData = records ? records : data;
           if (records) {
             try {
-              ncrData = JSON.parse(records);
+              ncrData = JSON.parse(records); // ← FIX
             } catch (e) {
               console.error("Invalid NCR localStorage data – resetting.", e);
               ncrData = data;
             }
           } else {
-            ncrData = data;
+            ncrData = data; // fallback to JSON file
           }
-
           filteredData = [...ncrData];
           renderTable();
         })
-        .catch((error) => console.error("Error loading data:", error));
+        .catch((error) => console.error("Error loading NCR data:", error));
+
       function formatDate(dateString) {
         const date = new Date(dateString);
         return date.toLocaleDateString("en-US", {
@@ -653,27 +627,27 @@
 
           // Determine buttons based on status
           let actionButtons = `
-            <td class="action-cell">
-              <a href="detailedViewNCR.html?ncr=${
-                item.ncrNumber
-              }" class="view-ncr">View</a>
-              ${
-                item.status === "Closed"
-                  ? `<button class="generate-pdf-btn" onclick='generateSinglePDF("${item.ncrId}")'>PDF</button>`
-                  : `<a href="edit-ncr.html" onClick="selectedLog('${item.ncrNumber}')" class="view-ncr">Edit</a>`
-              }
-            </td>
-          `;
+      <td class="action-cell">
+        <a href="detailedViewNCR.html?ncr=${
+          item.ncrNumber
+        }" class="view-ncr">View</a>
+        ${
+          item.status === "Closed"
+            ? `<button class="generate-pdf-btn" onclick='generateSinglePDF("${item.ncrId}")'>PDF</button>`
+            : `<a href="edit-ncr.html" onClick="selectedLog('${item.ncrNumber}')" class="view-ncr">Edit</a>`
+        }
+      </td>
+    `;
 
           const row = `
-            <tr>
-              <td>${item.ncrNumber}</td>
-              <td>${formattedDate}</td>
-              <td>${item.supplierName}</td>
-              <td>${item.status}</td>
-              ${actionButtons}
-            </tr>
-          `;
+      <tr>
+        <td>${item.ncrNumber}</td>
+        <td>${formattedDate}</td>
+        <td>${item.supplierName}</td>
+        <td>${item.status}</td>
+        ${actionButtons}
+      </tr>
+    `;
 
           tableBody.innerHTML += row;
         });
@@ -827,17 +801,16 @@
         renderTable();
       }
 
-      doc.setProperties({ scale: 1 });
-
+      // PDF Generation Functions
       function generateSinglePDF(ncrId) {
         const ncr = ncrData.find((n) => n.ncrId === Number(ncrId));
+
+        console.log(ncrId);
 
         if (!ncr) {
           alert("NCR not found!");
           return;
         }
-
-        // Get user details
         const creator = users.find(
           (u) => Number(u.userId) === Number(ncr.createdBy)
         );
@@ -855,618 +828,268 @@
 
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
-        const logo = "images/crossfire-logo-transparent.png";
-
-        // Softer, more professional color scheme
-        const primaryColor = [88, 151, 201]; // Light blue #5897c9 (CrossFire brand)
-        const darkPrimary = [70, 120, 160]; // Darker shade of blue
-        const accentColor = [22, 52, 81]; // Dark blue #163451 for accents
-        const secondaryColor = [100, 116, 139]; // Softer slate gray
-        const lightGray = [248, 249, 250]; // Very light gray
-        const mediumGray = [241, 243, 245]; // Softer medium gray
-        const darkGray = [100, 116, 139]; // Softer dark gray
-        const successColor = [52, 168, 83]; // Softer green
-        const warningColor = [251, 188, 5]; // Softer amber
-        const dangerColor = [234, 67, 53]; // Softer red
-        const infoColor = [66, 165, 245]; // Softer cyan
+        const logo = "images/Crossfire Logo-transparent.png";
 
         const pageWidth = doc.internal.pageSize.getWidth();
-        const margin = 15;
-        const contentWidth = pageWidth - 2 * margin;
+        const imgWidth = 60;
+        const imgHeight = 20;
 
-        function addSectionHeader(text, yPosition) {
-          // Single light blue background
-          doc.setFillColor(220, 235, 245); // Light blue
-          doc.rect(margin, yPosition, contentWidth, 11, "F");
+        const x = (pageWidth - imgWidth) / 2; // center horizontally
+        const y = 5; // top position
 
-          // Add dark blue accent bar on left
-          doc.setFillColor(...primaryColor);
-          doc.rect(margin, yPosition, 4, 11, "F");
+        // Header
+        doc.setFillColor(88, 151, 201);
+        doc.rect(0, 0, 210, 40, "F");
 
-          // Text
-          doc.setFontSize(12);
-          doc.setFont(undefined, "bold");
-          doc.setTextColor(...accentColor);
-          doc.text(text, margin + 10, yPosition + 7.5);
-          doc.setTextColor(0, 0, 0);
-
-          return yPosition + 17;
-        }
-
-        // Enhanced two-column layout with larger text and better spacing
-        function addTwoColumnRow(label1, value1, label2, value2, yPosition) {
-          // Single grey background container
-          doc.setFillColor(245, 245, 245); // Light grey
-          doc.rect(margin, yPosition - 4, contentWidth, 11, "F");
-
-          // Labels
-          doc.setFontSize(9);
-          doc.setFont(undefined, "bold");
-          doc.setTextColor(...darkGray);
-          doc.text(label1.toUpperCase(), margin + 4, yPosition);
-          if (label2)
-            doc.text(
-              label2.toUpperCase(),
-              margin + contentWidth / 2 + 4,
-              yPosition
-            );
-
-          // Values
-          doc.setFontSize(11);
-          doc.setFont(undefined, "normal");
-          doc.setTextColor(0, 0, 0);
-          doc.text(String(value1), margin + 4, yPosition + 6);
-          if (value2)
-            doc.text(
-              String(value2),
-              margin + contentWidth / 2 + 4,
-              yPosition + 6
-            );
-
-          return yPosition + 14;
-        }
-
-        // Enhanced wrapped text with larger font and better spacing
-        function addWrappedText(
-          label,
-          value,
-          yPosition,
-          maxWidth = contentWidth - 12
-        ) {
-          // Label
-          doc.setFontSize(9);
-          doc.setFont(undefined, "bold");
-          doc.setTextColor(...darkGray);
-          doc.text(label.toUpperCase(), margin + 4, yPosition);
-          yPosition += 6;
-
-          // Single grey background container
-          doc.setFillColor(245, 245, 245); // Light grey
-          const wrappedText = doc.splitTextToSize(String(value), maxWidth);
-          const boxHeight = wrappedText.length * 6 + 6;
-          doc.rect(margin, yPosition - 2, contentWidth, boxHeight, "F");
-
-          doc.setFontSize(10);
-          doc.setFont(undefined, "normal");
-          doc.setTextColor(0, 0, 0);
-          doc.text(wrappedText, margin + 4, yPosition + 3);
-
-          return yPosition + boxHeight + 6;
-        }
-        // Modern info box with softer colors and larger text
-        function addInfoBox(
-          label,
-          value,
-          x,
-          y,
-          width,
-          height,
-          bgColor = mediumGray
-        ) {
-          // Shadow effect (softer)
-          doc.setFillColor(220, 220, 220);
-          doc.roundedRect(x + 0.3, y + 0.3, width, height, 2, 2, "F");
-
-          // Main box
-          doc.setFillColor(...bgColor);
-          doc.roundedRect(x, y, width, height, 2, 2, "F");
-
-          // Border (softer)
-          doc.setDrawColor(...primaryColor);
-          doc.setLineWidth(0.2);
-          doc.roundedRect(x, y, width, height, 2, 2, "S");
-
-          doc.setFontSize(8);
-          doc.setFont(undefined, "bold");
-          doc.setTextColor(...darkGray);
-          doc.text(label.toUpperCase(), x + 3, y + 5);
-
-          doc.setFontSize(12);
-          doc.setFont(undefined, "bold");
-          doc.setTextColor(...darkPrimary);
-          doc.text(String(value), x + 3, y + 13);
-          doc.setTextColor(0, 0, 0);
-        }
-
-        // ==================== LIGHTER PROFESSIONAL HEADER ====================
-        // Light gradient header background (much lighter so logo shows clearly)
-        // doc.setFillColor(245, 248, 252);  // Very light blue-gray
-        // doc.rect(0, 0, pageWidth, 45, "F");
-
-        // // Gradient effect (top to bottom) - subtle
-        // doc.setFillColor(235, 242, 250);
-        // doc.rect(0, 10, pageWidth, 35, "F");
-
-        // doc.setFillColor(225, 235, 245);
-        // doc.rect(0, 25, pageWidth, 20, "F");
-
-        // // Add accent stripe at top (CrossFire blue)
-        // doc.setFillColor(...primaryColor);
-        // doc.rect(0, 0, pageWidth, 3, "F");
-
-        // // Bottom border for header
-        // doc.setDrawColor(...primaryColor);
-        // doc.setLineWidth(0.5);
-        // doc.line(0, 45, pageWidth, 45);
-        doc.setFillColor(220, 235, 245); // Light blue
-        doc.rect(0, 0, pageWidth, 45, "F");
-
-        // Add darker blue stripe at top
-        doc.setFillColor(...primaryColor);
-        doc.rect(0, 0, pageWidth, 3, "F");
-
-        // Bottom border
-        doc.setDrawColor(...primaryColor);
-        doc.setLineWidth(0.8);
-        doc.line(0, 45, pageWidth, 45);
-
-        // Logo with FIXED aspect ratio (884:207 = 4.27:1)
-        const logoX = margin;
-        const logoWidth = 60; // Slightly larger for better visibility
-        const logoAspectRatio = 4.27;
-        const logoHeight = logoWidth / logoAspectRatio; // = 14
-
-        const logoImg = new Image();
-        logoImg.src = logo;
-        doc.addImage(logoImg, "PNG", logoX, 14, logoWidth, logoHeight);
-
-        // Title with better typography (dark text on light background)
-        doc.setFontSize(18);
-        doc.setFont(undefined, "bold");
-        doc.setTextColor(...accentColor);
-        doc.text("NON-CONFORMANCE REPORT", pageWidth - margin, 20, {
-          align: "right",
-        });
-
-        // NCR Number with brand color
-        doc.setFontSize(14); // Was 12, now 14 (bigger)
-        doc.setFont(undefined, "bold");
-        doc.setTextColor(...accentColor); // Was primaryColor (light blue), now accentColor (dark blue)
-        doc.text(`NCR #${ncr.ncrNumber}`, pageWidth - margin, 29, {
-          align: "right",
-        });
-        // Subtitle
-        doc.setFontSize(9);
-        doc.setFont(undefined, "normal");
-        doc.setTextColor(...darkGray);
-        doc.text("Quality Management System", pageWidth - margin, 37, {
-          align: "right",
-        });
-
-        let yPos = 55;
-
-        // Professional status badge with softer colors
-        const statusBgColor =
-          ncr.status === "Closed" ? successColor : infoColor;
-        const statusText = ncr.status.toUpperCase();
-
-        // Status badge background
-        doc.setFillColor(...statusBgColor);
-        doc.roundedRect(margin, yPos, 40, 10, 2, 2, "F");
-
-        doc.setFontSize(10);
-        doc.setFont(undefined, "bold");
         doc.setTextColor(255, 255, 255);
-        doc.text(statusText, margin + 20, yPos + 6.5, { align: "center" });
-
-        // Current stage info on right with better spacing
-        doc.setFontSize(10);
-        doc.setFont(undefined, "normal");
-        doc.setTextColor(...darkGray);
-        doc.text(`Current Stage: `, margin + 48, yPos + 6.5);
+        doc.setFontSize(24);
         doc.setFont(undefined, "bold");
-        doc.setTextColor(...darkPrimary);
-        doc.text(ncr.currentStage || "N/A", margin + 82, yPos + 6.5);
-        doc.setTextColor(0, 0, 0);
+        //   doc.text("NON-CONFORMANCE REPORT", 105, 20, { align: "center" });
 
-        yPos += 18;
-
-        // Supplier Information Card with softer styling
-        // Supplier Information Card - single grey background
-        doc.setFillColor(245, 245, 245); // Light grey
-        doc.roundedRect(margin, yPos, contentWidth, 22, 2, 2, "F");
-        doc.setDrawColor(...primaryColor);
-        doc.setLineWidth(0.3);
-        doc.roundedRect(margin, yPos, contentWidth, 22, 2, 2, "S");
-
-        doc.setFontSize(9);
-        doc.setFont(undefined, "bold");
-        doc.setTextColor(...darkGray);
-        doc.text("SUPPLIER INFORMATION", margin + 4, yPos + 6);
+        doc.addImage(logo, "PNG", x, y, imgWidth, imgHeight);
 
         doc.setFontSize(12);
-        doc.setFont(undefined, "bold");
-        doc.setTextColor(...darkPrimary);
-        doc.text(ncr.supplierName || "N/A", margin + 4, yPos + 13);
-
-        doc.setFontSize(9);
         doc.setFont(undefined, "normal");
-        doc.setTextColor(...darkGray);
+        doc.text(`NCR Number: ${ncr.ncrNumber}`, 105, 30, { align: "center" });
+
+        // Reset text color
+        doc.setTextColor(0, 0, 0);
+        let yPos = 50;
+
+        // Status Badge
+        doc.roundedRect(150, yPos - 5, 40, 10, 2, 2, "F");
+        doc.setFontSize(10);
+        doc.setFont(undefined, "bold");
+        doc.text(ncr.status, 170, yPos, { align: "center" });
+
+        yPos += 15;
+
+        // Section: General Information
+        doc.setFillColor(248, 249, 250);
+        doc.rect(10, yPos, 190, 8, "F");
+        doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(88, 151, 201);
+        doc.text("GENERAL INFORMATION", 15, yPos + 5);
+        doc.setTextColor(0, 0, 0);
+        yPos += 15;
+
+        doc.setFontSize(10);
+        doc.setFont(undefined, "bold");
+        doc.text("Created By:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(String(creatorName), 50, yPos);
+
+        doc.setFont(undefined, "bold");
+        doc.text("Email:", 120, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(creatorEmail, 140, yPos);
+        yPos += 7;
+
+        doc.setFont(undefined, "bold");
+        doc.text("Date Created:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(formatDate(ncr.dateCreated), 50, yPos);
+
+        doc.setFont(undefined, "bold");
+        doc.text("Inspection Date:", 120, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(formatDate(ncr.quality.inspectionDate), 155, yPos);
+        yPos += 7;
+
+        doc.setFont(undefined, "bold");
+        doc.text("Inspector ID:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(inspectorName, 50, yPos);
+
+        doc.setFont(undefined, "bold");
+        doc.text("Current Stage:", 120, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.currentStage.toUpperCase(), 155, yPos);
+        yPos += 15;
+
+        // Section: Item Details
+        doc.setFillColor(248, 249, 250);
+        doc.rect(10, yPos, 190, 8, "F");
+        doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(88, 151, 201);
+        doc.text("ITEM DETAILS", 15, yPos + 5);
+        doc.setTextColor(0, 0, 0);
+        yPos += 15;
+
+        doc.setFontSize(10);
+        doc.setFont(undefined, "bold");
+        doc.text("Supplier:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.supplierName, 50, yPos);
+        yPos += 7;
+
+        doc.setFont(undefined, "bold");
+        doc.text("Item Description:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        const itemDesc = doc.splitTextToSize(ncr.quality.itemDescription, 130);
+        doc.text(itemDesc, 50, yPos);
+        yPos += itemDesc.length * 7;
+
+        doc.setFont(undefined, "bold");
+        doc.text("PO Number:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.quality.poNumber, 50, yPos);
+
+        doc.setFont(undefined, "bold");
+        doc.text("SO Number:", 120, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.quality.salesOrderNumber, 155, yPos);
+        yPos += 7;
+
+        doc.setFont(undefined, "bold");
+        doc.text("Process Type:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.ncrType.toUpperCase(), 50, yPos);
+        yPos += 15;
+
+        // Section: Quantity Information
+        doc.setFillColor(248, 249, 250);
+        doc.rect(10, yPos, 190, 8, "F");
+        doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(88, 151, 201);
+        doc.text("QUANTITY INFORMATION", 15, yPos + 5);
+        doc.setTextColor(0, 0, 0);
+        yPos += 15;
+
+        doc.setFontSize(10);
+        doc.setFont(undefined, "bold");
+        doc.text("Quantity Received:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.quality.quantityReceived.toString(), 60, yPos);
+
+        doc.setFont(undefined, "bold");
+        doc.text("Quantity Defective:", 120, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.quality.quantityDefective.toString(), 165, yPos);
+        yPos += 7;
+
+        doc.setFont(undefined, "bold");
+        doc.text("Item Status:", 15, yPos);
+        doc.setFont(undefined, "normal");
         doc.text(
-          `Supplier Code: ${ncr.supplierCode || "N/A"}`,
-          margin + 4,
-          yPos + 19
-        );
-
-        yPos += 28;
-
-        // ==================== GENERAL INFORMATION ====================
-        yPos = addSectionHeader("GENERAL INFORMATION", yPos);
-
-        yPos = addTwoColumnRow(
-          "Created By:",
-          creatorName,
-          "Email:",
-          creatorEmail,
+          ncr.quality.itemMarkedNonconforming ? "NON-CONFORMING" : "CONFORMING",
+          60,
           yPos
         );
-        yPos = addTwoColumnRow(
-          "Date Created:",
-          formatDate(ncr.dateCreated),
-          "Last Updated:",
-          formatDate(ncr.lastUpdated),
-          yPos
-        );
+        yPos += 15;
 
-        yPos += 5;
+        // Section: Defect Description
+        doc.setFillColor(248, 249, 250);
+        doc.rect(10, yPos, 190, 8, "F");
+        doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(88, 151, 201);
+        doc.text("DEFECT DESCRIPTION", 15, yPos + 5);
+        doc.setTextColor(0, 0, 0);
+        yPos += 15;
 
-        // ==================== QUALITY INSPECTION ====================
-        yPos = addSectionHeader("QUALITY INSPECTION", yPos);
-
-        yPos = addTwoColumnRow(
-          "PO Number:",
-          ncr.quality.poNumber,
-          "SO Number:",
-          ncr.quality.salesOrderNumber,
-          yPos
-        );
-        yPos = addTwoColumnRow(
-          "Inspection Date:",
-          formatDate(ncr.quality.inspectionDate),
-          "Inspector:",
-          inspectorName,
-          yPos
-        );
-        yPos = addWrappedText(
-          "Item Description:",
-          ncr.quality.itemDescription,
-          yPos
-        );
-
-        yPos += 5;
-
-        // Professional quantity info cards
-        const cardWidth = (contentWidth - 9) / 4;
-        addInfoBox(
-          "Qty Received",
-          ncr.quality.quantityReceived,
-          margin,
-          yPos,
-          cardWidth,
-          16
-        );
-        addInfoBox(
-          "Qty Defective",
-          ncr.quality.quantityDefective,
-          margin + cardWidth + 3,
-          yPos,
-          cardWidth,
-          16
-        );
-        addInfoBox(
-          "Non-Conforming",
-          ncr.quality.itemMarkedNonconforming ? "YES" : "NO",
-          margin + (cardWidth + 3) * 2,
-          yPos,
-          cardWidth,
-          16,
-          ncr.quality.itemMarkedNonconforming ? [255, 243, 224] : mediumGray
-        );
-        addInfoBox(
-          "Eng. Required",
-          ncr.quality.engineeringRequired ? "YES" : "NO",
-          margin + (cardWidth + 3) * 3,
-          yPos,
-          cardWidth,
-          16,
-          ncr.quality.engineeringRequired ? [255, 243, 224] : mediumGray
-        );
-
-        yPos += 23;
-
-        // Professional defect description alert box with softer colors
+        doc.setFontSize(10);
+        doc.setFont(undefined, "normal");
         const defectDesc = doc.splitTextToSize(
           ncr.quality.defectDescription,
-          contentWidth - 16
+          180
         );
-        const defectBoxHeight = Math.max(26, defectDesc.length * 6 + 14);
+        doc.text(defectDesc, 15, yPos);
+        yPos += defectDesc.length * 7 + 10;
 
-        // Shadow (softer)
-        doc.setFillColor(230, 230, 230);
-        doc.roundedRect(
-          margin + 0.2,
-          yPos + 0.2,
-          contentWidth,
-          defectBoxHeight,
-          2,
-          2,
-          "F"
-        );
+        // Section: Engineering & Resolution
+        if (yPos > 250) {
+          doc.addPage();
+          yPos = 20;
+        }
 
-        // Main box with softer warning color
-        doc.setFillColor(255, 250, 240);
-        doc.roundedRect(margin, yPos, contentWidth, defectBoxHeight, 2, 2, "F");
+        doc.setFillColor(248, 249, 250);
+        doc.rect(10, yPos, 190, 8, "F");
+        doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(88, 151, 201);
+        doc.text("ENGINEERING & RESOLUTION", 15, yPos + 5);
+        doc.setTextColor(0, 0, 0);
+        yPos += 15;
 
-        // Left accent bar (softer red)
-        doc.setFillColor(...dangerColor);
-        doc.roundedRect(margin, yPos, 4, defectBoxHeight, 2, 2, "F");
-
-        // Border (softer)
-        doc.setDrawColor(...dangerColor);
-        doc.setLineWidth(0.3);
-        doc.roundedRect(margin, yPos, contentWidth, defectBoxHeight, 2, 2, "S");
-
-        // Label with larger font
         doc.setFontSize(10);
         doc.setFont(undefined, "bold");
-        doc.setTextColor(...dangerColor);
-        doc.text("⚠  DEFECT DESCRIPTION", margin + 8, yPos + 7);
-
-        // Description text with larger font
-        doc.setFontSize(10);
+        doc.text("Engineering Required:", 15, yPos);
         doc.setFont(undefined, "normal");
-        doc.setTextColor(0, 0, 0);
-        doc.text(defectDesc, margin + 8, yPos + 17);
+        doc.text(ncr.quality.engineeringRequired ? "YES" : "NO", 65, yPos);
+        yPos += 7;
 
-        yPos += defectBoxHeight + 10;
+        doc.setFont(undefined, "bold");
+        doc.text("Quality Completed:", 15, yPos);
+        doc.setFont(undefined, "normal");
+        doc.text(ncr.quality.completed ? "YES" : "NO", 65, yPos);
 
-        // ==================== ENGINEERING DISPOSITION ====================
-        if (ncr.engineering && ncr.engineering.engineerId) {
-          if (yPos > 245) {
-            doc.addPage();
-            yPos = 20;
-          }
+        if (ncr.quality.completedAt) {
+          doc.setFont(undefined, "bold");
+          doc.text("Completed At:", 120, yPos);
+          doc.setFont(undefined, "normal");
+          doc.text(formatDate(ncr.quality.completedAt), 155, yPos);
+        }
+        yPos += 10;
 
-          yPos = addSectionHeader("ENGINEERING DISPOSITION", yPos);
+        // if (ncr.resolutionSummary) {
+        // 	doc.setFont(undefined, "bold");
+        // 	doc.text("Resolution Summary:", 15, yPos);
+        // 	yPos += 7;
+        // 	doc.setFont(undefined, "normal");
+        // 	const resolutionText = doc.splitTextToSize(
+        // 		ncr.resolutionSummary,
+        // 		180
+        // 	);
+        // 	doc.text(resolutionText, 15, yPos);
+        // 	yPos += resolutionText.length * 7 + 10;
+        // }
 
-          const engineer = users.find(
-            (u) => Number(u.userId) === Number(ncr.engineering.engineerId)
+        if (ncr.engineering && ncr.engineering.dispositionDetails) {
+          doc.setFont(undefined, "bold");
+          doc.text("Resolution Summary:", 15, yPos);
+          yPos += 7;
+
+          doc.setFont(undefined, "normal");
+          const resolutionText = doc.splitTextToSize(
+            ncr.engineering.dispositionDetails,
+            180
           );
-          const engineerName = engineer
-            ? `${engineer.firstName} ${engineer.lastName}`
-            : "Unknown";
-
-          yPos = addTwoColumnRow(
-            "Engineer:",
-            engineerName,
-            "Disposition Type:",
-            ncr.engineering.dispositionType || "N/A",
-            yPos
-          );
-          yPos = addTwoColumnRow(
-            "Disposition Date:",
-            formatDate(ncr.engineering.dispositionDate),
-            "Completed:",
-            ncr.engineering.completed ? "YES" : "NO",
-            yPos
-          );
-          yPos = addTwoColumnRow(
-            "Original Rev:",
-            ncr.engineering.originalRevNumber || "N/A",
-            "Updated Rev:",
-            ncr.engineering.updatedRevNumber || "N/A",
-            yPos
-          );
-          yPos = addTwoColumnRow(
-            "Drawing Update:",
-            ncr.engineering.drawingUpdateRequired ? "YES" : "NO",
-            "Revision Date:",
-            formatDate(ncr.engineering.revisionDate),
-            yPos
-          );
-
-          if (ncr.engineering.dispositionDetails) {
-            yPos += 2;
-            yPos = addWrappedText(
-              "Disposition Details:",
-              ncr.engineering.dispositionDetails,
-              yPos
-            );
-          }
-
-          yPos += 5;
+          doc.text(resolutionText, 15, yPos);
+          yPos += resolutionText.length * 7 + 10;
         }
 
-        // ==================== OPERATIONS ====================
-        if (ncr.operations && ncr.operations.operationsManagerId) {
-          if (yPos > 245) {
-            doc.addPage();
-            yPos = 20;
-          }
-
-          yPos = addSectionHeader("OPERATIONS", yPos);
-
-          const opsManager = users.find(
-            (u) =>
-              Number(u.userId) === Number(ncr.operations.operationsManagerId)
-          );
-          const opsManagerName = opsManager
-            ? `${opsManager.firstName} ${opsManager.lastName}`
-            : "Unknown";
-
-          yPos = addTwoColumnRow(
-            "Operations Manager:",
-            opsManagerName,
-            "Action Date:",
-            formatDate(ncr.operations.actionDate),
-            yPos
-          );
-          yPos = addTwoColumnRow(
-            "CAR Required:",
-            ncr.operations.carRequired ? "YES" : "NO",
-            "CAR Number:",
-            ncr.operations.carNumber || "N/A",
-            yPos
-          );
-          yPos = addTwoColumnRow(
-            "Completed:",
-            ncr.operations.completed ? "YES" : "NO",
-            "Completed At:",
-            ncr.operations.completedAt
-              ? formatDate(ncr.operations.completedAt)
-              : "N/A",
-            yPos
-          );
-
-          yPos += 2;
-          yPos = addWrappedText(
-            "Action Taken:",
-            ncr.operations.actionTaken || "N/A",
-            yPos
-          );
-
-          yPos += 5;
-        }
-
-        // ==================== PROCUREMENT ====================
-        if (ncr.procurement && ncr.procurement.buyerId) {
-          if (yPos > 245) {
-            doc.addPage();
-            yPos = 20;
-          }
-
-          yPos = addSectionHeader("PROCUREMENT", yPos);
-
-          const buyer = users.find(
-            (u) => Number(u.userId) === Number(ncr.procurement.buyerId)
-          );
-          const buyerName = buyer
-            ? `${buyer.firstName} ${buyer.lastName}`
-            : "Unknown";
-
-          yPos = addTwoColumnRow(
-            "Buyer:",
-            buyerName,
-            "SAP Completed:",
-            ncr.procurement.sapCompleted ? "YES" : "NO",
-            yPos
-          );
-          yPos = addTwoColumnRow(
-            "Supplier Return:",
-            ncr.procurement.supplierReturn ? "YES" : "NO",
-            "Dispose On Site:",
-            ncr.procurement.disposeOnSite ? "YES" : "NO",
-            yPos
-          );
-          yPos = addTwoColumnRow(
-            "Credit Expected:",
-            ncr.procurement.creditExpected ? "YES" : "NO",
-            "Billing Supplier:",
-            ncr.procurement.billingSupplier ? "YES" : "NO",
-            yPos
-          );
-          yPos = addTwoColumnRow(
-            "RMA Number:",
-            ncr.procurement.rmaNumber || "N/A",
-            "Carrier Account:",
-            ncr.procurement.carrierAccount || "N/A",
-            yPos
-          );
-
-          if (ncr.procurement.replacementDate) {
-            yPos = addTwoColumnRow(
-              "Replacement Date:",
-              formatDate(ncr.procurement.replacementDate),
-              "",
-              "",
-              yPos
-            );
-          }
-
-          yPos += 5;
-        }
-
-        // ==================== CLOSURE INFORMATION ====================
         if (ncr.status === "Closed") {
-          if (yPos > 260) {
-            doc.addPage();
-            yPos = 20;
-          }
+          doc.setFont(undefined, "bold");
+          doc.text("Closed By:", 15, yPos);
+          doc.setFont(undefined, "normal");
+          doc.text(String(ncr.closedBy || "N/A"), 50, yPos);
 
-          yPos = addSectionHeader("CLOSURE INFORMATION", yPos);
-
-          const closedByUser = users.find(
-            (u) => Number(u.userId) === Number(ncr.closedBy)
-          );
-          const closedByName = closedByUser
-            ? `${closedByUser.firstName} ${closedByUser.lastName}`
-            : "Unknown";
-
-          yPos = addTwoColumnRow(
-            "Closed By:",
-            closedByName,
-            "Date Closed:",
-            formatDate(ncr.dateClosed),
+          doc.setFont(undefined, "bold");
+          doc.text("Date Closed:", 120, yPos);
+          doc.setFont(undefined, "normal");
+          doc.text(
+            ncr.dateClosed ? formatDate(ncr.dateClosed) : "N/A",
+            155,
             yPos
           );
         }
 
-        // ==================== PROFESSIONAL FOOTER ====================
+        // Footer
         const pageCount = doc.internal.getNumberOfPages();
         for (let i = 1; i <= pageCount; i++) {
           doc.setPage(i);
-
-          // Footer accent bar (softer)
-          doc.setFillColor(...primaryColor);
-          doc.rect(0, 283, pageWidth, 2, "F");
-
-          // Footer background (very light)
-          doc.setFillColor(252, 252, 252);
-          doc.rect(0, 285, pageWidth, 12, "F");
-
-          // Footer content with larger text
           doc.setFontSize(8);
-          doc.setTextColor(...darkGray);
-          doc.setFont(undefined, "normal");
+          doc.setTextColor(128, 128, 128);
           doc.text(
-            `Generated: ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}`,
-            margin,
-            291
+            `Generated on ${new Date().toLocaleDateString()} | Page ${i} of ${pageCount}`,
+            105,
+            287,
+            { align: "center" }
           );
-
-          // Page number with accent
-          doc.setFont(undefined, "bold");
-          doc.setTextColor(...darkPrimary);
-          doc.text(`Page ${i} of ${pageCount}`, pageWidth - margin, 291, {
-            align: "right",
-          });
-
-          // Company name in center
-          doc.setFont(undefined, "italic");
-          doc.setTextColor(...darkGray);
-          doc.text("CrossFire Welding Systems", pageWidth / 2, 291, {
-            align: "center",
-          });
         }
 
         // Save PDF

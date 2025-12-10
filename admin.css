@@ -94,6 +94,11 @@ body {
 }
 
 /* Button Styles */
+.btn-primary, 
+.btn-danger {
+  margin-bottom: 10px;
+  width: 55%;
+}
 .btn-primary-custom {
   background-color: #2f6ea3;
   border: none;

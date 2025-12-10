@@ -160,6 +160,7 @@ function deleteUser() {
     $('#deleteConfirmationModal').modal('hide');
 }
 
+//Clear input
 function clearInputFields() {
     document.getElementById("firstName").value = "";
     document.getElementById("lastName").value = "";

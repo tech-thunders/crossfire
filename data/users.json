@@ -8,7 +8,6 @@
     "department": "Quality",
     "isActive": true
   },
-
   {
     "userId": 2,
     "firstName": "John",
@@ -18,7 +17,24 @@
     "department": "Engineering",
     "isActive": true
   },
-
+  {
+    "userId": 3,
+    "firstName": "Sarah",
+    "lastName": "Williams",
+    "email": "sarah.williams@example.com",
+    "username": "swilliams",
+    "department": "Operations",
+    "isActive": true
+  },
+  {
+    "userId": 4,
+    "firstName": "David",
+    "lastName": "Brown",
+    "email": "david.brown@example.com",
+    "username": "dbrown",
+    "department": "Engineering",
+    "isActive": true
+  },
   {
     "userId": 5,
     "firstName": "Emma",
@@ -28,7 +44,15 @@
     "department": "Operations",
     "isActive": true
   },
-
+  {
+    "userId": 6,
+    "firstName": "James",
+    "lastName": "Davis",
+    "email": "james.davis@example.com",
+    "username": "jdavis",
+    "department": "Quality",
+    "isActive": true
+  },
   {
     "userId": 7,
     "firstName": "Olivia",
@@ -36,6 +60,51 @@
     "email": "olivia.martinez@example.com",
     "username": "omartinez",
     "department": "Purchasing",
+    "isActive": true
+  },
+  {
+    "userId": 8,
+    "firstName": "Robert",
+    "lastName": "Garcia",
+    "email": "robert.garcia@example.com",
+    "username": "rgarcia",
+    "department": "Purchasing",
+    "isActive": true
+  },
+  {
+    "userId": 9,
+    "firstName": "Jessica",
+    "lastName": "Rodriguez",
+    "email": "jessica.rodriguez@example.com",
+    "username": "jrodriguez",
+    "department": "Purchasing",
+    "isActive": true
+  },
+  {
+    "userId": 10,
+    "firstName": "William",
+    "lastName": "Wilson",
+    "email": "william.wilson@example.com",
+    "username": "wwilson",
+    "department": "Purchasing",
+    "isActive": true
+  },
+  {
+    "userId": 11,
+    "firstName": "Sophia",
+    "lastName": "Anderson",
+    "email": "sophia.anderson@example.com",
+    "username": "sanderson",
+    "department": "Purchasing",
+    "isActive": true
+  },
+  {
+    "userId": 12,
+    "firstName": "Daniel",
+    "lastName": "Taylor",
+    "email": "daniel.taylor@example.com",
+    "username": "dtaylor",
+    "department": "Quality",
     "isActive": true
   },
   {

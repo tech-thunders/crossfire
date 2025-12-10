@@ -33,7 +33,7 @@ const NCRDataManager = {
 
 		// Validate schema
 		if (!this.validateSchema()) {
-			console.warn("❗ Schema mismatch — resetting NCR data...");
+			console.warn("Schema mismatch — resetting NCR data...");
 			this.seedFromJSON();
 			return;
 		}

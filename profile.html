@@ -27,7 +27,8 @@
           <ul>
             <li><a href="dashboard.html"><i class="bi bi-house-fill"></i> Dashboard</a></li>
             <li><a href="view-ncr.html"><i class="bi bi-file-earmark-bar-graph-fill"></i> NCR Log</a></li>
-            <li><a href="create-ncr.html"><i class="bi bi-file-earmark-plus-fill"></i> Create NCR</a></li>
+            <li id="create-ncr-menu"><a href="create-ncr.html"><i class="bi bi-file-earmark-plus-fill"></i> Create NCR</a></li>
+            <li id="admin-panel"><a href="admin.html"><i class="bi bi-person-fill"></i>Admin Panel</a></li>
           </ul>
         </div>
         <div class="navbar-icons">
@@ -42,6 +43,10 @@
             </div>
             <span id="userName">User</span>
             <i class="bi bi-chevron-down profile-arrow"></i>
+          </div>
+
+          <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
+            <i id="menu-icon" class="bi bi-list"></i>
           </div>
           
           <div id="profilePopup" class="profile-popup hidden">
@@ -204,5 +209,6 @@
   <script src="scripts/script.js"></script>
   <script src="scripts/notifications.js"></script>
   <script src="scripts/profile.js"></script>
+  <script src="scripts/user-conditions.js"></script>
 </body>
 </html>

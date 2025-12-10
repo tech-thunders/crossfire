@@ -185,24 +185,6 @@ body {
   transition: all 0.2s;
 }
 
-.btn-edit {
-  background-color: #ffc107;
-  color: #000;
-}
-
-.btn-edit:hover {
-  background-color: #e0a800;
-}
-
-.btn-delete {
-  background-color: #dc3545;
-  color: white;
-}
-
-.btn-delete:hover {
-  background-color: #c82333;
-}
-
 /* Responsive */
 @media (max-width: 768px) {
   .page-header h1 {

@@ -37,6 +37,7 @@ header.form-header,
 	border-bottom: none;
 }
 
+
 /* meta info - mobile */
 
 .meta-info {
@@ -273,7 +274,7 @@ button {
 /* help text */
 .help-text {
 	font-size: 0.75rem;
-	color: #6b7280;
+	color: #545454;
 	margin-top: 0.25rem;
 	display: block;
 	line-height: 1.4;
@@ -381,6 +382,7 @@ aside.notice {
 	.meta-item {
 		padding: 0.75rem;
 	}
+	
 
 	form {
 		padding: 2rem;

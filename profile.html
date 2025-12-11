@@ -27,7 +27,8 @@
           <ul>
             <li><a href="dashboard.html"><i class="bi bi-house-fill"></i> Dashboard</a></li>
             <li><a href="view-ncr.html"><i class="bi bi-file-earmark-bar-graph-fill"></i> NCR Log</a></li>
-            <li><a href="create-ncr.html"><i class="bi bi-file-earmark-plus-fill"></i> Create NCR</a></li>
+            <li id="create-ncr-menu"><a href="create-ncr.html"><i class="bi bi-file-earmark-plus-fill"></i> Create NCR</a></li>
+            <li id="admin-panel"><a href="admin.html"><i class="bi bi-person-fill"></i>Admin Panel</a></li>
           </ul>
         </div>
         <div class="navbar-icons">
@@ -42,6 +43,10 @@
             </div>
             <span id="userName">User</span>
             <i class="bi bi-chevron-down profile-arrow"></i>
+          </div>
+
+          <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
+            <i id="menu-icon" class="bi bi-list"></i>
           </div>
           
           <div id="profilePopup" class="profile-popup hidden">
@@ -89,7 +94,7 @@
             <i class="bi bi-person-fill"></i>
           </div>
           <div class="profile-header-info">
-            <h1 style = "display: flex;" id="profileFullName">Loading...</h1>
+            <h1 style="display: flex;" id="profileFullName">Loading...</h1>
             <p id="profileRole">Department</p>
           </div>
         </div>
@@ -100,30 +105,49 @@
             <h2><i class="bi bi-person-badge"></i> Personal Information</h2>
           </div>
           <div class="profile-details">
+            
+            <!-- First Name Row -->
             <div class="detail-row">
               <div class="detail-label">
                 <i class="bi bi-person"></i>
                 <span>First Name</span>
               </div>
-              <div class="detail-value" id="detailFirstName">-</div>
+              <!-- VIEW MODE -->
+              <div class="detail-value view-mode" id="detailFirstName">-</div>
+              <!-- EDIT MODE (hidden by default) -->
+              <div class="detail-edit edit-mode" style="display: none;">
+                <input type="text" id="editFirstName" class="edit-input" placeholder="First Name">
+                <span class="error-message" id="firstNameError">First name is required</span>
+              </div>
             </div>
 
+            <!-- Last Name Row -->
             <div class="detail-row">
               <div class="detail-label">
                 <i class="bi bi-person"></i>
                 <span>Last Name</span>
               </div>
-              <div class="detail-value" id="detailLastName">-</div>
+              <div class="detail-value view-mode" id="detailLastName">-</div>
+              <div class="detail-edit edit-mode" style="display: none;">
+                <input type="text" id="editLastName" class="edit-input" placeholder="Last Name">
+                <span class="error-message" id="lastNameError">Last name is required</span>
+              </div>
             </div>
 
+            <!-- Email Row -->
             <div class="detail-row">
               <div class="detail-label">
                 <i class="bi bi-envelope"></i>
                 <span>Email</span>
               </div>
-              <div class="detail-value" id="detailEmail">-</div>
+              <div class="detail-value view-mode" id="detailEmail">-</div>
+              <div class="detail-edit edit-mode" style="display: none;">
+                <input type="email" id="editEmail" class="edit-input" placeholder="email@example.com">
+                <span class="error-message" id="emailError">Please enter a valid email</span>
+              </div>
             </div>
 
+            <!-- Non-editable fields (always in view mode) -->
             <div class="detail-row">
               <div class="detail-label">
                 <i class="bi bi-building"></i>
@@ -152,107 +176,39 @@
 
         <!-- Action Buttons -->
         <div class="profile-actions">
-          <button class="btn-secondary" onclick="goBack()">
-            <i class="bi bi-arrow-left"></i> Back to Dashboard
-          </button>
-          <button class="btn-primary" onclick="logout()">
-            <i class="bi bi-box-arrow-right"></i> Logout
-          </button>
+          <!-- VIEW MODE BUTTONS -->
+          <div id="viewModeButtons">
+            <button class="btn-secondary" onclick="goBack()">
+              <i class="bi bi-arrow-left"></i> Back to Dashboard
+            </button>
+            <button class="btn-primary" onclick="enterEditMode()">
+              <i class="bi bi-pencil"></i> Edit Profile
+            </button>
+          </div>
+
+          <!-- EDIT MODE BUTTONS (hidden by default) -->
+          <div id="editModeButtons" style="display: none;">
+            <button class="btn-secondary" onclick="cancelEdit()">
+              <i class="bi bi-x-circle"></i> Cancel
+            </button>
+            <button class="btn-primary" onclick="saveProfile()">
+              <i class="bi bi-check-circle"></i> Save Changes
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </main>
 
   <footer>&copy; Tech Thunders 2025</footer>
+  <div id="toastContainer" class="toast-container"></div>
 
+  <!-- Load scripts in correct order -->
   <script src="scripts/data-manager.js"></script>
+  <script src="scripts/user-manager.js"></script>
   <script src="scripts/script.js"></script>
   <script src="scripts/notifications.js"></script>
-  <script>
-    // Auth Check
-    (function() {
-      const userData = localStorage.getItem('currentUser');
-      if (!userData) {
-        window.location.replace('index.html');
-        return;
-      }
-    })();
-
-    let currentUser = null;
-
-    // Load user profile data
-    function loadProfile() {
-      const userData = localStorage.getItem('currentUser');
-      
-      if (!userData) {
-        window.location.href = 'index.html';
-        return;
-      }
-
-      try {
-        currentUser = JSON.parse(userData);
-        displayProfile();
-      } catch (e) {
-        console.error('Error loading profile:', e);
-        window.location.href = 'index.html';
-      }
-    }
-
-    // Display profile information
-    function displayProfile() {
-      if (!currentUser) return;
-
-      // Update navbar
-      document.getElementById('userName').textContent = currentUser.firstName;
-      document.getElementById('profileName').textContent = `${currentUser.firstName} ${currentUser.lastName}`;
-      document.getElementById('profileDepartment').textContent = currentUser.department;
-
-      // Update profile page header
-      document.getElementById('profileFullName').textContent = `${currentUser.firstName} ${currentUser.lastName}`;
-      document.getElementById('profileRole').textContent = currentUser.department;
-
-      // Update profile details
-      document.getElementById('detailFirstName').textContent = currentUser.firstName;
-      document.getElementById('detailLastName').textContent = currentUser.lastName;
-      document.getElementById('detailEmail').textContent = currentUser.email;
-      document.getElementById('detailDepartment').textContent = currentUser.department;
-      document.getElementById('detailUsername').textContent = currentUser.username;
-      document.getElementById('detailUserId').textContent = currentUser.userId;
-    }
-
-    // Toggle profile menu
-    function toggleProfileMenu() {
-      const popup = document.getElementById('profilePopup');
-      const notificationPopup = document.getElementById('notificationPopup');
-      notificationPopup.classList.add('hidden');
-      popup.classList.toggle('hidden');
-    }
-
-    // Logout function
-    function logout() {
-      localStorage.removeItem('currentUser');
-      window.location.href = 'index.html';
-    }
-
-    // Go back to dashboard
-    function goBack() {
-      window.location.href = 'dashboard.html';
-    }
-
-    // Close popup when clicking outside
-    document.addEventListener('click', function(event) {
-      const profilePopup = document.getElementById('profilePopup');
-      const profileButton = document.querySelector('.navbar-profile');
-      
-      if (!profileButton.contains(event.target) && !profilePopup.contains(event.target)) {
-        profilePopup.classList.add('hidden');
-      }
-    });
-
-    // Load profile on page load
-    document.addEventListener('DOMContentLoaded', function() {
-      loadProfile();
-    });
-  </script>
+  <script src="scripts/profile.js"></script>
+  <script src="scripts/user-conditions.js"></script>
 </body>
 </html>

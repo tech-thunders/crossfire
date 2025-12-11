@@ -1,313 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ThunderTrack - Admin Panel</title>
 
-    <!-- Fonts & Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ThunderTrack - Admin Panel</title>
 
-    <!-- Bootstrap -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 
-    <!-- External Stylesheets -->
-    <link rel="stylesheet" href="header.css" />
-    <link rel="stylesheet" href="notification.css" />
-    <link rel="stylesheet" href="dashboard-profile.css" />
-    <link rel="stylesheet" href="admin.css" />
-  </head>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-  <body>
-    <!-- NAVBAR -->
-    <header>
-      <nav>
-        <div class="navbar">
+  <!-- External Stylesheets -->
+  <link rel="stylesheet" href="header.css" />
+  <link rel="stylesheet" href="notification.css" />
+  <link rel="stylesheet" href="dashboard-profile.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <header>
+    <nav>
+      <div class="navbar">
+        <div>
+          <a href="dashboard.html"><img src="images/crossfire-logo-transparent.png" alt="Crossfire Logo"
+              class="logo" /></a>
+        </div>
+        <div class="navbar-links">
+          <ul>
+            <li>
+              <a href="dashboard.html"><i class="bi bi-house-fill"></i> Dashboard</a>
+            </li>
+            <li>
+              <a href="view-ncr.html"><i class="bi bi-file-earmark-bar-graph-fill"></i>
+                NCR Log</a>
+            </li>
+            <li id="create-ncr-menu">
+              <a href="create-ncr.html"><i class="bi bi-file-earmark-plus-fill"></i> Create NCR</a>
+            </li>
+            <li id="admin-panel">
+              <a href="admin.html"><i class="bi bi-person-fill"></i>Admin Panel</a>
+            </li>
+          </ul>
+        </div>
+        <div class="navbar-icons">
+          <div onclick="closePopUp()" title="Notifications" class="navbar-notification">
+            <i id="notification-icon" class="bi bi-bell-fill"></i>
+            <div id="notification-indicator" class="notification-indicator">
+              4
+            </div>
+          </div>
+          <!-- User Profile Dropdown -->
+          <div class="navbar-profile" onclick="toggleProfileMenu()" title="Profile">
+            <i class="bi bi-person-circle"></i>
+            <span id="userName">User</span>
+            <i class="bi bi-chevron-down"></i>
+          </div>
+
+          <div onclick="toggleMenu()" title="Menu" class="navbar-menu">
+            <i id="menu-icon" class="bi bi-list"></i>
+          </div>
+        </div>
+        <!-- Profile Dropdown Menu -->
+          <div id="profilePopup" class="profile-popup hidden">
+            <div class="profile-header">
+              <i class="bi bi-person-circle profile-icon"></i>
+              <div>
+                <h4 id="profileName">User Name</h4>
+                <p id="profileDepartment">Department</p>
+              </div>
+            </div>
+            <div class="profile-menu">
+              <a href="profile.html" class="profile-menu-item">
+                <i class="bi bi-person"></i> My Profile
+              </a>
+              <a href="setting-mock.html" class="profile-menu-item">
+                <i class="bi bi-gear"></i> Settings
+              </a>
+              <hr class="profile-divider" />
+              <a href="index.html" class="profile-menu-item" onclick="logout()">
+                <i class="bi bi-box-arrow-right"></i> Logout
+              </a>
+            </div>
+          </div>
+        <div id="notificationPopup" title="Notifications" class="notification-popup hidden">
+          <!-- Notifications -->
           <div>
-            <a href="dashboard.html">
-              <img
-                src="images/crossfire-logo-transparent.png"
-                alt="Crossfire Logo"
-                class="logo"
-              />
-            </a>
-          </div>
-          <div class="navbar-links">
-            <ul>
-              <li>
-                <a href="dashboard.html"
-                  ><i class="bi bi-house-fill"></i> Dashboard</a
-                >
-              </li>
-              <li>
-                <a href="view-ncr.html"
-                  ><i
-                    class="bi bi-file-earmark-bar-graph-fill"
-                    style="font-weight: 900"
-                  ></i>
-                  NCR Log</a
-                >
-              </li>
-              <li id="create-ncr-menu">
-                <a href="create-ncr.html"
-                  ><i class="bi bi-file-earmark-plus-fill"></i> Create NCR</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div class="navbar-icons">
-            <div
-              onclick="closePopUp()"
-              title="Notifications"
-              class="navbar-notification"
-            >
-              <i id="notification-icon" class="bi bi-bell-fill"></i>
-              <div id="notification-indicator" class="notification-indicator">
-                4
-              </div>
-            </div>
-            <!-- User Profile Dropdown -->
-            <div
-              class="navbar-profile"
-              onclick="toggleProfileMenu()"
-              title="Profile"
-            >
-              <i class="bi bi-person-circle"></i>
-              <span id="userName">User</span>
-              <i class="bi bi-chevron-down"></i>
-            </div>
-
-            <!-- Profile Dropdown Menu -->
-            <div id="profilePopup" class="profile-popup hidden">
-              <div class="profile-header">
-                <i class="bi bi-person-circle profile-icon"></i>
-                <div>
-                  <h4 id="profileName">User Name</h4>
-                  <p id="profileDepartment">Department</p>
-                </div>
-              </div>
-              <div class="profile-menu">
-                <a href="profile.html" class="profile-menu-item">
-                  <i class="bi bi-person"></i> My Profile
-                </a>
-                <a href="setting-mock.html" class="profile-menu-item">
-                  <i class="bi bi-gear"></i> Settings
-                </a>
-                <hr class="profile-divider" />
-                <a
-                  href="index.html"
-                  class="profile-menu-item"
-                  onclick="logout()"
-                >
-                  <i class="bi bi-box-arrow-right"></i> Logout
-                </a>
-              </div>
-            </div>
-          </div>
-          <div
-            id="notificationPopup"
-            title="Notifications"
-            class="notification-popup hidden"
-          >
-            <!-- Notifications -->
-            <div>
-              <h3 class="notification-title">Notifications</h3>
-              <p id="no-notifications" class="no-notifications">
-                No notifications yet
-              </p>
-              <ul class="notification-list"></ul>
-            </div>
+            <h3 class="notification-title">Notifications</h3>
+            <p id="no-notifications" class="no-notifications">
+              No notifications yet
+            </p>
+            <ul class="notification-list"></ul>
           </div>
         </div>
-      </nav>
-    </header>
-
-    <!-- MAIN CONTENT -->
-    <div class="main-container">
-      <!-- Page Header -->
-      <div class="page-header">
-        <h1><i class="bi bi-people-fill"></i> User Management</h1>
-        <p>Add, edit, and manage system users</p>
       </div>
+    </nav>
+  </header>
 
-      <!-- Add User Section -->
-      <div class="custom-card">
-        <div class="card-header-custom">
-          <i class="bi bi-person-plus-fill"></i>
-          <h4>Add New User</h4>
-        </div>
-        <form id="userForm">
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label for="firstName" class="form-label">First Name</label>
-              <input
-                type="text"
-                id="firstName"
-                class="form-control"
-                placeholder="Enter first name"
-                required
-              />
-            </div>
-            <div class="col-md-6">
-              <label for="lastName" class="form-label">Last Name</label>
-              <input
-                type="text"
-                id="lastName"
-                class="form-control"
-                placeholder="Enter last name"
-                required
-              />
-            </div>
-            <div class="col-md-6">
-              <label for="email" class="form-label">Email Address</label>
-              <input
-                type="email"
-                id="email"
-                class="form-control"
-                placeholder="user@example.com"
-                required
-              />
-            </div>
-            <div class="col-md-6">
-              <label for="department" class="form-label">Department</label>
-              <select id="department" class="form-select">
-                <option>Quality</option>
-                <option>Engineering</option>
-                <option>Operations</option>
-                <option>Purchasing</option>
-                <option>Admin</option>
-              </select>
-            </div>
+  <!-- MAIN CONTENT -->
+  <div class="main-container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1><i class="bi bi-people-fill"></i> User Management</h1>
+      <p>Add, edit, and manage system users</p>
+    </div>
+
+    <!-- Add User Section -->
+    <div class="custom-card">
+      <div class="card-header-custom">
+        <i class="bi bi-person-plus-fill"></i>
+        <h4>Add New User</h4>
+      </div>
+      <form id="userForm">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" id="firstName" class="form-control" placeholder="Enter first name" required />
           </div>
-          <button type="submit" class="btn-primary-custom w-100 mt-4">
-            <i class="bi bi-plus-circle me-2"></i>Add User
-          </button>
-        </form>
-      </div>
-
-      <!-- Search Section -->
-      <div class="search-container">
-        <i class="bi bi-search"></i>
-        <input
-          type="text"
-          id="search"
-          class="form-control"
-          placeholder="Search users by name, email, or department..."
-        />
-      </div>
-
-      <!-- Users List Section -->
-      <div class="custom-card">
-        <div class="card-header-custom">
-          <i class="bi bi-list-ul"></i>
-          <h4>Users List</h4>
+          <div class="col-md-6">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" id="lastName" class="form-control" placeholder="Enter last name" required />
+          </div>
+          <div class="col-md-6">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" id="email" class="form-control" placeholder="user@example.com" required />
+          </div>
+          <div class="col-md-6">
+            <label for="department" class="form-label">Department</label>
+            <select id="department" class="form-select">
+              <option>Quality</option>
+              <option>Engineering</option>
+              <option>Operations</option>
+              <option>Purchasing</option>
+              <option>Admin</option>
+            </select>
+          </div>
         </div>
-        <div class="table-responsive">
-          <table class="table table-hover table-bordered table-custom mb-0">
-            <thead>
-              <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Department</th>
-                <th style="width: 160px; text-align: center">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="userTable">
-              <!-- Users will be populated here by admin.js -->
-            </tbody>
-          </table>
+        <!-- Button to trigger the Add User modal -->
+        <button type="button" class="btn btn-success" id="addNewUser" style="margin-top: 20px;">
+          Add New User
+        </button>
+      </form>
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-container">
+      <i class="bi bi-search"></i>
+      <input type="text" id="search" class="form-control" placeholder="Search users by name, email, or department..." />
+    </div>
+
+    <!-- Users List Section -->
+    <div class="custom-card">
+      <div class="card-header-custom">
+        <i class="bi bi-list-ul"></i>
+        <h4>Users List</h4>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered table-custom mb-0">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Department</th>
+              <th style="width: 160px; text-align: center">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="userTable">
+            <!-- Users will be populated here by admin.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Add New User Modal -->
+    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addUserModalLabel">Add New User</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Modal form fields for adding new user -->
+            <form id="addUserForm">
+              <div class="mb-3">
+                <label for="addFirstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="addFirstName" required>
+              </div>
+              <div class="mb-3">
+                <label for="addLastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="addLastName" required>
+              </div>
+              <div class="mb-3">
+                <label for="addEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="addEmail" required>
+              </div>
+              <div class="mb-3">
+                <label for="addDepartment" class="form-label">Department</label>
+                <select id="addDepartment" class="form-select" required>
+                  <option value="Quality">Quality</option>
+                  <option value="Engineering">Engineering</option>
+                  <option value="Operations">Operations</option>
+                  <option value="Purchasing">Purchasing</option>
+                  <option value="Admin">Admin</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="confirmAddUserBtn">Add User</button>
+          </div>
         </div>
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="admin.js"></script>
-    <script src="scripts/notifications.js"></script>
-    <script>
-      // Load current user from localStorage
-      let currentUser = null;
+    <!-- Edit User Confirmation Modal -->
+    <div class="modal fade" id="editUserConfirmationModal" tabindex="-1"
+      aria-labelledby="editUserConfirmationModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editUserConfirmationModalLabel">Confirm User Edit</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Modal form fields for editing -->
+            <form id="editUserForm">
+              <div class="mb-3">
+                <label for="modalFirstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="modalFirstName" required>
+              </div>
+              <div class="mb-3">
+                <label for="modalLastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="modalLastName" required>
+              </div>
+              <div class="mb-3">
+                <label for="modalEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="modalEmail" required>
+              </div>
+              <div class="mb-3">
+                <label for="modalDepartment" class="form-label">Department</label>
+                <select id="modalDepartment" class="form-select" required>
+                  <option value="Quality">Quality</option>
+                  <option value="Engineering">Engineering</option>
+                  <option value="Operations">Operations</option>
+                  <option value="Purchasing">Purchasing</option>
+                  <option value="Admin">Admin</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="confirmEditUserBtn">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      function loadCurrentUser() {
-        const userData = localStorage.getItem("currentUser");
-        if (userData) {
-          try {
-            currentUser = JSON.parse(userData);
-            updateUserInterface();
-          } catch (e) {
-            console.error("Error loading user data:", e);
-          }
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete this user? This action cannot be undone.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger" onclick="deleteUser()">Confirm Deletion</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="scripts/admin.js"></script>
+  <script src="scripts/notifications.js"></script>
+  <script src="scripts/user-conditions.js"></script>
+  <script src="scripts/script.js"></script>
+  <script>
+    // Load current user from localStorage
+    let currentUser = null;
+
+    function loadCurrentUser() {
+      const userData = localStorage.getItem("currentUser");
+      if (userData) {
+        try {
+          currentUser = JSON.parse(userData);
+          updateUserInterface();
+        } catch (e) {
+          console.error("Error loading user data:", e);
         }
       }
+    }
 
-      function updateUserInterface() {
-        if (!currentUser) return;
+    function updateUserInterface() {
+      if (!currentUser) return;
 
-        document.getElementById("userName").textContent = currentUser.firstName;
-        document.getElementById(
-          "profileName"
-        ).textContent = `${currentUser.firstName} ${currentUser.lastName}`;
-        document.getElementById("profileDepartment").textContent =
-          currentUser.department;
-      }
+      document.getElementById("userName").textContent = currentUser.firstName;
+      document.getElementById(
+        "profileName"
+      ).textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+      document.getElementById("profileDepartment").textContent =
+        currentUser.department;
+    }
 
-      function toggleProfileMenu() {
-        const popup = document.getElementById("profilePopup");
-        const notificationPopup = document.getElementById("notificationPopup");
-        notificationPopup.classList.add("hidden");
-        popup.classList.toggle("hidden");
-      }
+    function toggleProfileMenu() {
+      const popup = document.getElementById("profilePopup");
+      const notificationPopup = document.getElementById("notificationPopup");
+      notificationPopup.classList.add("hidden");
+      popup.classList.toggle("hidden");
+    }
 
-      function closePopUp() {
-        const notificationPopup = document.getElementById("notificationPopup");
-        const profilePopup = document.getElementById("profilePopup");
+    function closePopUp() {
+      const notificationPopup = document.getElementById("notificationPopup");
+      const profilePopup = document.getElementById("profilePopup");
+      profilePopup.classList.add("hidden");
+      notificationPopup.classList.toggle("hidden");
+    }
+
+    function logout() {
+      localStorage.removeItem("currentUser");
+      window.location.href = "index.html";
+    }
+
+    document.addEventListener("click", function (event) {
+      const profilePopup = document.getElementById("profilePopup");
+      const profileButton = document.querySelector(".navbar-profile");
+      const notificationPopup = document.getElementById("notificationPopup");
+      const notificationButton = document.querySelector(
+        ".navbar-notification"
+      );
+
+      if (
+        !profileButton.contains(event.target) &&
+        !profilePopup.contains(event.target)
+      ) {
         profilePopup.classList.add("hidden");
-        notificationPopup.classList.toggle("hidden");
       }
 
-      function logout() {
-        localStorage.removeItem("currentUser");
-        window.location.href = "index.html";
+      if (
+        !notificationButton.contains(event.target) &&
+        !notificationPopup.contains(event.target)
+      ) {
+        notificationPopup.classList.add("hidden");
       }
+    });
 
-      document.addEventListener("click", function (event) {
-        const profilePopup = document.getElementById("profilePopup");
-        const profileButton = document.querySelector(".navbar-profile");
-        const notificationPopup = document.getElementById("notificationPopup");
-        const notificationButton = document.querySelector(
-          ".navbar-notification"
-        );
+    document.addEventListener("DOMContentLoaded", function () {
+      loadCurrentUser();
+    });
+  </script>
+</body>
 
-        if (
-          !profileButton.contains(event.target) &&
-          !profilePopup.contains(event.target)
-        ) {
-          profilePopup.classList.add("hidden");
-        }
-
-        if (
-          !notificationButton.contains(event.target) &&
-          !notificationPopup.contains(event.target)
-        ) {
-          notificationPopup.classList.add("hidden");
-        }
-      });
-
-      document.addEventListener("DOMContentLoaded", function () {
-        loadCurrentUser();
-      });
-    </script>
-  </body>
 </html>

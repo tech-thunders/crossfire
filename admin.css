@@ -94,6 +94,11 @@ body {
 }
 
 /* Button Styles */
+.btn-primary, 
+.btn-danger {
+  margin-bottom: 10px;
+  width: 55%;
+}
 .btn-primary-custom {
   background-color: #2f6ea3;
   border: none;
@@ -178,24 +183,6 @@ body {
   border: none;
   cursor: pointer;
   transition: all 0.2s;
-}
-
-.btn-edit {
-  background-color: #ffc107;
-  color: #000;
-}
-
-.btn-edit:hover {
-  background-color: #e0a800;
-}
-
-.btn-delete {
-  background-color: #dc3545;
-  color: white;
-}
-
-.btn-delete:hover {
-  background-color: #c82333;
 }
 
 /* Responsive */

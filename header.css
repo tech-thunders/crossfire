@@ -1,17 +1,32 @@
+:root {
+  --primary: #095797;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --text: #1e293b;
+  --subtle: #64748b;
+  --border: #e2e8f0;
+  --black: #000;
+  --hover: #bdbcbc;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 a {
 	text-decoration: none;
 }
-#create-ncr-menu {
-	display: none;
-}
+
 nav {
-	background-color: #5897c9;
-	border-bottom: 2px solid black;
+	background-color: var(--primary);
+	border-bottom: 2px solid var(--black);
 	padding: 1rem 0;
 }
 
 nav li {
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid var(--black);
 }
 .navbar {
 	align-items: center;
@@ -27,13 +42,6 @@ nav li {
 	filter: brightness(100);
 }
 
-.navbar a {
-	color: #163451;
-}
-.navbar a:hover {
-	color: #fff;
-}
-
 .navbar-links {
 	display: none;
 	grid-template-columns: 1fr;
@@ -45,15 +53,15 @@ nav li {
 }
 
 .navbar-links a {
-	background-color: #5897c9;
-	color: #000;
+	background-color: var(--primary);
+	color: var(--surface);
 	display: block;
 	padding: 1.5rem;
 }
 
 .navbar-links a:hover {
 	border-radius: 25px;
-	color: #fff;
+	color: var(--hover);
 }
 
 .navbar-links ul {
@@ -66,7 +74,7 @@ nav li {
 
 .navbar-menu {
 	cursor: pointer;
-	display: block;
+	display: flex;
 	font-size: 3.5rem;
 	justify-self: end;
 }
@@ -80,11 +88,10 @@ nav li {
 }
 
 .navbar-notification:hover {
-	color: #fff;
+	color: var(--hover);
 }
 
 .navbar-icons {
-	color: #000;
 	align-items: center;
 	gap: 1.5rem;
 }
@@ -97,7 +104,7 @@ nav li {
 	top: -4px;
 	right: -4px;
 	background: #e63946;
-	color: white;
+	color: #fff;
 	font-size: 0.7rem;
 	padding: 2px 6px;
 	border-radius: 999px;
@@ -108,14 +115,21 @@ nav li {
 	justify-content: center;
 	pointer-events: none;
 }
+#notification-icon{
+	color: var(--surface);
+}
+#notification-icon:hover{
+	color: var(--hover);
+}
 .notification-indicator.hidden {
 	display: none;
 }
 .notification-popup {
-	background: white;
+	background: var(--surface);
 	border: 1px solid #dcdcdc;
 	border-radius: 12px;
 	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+	color: var(--text);
 	padding: 1rem;
 	position: absolute;
 	top: 90px;
@@ -130,8 +144,8 @@ nav li {
 	position: absolute;
 	top: -40px;
 	left: 0;
-	background: #000;
-	color: #fff;
+	background: var(--black);
+	color: var(--surface);
 	padding: 8px 12px;
 	z-index: 999;
 	transition: top 0.2s;

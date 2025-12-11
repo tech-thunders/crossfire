@@ -16,111 +16,111 @@
 }
 
 a {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 header nav {
-  /* background-color: var(--primary);
+	/* background-color: var(--primary);
 	border-bottom: 2px solid var(--black); */
-  background: linear-gradient(135deg, #5897c9 0%, #163451 100%);
-  border-bottom: none; /* Remove the black border */
-  padding: 1rem 0;
+	background: linear-gradient(135deg, #5897c9 0%, #163451 100%);
+	border-bottom: none; /* Remove the black border */
+	padding: 1rem 0;
 }
 
 nav li {
-  border-bottom: 1px solid var(--black);
+	border-bottom: 1px solid var(--black);
 }
 .navbar {
-  align-items: center;
-  display: grid;
-  font-size: 20px;
-  font-weight: 600;
-  grid-template-columns: repeat(3, auto);
-  width: 100%;
+	align-items: center;
+	display: grid;
+	font-size: 20px;
+	font-weight: 600;
+	grid-template-columns: repeat(3, auto);
+	width: 100%;
 }
 
 .navbar .logo {
-  width: 30%;
-  filter: brightness(1.05);  /* Slightly brighter to pop */
-  padding: 8px 10px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.2);  /* Frosted glass */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  margin-left: 5px;
+	width: 30%;
+	filter: brightness(1.05); /* Slightly brighter to pop */
+	padding: 8px 10px;
+	border-radius: 12px;
+	background: rgba(255, 255, 255, 0.2); /* Frosted glass */
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+	cursor: pointer;
+	margin-left: 5px;
 }
 
 .navbar .logo:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.05);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+	background: rgba(255, 255, 255, 0.3);
+	transform: scale(1.05);
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .navbar-links {
-  display: none;
-  grid-template-columns: 1fr;
-  position: absolute;
-  right: 0;
-  top: 7.4rem;
-  width: 100%;
-  z-index: 100;
+	display: none;
+	grid-template-columns: 1fr;
+	position: absolute;
+	right: 0;
+	top: 7.4rem;
+	width: 100%;
+	z-index: 100;
 }
 
 .navbar-links a {
-  /* background-color: var(--primary); */
-  background-color: transparent;
-  color: var(--surface);
-  display: block;
-  padding: 1.5rem;
-  transition: all 0.3s ease; /* ADD THIS - smooth animation */
-  border-radius: 8px;
+	/* background-color: var(--primary); */
+	background-color: transparent;
+	color: var(--surface);
+	display: block;
+	padding: 1.5rem;
+	transition: all 0.3s ease; /* ADD THIS - smooth animation */
+	border-radius: 8px;
 }
 
 .navbar-links a:hover {
-  background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
-  color: white;
-  transform: translateY(-2px); /* Slight lift effect */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+	background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+	color: white;
+	transform: translateY(-2px); /* Slight lift effect */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 .navbar-links ul {
-  display: grid;
-  grid-template-columns: 1fr;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+	display: grid;
+	grid-template-columns: 1fr;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 .navbar-menu {
-  cursor: pointer;
-  display: flex;
-  font-size: 3.5rem;
-  justify-self: end;
+	cursor: pointer;
+	display: flex;
+	font-size: 3.5rem;
+	justify-self: end;
 }
 
 .navbar-notification {
-  cursor: pointer;
-  display: block;
-  font-size: 2rem;
-  justify-self: end;
-  position: relative;
+	cursor: pointer;
+	display: block;
+	font-size: 2rem;
+	justify-self: end;
+	position: relative;
 }
 
 .navbar-notification:hover {
-  color: var(--hover);
+	color: var(--hover);
 }
 
 .navbar-icons {
-  align-items: center;
-  gap: 1.5rem;
+	align-items: center;
+	gap: 1.5rem;
 }
 
 .hidden {
-  display: none;
+	display: none;
 }
 .notification-indicator {
 	position: absolute;
@@ -146,36 +146,36 @@ nav li {
 	color: var(--hover);
 }
 .notification-indicator.hidden {
-  display: none;
+	display: none;
 }
 .notification-popup {
-  background: var(--surface);
-  border: 1px solid #dcdcdc;
-  border-radius: 12px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-  color: var(--text);
-  padding: 1rem;
-  position: absolute;
-  top: 90px;
-  right: 20px;
-  width: 100%;
-  max-width: 250px;
-  z-index: 100;
-  overflow-y: auto;
-  max-height: 450px;
+	background: var(--surface);
+	border: 1px solid #dcdcdc;
+	border-radius: 12px;
+	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+	color: var(--text);
+	padding: 1rem;
+	position: absolute;
+	top: 90px;
+	right: 20px;
+	width: 100%;
+	max-width: 250px;
+	z-index: 99999;
+	overflow-y: auto;
+	max-height: 450px;
 }
 .skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: var(--black);
-  color: var(--surface);
-  padding: 8px 12px;
-  z-index: 999;
-  transition: top 0.2s;
+	position: absolute;
+	top: -40px;
+	left: 0;
+	background: var(--black);
+	color: var(--surface);
+	padding: 8px 12px;
+	z-index: 999;
+	transition: top 0.2s;
 }
 .skip-link:focus {
-  top: 0;
+	top: 0;
 }
 
 .sr-only {
@@ -192,33 +192,33 @@ nav li {
 }
 
 @media screen and (min-width: 1024px) {
-  nav li {
-    border: none;
-  }
+	nav li {
+		border: none;
+	}
 
-  .navbar {
-    font-size: 18px;
-  }
-  .navbar-links {
-    display: grid;
-    position: static;
-  }
-  .navbar-links a {
-    justify-self: end;
-  }
-  .navbar-links ul {
-    grid-template-columns: repeat(5, auto);
-  }
-  .navbar-menu {
-    display: none;
-  }
-  .notification-popup {
-    width: 35%;
-    max-width: 550px;
-  }
+	.navbar {
+		font-size: 18px;
+	}
+	.navbar-links {
+		display: grid;
+		position: static;
+	}
+	.navbar-links a {
+		justify-self: end;
+	}
+	.navbar-links ul {
+		grid-template-columns: repeat(5, auto);
+	}
+	.navbar-menu {
+		display: none;
+	}
+	.notification-popup {
+		width: 35%;
+		max-width: 550px;
+	}
 }
 @media screen and (min-width: 1440px) {
-  .navbar {
-    font-size: 24px;
-  }
+	.navbar {
+		font-size: 24px;
+	}
 }

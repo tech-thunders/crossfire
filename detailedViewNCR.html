@@ -149,7 +149,7 @@
 
     <main id="main-content">
       <!-- Quality Section  -->
-      <div class="accordion accordion--radio">
+      <div class="accordion accordion--radio" id="quality-dept">
         <div class="role-tab">
           <input type="checkbox" id="rd1" class="tab-input" />
           <label for="rd1" class="tab__label">Quality Inspector Section</label>
@@ -516,7 +516,7 @@
         </div>
       </div>
       <!-- Engineering Section  -->
-      <div class="accordion accordion--radio">
+      <div class="accordion accordion--radio" id="engineering-dept">
         <div class="role-tab">
           <input type="checkbox" id="rd2" class="tab-input" />
           <label for="rd2" class="tab__label">Engineering Section</label>
@@ -712,6 +712,355 @@
           </div>
         </div>
       </div>
+      <!-- Operations Section  -->
+      <div class="accordion accordion--radio" id="operations-dept">
+        <div class="role-tab">
+          <input type="checkbox" id="rd3" class="tab-input" />
+          <label for="rd3" class="tab__label">Operations Section</label>
+          <div class="tab_content">
+            <div class="accordion-container">
+              <div class="role-head">
+                <header class="form-header">
+                  <div
+                    class="meta-info"
+                    role="contentinfo"
+                    aria-label="NCR metadata"
+                  >
+                    <div class="meta-item">
+                      <span class="meta-label">Updated By</span>
+                      <span class="meta-value" id="operationsManagerName"
+                        >Loading..</span
+                      >
+                    </div>
+                    <div class="meta-item">
+                      <span class="meta-label">Updated On</span>
+                      <time
+                        datetime="2025-11-08"
+                        class="meta-value"
+                        id="date-updated-ops"
+                        >Loading..</time
+                      >
+                    </div>
+                  </div>
+                </header>
+                <!-- Form  -->
+                <form action="#" method="post">
+                  <aside
+                    class="notice"
+                    role="note"
+                    aria-label="Required fields notice"
+                  >
+                    <i class="bi bi-info-circle" aria-hidden="true"></i>
+                    Fields marked with
+                    <span class="sr-only">required</span> are
+                    required
+                  </aside>
+
+                  <div>
+                    <p>Operation Decision</p>
+                    <div class="radio-group">
+                      <input
+                        class="radio-input"
+                        name="ops-decision"
+                        id="accept"
+                        value="Accept"
+                        type="radio"
+                      />
+                      <label class="radio-label" for="accept">
+                        <span class="radio-inner-circle"></span>
+                        Accept
+                      </label>
+
+                      <input
+                        class="radio-input"
+                        name="ops-decision"
+                        id="reject"
+                        value="Reject"
+                        type="radio"
+                      />
+                      <label class="radio-label" for="reject">
+                        <span class="radio-inner-circle"></span>
+                        Reject
+                      </label>
+                    </div>
+
+                    <div>
+                      <p>Is CAR Required?</p>
+                      <div class="radio-group">
+                        <input
+                          class="radio-input"
+                          name="car-required"
+                          id="car-yes"
+                          value="yes"
+                          type="radio"
+                        />
+                        <label class="radio-label" for="car-yes">
+                          <span class="radio-inner-circle"></span>
+                          Yes
+                        </label>
+
+                        <input
+                          class="radio-input"
+                          name="car-required"
+                          id="car-no"
+                          value="no"
+                          type="radio"
+                        />
+                        <label class="radio-label" for="car-no">
+                          <span class="radio-inner-circle"></span>
+                          No
+                        </label>
+                      </div>
+                    </div>
+
+                    <div id="car-number-field">
+                      <p>CAR Number</p>
+                      <input
+                        type="text"
+                        id="car-number"
+                        name="car-number"
+                        placeholder="Enter CAR number"
+                      />
+                    </div>
+
+                    <div>
+                      <p>Is Follow-up Required?</p>
+                      <div class="radio-group">
+                        <input
+                          class="radio-input"
+                          name="followup-required"
+                          id="followup-yes"
+                          value="yes"
+                          type="radio"
+                        />
+                        <label class="radio-label" for="followup-yes">
+                          <span class="radio-inner-circle"></span>
+                          Yes
+                        </label>
+
+                        <input
+                          class="radio-input"
+                          name="followup-required"
+                          id="followup-no"
+                          value="no"
+                          type="radio"
+                        />
+                        <label class="radio-label" for="followup-no">
+                          <span class="radio-inner-circle"></span>
+                          No
+                        </label>
+                      </div>
+                    </div>
+
+                    <div id="followup-details-field">
+                      <p>Follow-up Type</p>
+                      <input
+                        type="text"
+                        id="followup-type"
+                        name="followup-type"
+                        placeholder="Enter follow-up type"
+                      />
+                      <p>Follow-up Date</p>
+                      <input
+                        type="date"
+                        id="followup-date"
+                        name="followup-date"
+                      />
+                    </div>
+
+                    <div>
+                      <p>Has the item been re-inspected?</p>
+                      <div class="radio-group">
+                        <input
+                          class="radio-input"
+                          name="reinspection"
+                          id="reinspection-yes"
+                          value="yes"
+                          type="radio"
+                        />
+                        <label class="radio-label" for="reinspection-yes">
+                          <span class="radio-inner-circle"></span>
+                          Yes
+                        </label>
+
+                        <input
+                          class="radio-input"
+                          name="reinspection"
+                          id="reinspection-no"
+                          value="no"
+                          type="radio"
+                        />
+                        <label class="radio-label" for="reinspection-no">
+                          <span class="radio-inner-circle"></span>
+                          No
+                        </label>
+                      </div>
+                    </div>
+
+                    <div>
+                      <p>Action Date</p>
+                      <input
+                        type="date"
+                        id="ops-date"
+                        name="ops-date"
+                      />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Purchasing Section  -->
+      <div class="accordion accordion--radio" id="purchasing-dept">
+        <div class="role-tab">
+          <input type="checkbox" id="rd4" class="tab-input" />
+          <label for="rd4" class="tab__label">Purchasing Section</label>
+          <div class="tab_content">
+            <div class="accordion-container">
+              <div class="role-head">
+                <header class="form-header">
+                  <div
+                    class="meta-info"
+                    role="contentinfo"
+                    aria-label="NCR metadata"
+                  >
+                    <div class="meta-item">
+                      <span class="meta-label">Updated By</span>
+                      <span class="meta-value" id="procurementOfficer"
+                        >Loading..</span
+                      >
+                    </div>
+                    <div class="meta-item">
+                      <span class="meta-label">Updated On</span>
+                      <time
+                        datetime="2025-11-08"
+                        class="meta-value"
+                        id="date-updated-proc"
+                        >Loading..</time
+                      >
+                    </div>
+                  </div>
+                </header>
+                <!-- Form  -->
+                <form action="#" method="post">
+                  <aside
+                    class="notice"
+                    role="note"
+                    aria-label="Required fields notice"
+                  >
+                    <i class="bi bi-info-circle" aria-hidden="true"></i>
+                    Fields marked with
+                    <span class="sr-only">required</span> are
+                    required
+                  </aside>
+
+                  <div>
+                    <p>Supplier Return</p>
+                    <div class="radio-group">
+                      <input
+                        class="radio-input"
+                        name="supplier-return"
+                        id="return-yes"
+                        value="yes"
+                        type="radio"
+                      />
+                      <label class="radio-label" for="return-yes">
+                        <span class="radio-inner-circle"></span>
+                        Yes
+                      </label>
+
+                      <input
+                        class="radio-input"
+                        name="supplier-return"
+                        id="return-no"
+                        value="no"
+                        type="radio"
+                      />
+                      <label class="radio-label" for="return-no">
+                        <span class="radio-inner-circle"></span>
+                        No
+                      </label>
+                    </div>
+
+                    <div id="return-details-field">
+                      <p>RMA Number</p>
+                      <input
+                        type="text"
+                        id="rma-number"
+                        name="rma-number"
+                        placeholder="Enter RMA number"
+                      />
+                      <p>Carrier Account</p>
+                      <input
+                        type="text"
+                        id="carrier-info"
+                        name="carrier-info"
+                        placeholder="Enter carrier account"
+                      />
+                    </div>
+
+                    <div id="dispose-field">
+                      <p>Dispose On Site</p>
+                      <input
+                        type="checkbox"
+                        id="dispose-onsite"
+                        name="dispose-onsite"
+                      />
+                    </div>
+
+                    <div>
+                      <p>Replacement Date</p>
+                      <input
+                        type="date"
+                        id="replacement-date"
+                        name="replacement-date"
+                      />
+                    </div>
+
+                    <div>
+                      <p>SAP Completed</p>
+                      <input
+                        type="checkbox"
+                        id="sap-completed"
+                        name="sap-completed"
+                      />
+                    </div>
+
+                    <div>
+                      <p>Credit Expected</p>
+                      <input
+                        type="checkbox"
+                        id="credit-expected"
+                        name="credit-expected"
+                      />
+                    </div>
+
+                    <div>
+                      <p>Billing Supplier</p>
+                      <input
+                        type="checkbox"
+                        id="billing-supplier"
+                        name="billing-supplier"
+                      />
+                    </div>
+
+                    <div>
+                      <p>Procurement Date</p>
+                      <input
+                        type="date"
+                        id="procurement-date"
+                        name="procurement-date"
+                      />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <script>
@@ -720,7 +1069,7 @@
           "#main-content input, #main-content textarea, #main-content select, #main-content button"
         )
         .forEach((el) => {
-          if (el.id !== "rd1" && el.id !== "rd2") {
+          if (el.id !== "rd1" && el.id !== "rd2" && el.id !== "rd3" && el.id !== "rd4") {
             el.disabled = true;
           }
         });
@@ -729,12 +1078,11 @@
     <script src="scripts/data-manager.js"></script>
     <script src="scripts/user-manager.js"></script>
 
-    <!-- 2. Shared navbar (depends on UserManager) -->
     <script src="scripts/navbar.js"></script>
 
-    <!-- 3. Other shared utilities -->
     <script src="scripts/script.js"></script>
     <script src="scripts/notifications.js"></script>
     <script src="scripts/user-conditions.js"></script>
+    <script src="scripts/detailed-view-script.js"></script>
   </body>
 </html>

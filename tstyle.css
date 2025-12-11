@@ -22,18 +22,20 @@
 	overflow: hidden;
 	margin-bottom: 10px;
 }
-
+.accordion  p {
+	color: #074c85;
+}
 .tab__label,
 .tab__close {
 	display: flex;
-	color: #000;
+	color: #212121;
 	background: var(--theme);
 	cursor: pointer;
 }
 .tab__label {
 	justify-content: space-between;
 	padding: 1rem;
-	color: #000;
+	color: #212121;
 }
 .tab__label::after {
 	content: "\276F";

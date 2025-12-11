@@ -54,8 +54,10 @@
                 >
               </li>
               <li id="admin-panel">
-              <a href="admin.html"><i class="bi bi-person-fill"></i>Admin Panel</a>
-            </li>
+                <a href="admin.html"
+                  ><i class="bi bi-person-fill"></i>Admin Panel</a
+                >
+              </li>
             </ul>
           </div>
           <div class="navbar-icons">
@@ -176,19 +178,15 @@
         </section>
       </div>
       <div id="wrapper">
-        <h1>Recent NCRs</h1>
+        <h1>Recent Active NCRs</h1>
         <div class="container">
-          <div class="filter-buttons">
-            <button class="filter-btn active" data-status="all">All NCR</button>
-            <button class="filter-btn" data-status="Active">Active</button>
-            <button class="filter-btn" data-status="Closed">Closed</button>
+          <div class="search-wrapper">
+            <input
+              type="text"
+              id="search"
+              placeholder="Search NCR Number, Supplier, Date or Status..."
+            />
           </div>
-
-          <input
-            type="text"
-            id="search"
-            placeholder="Filter results by NCR No, Supplier Name, Date or Status..."
-          />
 
           <div class="table-container">
             <table id="ncrTable">
@@ -328,14 +326,6 @@
           // Default: show only Active NCRs
           filteredData = ncrData.filter((item) => item.status === "Active");
 
-          // Make Active button highlighted
-          document
-            .querySelector('.filter-btn[data-status="Active"]')
-            .classList.add("active");
-          document
-            .querySelector('.filter-btn[data-status="all"]')
-            .classList.remove("active");
-
           renderTable();
         })
         .catch((error) => console.error("Error loading NCR data:", error));
@@ -393,7 +383,12 @@
       // Search
       document.getElementById("search").addEventListener("input", function () {
         const query = this.value.toLowerCase();
-        filteredData = ncrData.filter(
+
+        // First, get only Active NCRs from ncrData
+        const activeNCRs = ncrData.filter((item) => item.status === "Active");
+
+        // Then apply search filter on Active NCRs only
+        filteredData = activeNCRs.filter(
           (item) =>
             item.ncrNumber.toLowerCase().includes(query) ||
             item.currentStage.toLowerCase().includes(query) ||
@@ -406,23 +401,6 @@
         currentPage = 1;
         renderTable();
       });
-
-      // Filter buttons
-      document.querySelectorAll(".filter-btn").forEach((btn) =>
-        btn.addEventListener("click", () => {
-          document
-            .querySelectorAll(".filter-btn")
-            .forEach((b) => b.classList.remove("active"));
-          btn.classList.add("active");
-          const status = btn.dataset.status;
-          filteredData =
-            status === "all"
-              ? [...ncrData]
-              : ncrData.filter((item) => item.status === status);
-          currentPage = 1;
-          renderTable();
-        })
-      );
 
       // Sorting
       function sortTable(colIndex) {

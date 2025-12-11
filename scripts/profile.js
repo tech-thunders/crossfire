@@ -20,13 +20,19 @@ let isEditMode = false;
 // ==========================================
 
 function loadProfile() {
+  console.log('🔍 loadProfile() called');
+  console.log('🔍 Checking UserManager:', typeof UserManager);
+  
   currentUser = UserManager.getCurrentUser();
+  console.log('🔍 currentUser:', currentUser);
   
   if (!currentUser) {
+    console.error('❌ No current user found - redirecting to login');
     window.location.href = 'index.html';
     return;
   }
 
+  console.log('✅ User loaded successfully:', currentUser.firstName);
   displayProfile();
 }
 
@@ -71,16 +77,40 @@ function dismissToast(button) {
 }
 
 function displayProfile() {
-  if (!currentUser) return;
+  console.log('🎨 displayProfile() called');
+  
+  if (!currentUser) {
+    console.error('❌ currentUser is null in displayProfile');
+    return;
+  }
 
-  // Update navbar
-  document.getElementById('userName').textContent = currentUser.firstName;
-  document.getElementById('profileName').textContent = `${currentUser.firstName} ${currentUser.lastName}`;
-  document.getElementById('profileDepartment').textContent = currentUser.department;
+  console.log('🎨 Displaying profile for:', currentUser.firstName, currentUser.lastName);
+
+  // Update navbar using shared function
+  loadNavbarUserInfo();
 
   // Update profile page header
-  document.getElementById('profileFullName').textContent = `${currentUser.firstName} ${currentUser.lastName}`;
-  document.getElementById('profileRole').textContent = currentUser.department;
+  const fullNameElement = document.getElementById('profileFullName');
+  const roleElement = document.getElementById('profileRole');
+  
+  console.log('🎨 Elements found:', {
+    fullName: !!fullNameElement,
+    role: !!roleElement
+  });
+  
+  if (fullNameElement) {
+    fullNameElement.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+    console.log('✅ Updated profileFullName');
+  } else {
+    console.error('❌ profileFullName element not found');
+  }
+  
+  if (roleElement) {
+    roleElement.textContent = currentUser.department;
+    console.log('✅ Updated profileRole');
+  } else {
+    console.error('❌ profileRole element not found');
+  }
 
   // Update VIEW MODE values
   document.getElementById('detailFirstName').textContent = currentUser.firstName;
@@ -94,6 +124,8 @@ function displayProfile() {
   document.getElementById('editFirstName').value = currentUser.firstName;
   document.getElementById('editLastName').value = currentUser.lastName;
   document.getElementById('editEmail').value = currentUser.email;
+  
+  console.log('✅ Profile display complete');
 }
 
 // ==========================================
@@ -276,18 +308,6 @@ function saveProfile() {
 // OTHER FUNCTIONS
 // ==========================================
 
-function toggleProfileMenu() {
-  const popup = document.getElementById('profilePopup');
-  const notificationPopup = document.getElementById('notificationPopup');
-  notificationPopup.classList.add('hidden');
-  popup.classList.toggle('hidden');
-}
-
-function logout() {
-  localStorage.removeItem('currentUser');
-  window.location.href = 'index.html';
-}
-
 function goBack() {
   window.location.href = 'dashboard.html';
 }
@@ -304,15 +324,4 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('editFirstName').addEventListener('input', validateFirstName);
   document.getElementById('editLastName').addEventListener('input', validateLastName);
   document.getElementById('editEmail').addEventListener('input', validateEmail);
-  
-  // Close popup when clicking outside
-  document.addEventListener('click', function(event) {
-    const profilePopup = document.getElementById('profilePopup');
-    const profileButton = document.querySelector('.navbar-profile');
-    
-    if (!profileButton.contains(event.target) && !profilePopup.contains(event.target)) {
-      profilePopup.classList.add('hidden');
-    }
-  });
 });
-

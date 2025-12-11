@@ -399,6 +399,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
           "
         >
           <!-- Show Filters Button -->
@@ -419,17 +421,11 @@
           </button>
 
           <!-- Rows per page dropdown -->
-          <div>
-            <label
-              for="rowsPerPageSelect"
-              class="fw-semibold"
-              style="margin-right: 5px"
+          <div class="rows-per-page-container">
+            <label for="rowsPerPageSelect" class="rows-per-page-label"
               >Rows per page:</label
             >
-            <select
-              id="rowsPerPageSelect"
-              style="padding: 5px; border-radius: 5px; border: 1px solid #ccc"
-            >
+            <select id="rowsPerPageSelect" class="rows-per-page-select">
               <option value="5" selected>5</option>
               <option value="10">10</option>
               <option value="15">15</option>

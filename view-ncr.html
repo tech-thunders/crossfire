@@ -1052,13 +1052,6 @@
         doc.text(`NCR #${ncr.ncrNumber}`, pageWidth - margin, 29, {
           align: "right",
         });
-        // Subtitle
-        doc.setFontSize(9);
-        doc.setFont(undefined, "normal");
-        doc.setTextColor(...darkGray);
-        doc.text("Quality Management System", pageWidth - margin, 37, {
-          align: "right",
-        });
 
         let yPos = 55;
 
@@ -1080,11 +1073,6 @@
         doc.setFontSize(10);
         doc.setFont(undefined, "normal");
         doc.setTextColor(...darkGray);
-        doc.text(`Current Stage: `, margin + 48, yPos + 6.5);
-        doc.setFont(undefined, "bold");
-        doc.setTextColor(...darkPrimary);
-        doc.text(ncr.currentStage || "N/A", margin + 82, yPos + 6.5);
-        doc.setTextColor(0, 0, 0);
 
         yPos += 18;
 
@@ -1109,11 +1097,6 @@
         doc.setFontSize(9);
         doc.setFont(undefined, "normal");
         doc.setTextColor(...darkGray);
-        doc.text(
-          `Supplier Code: ${ncr.supplierCode || "N/A"}`,
-          margin + 4,
-          yPos + 19
-        );
 
         yPos += 28;
 

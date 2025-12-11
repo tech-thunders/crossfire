@@ -1,7 +1,35 @@
 .notification-title {
-	font-size: 1.2rem;
-	font-weight: 600;
-	margin-bottom: 0.75rem;
+	font-size: 0.9rem !important;
+	font-weight: 600 !important;
+}
+.notification-description {
+	font-size: 0.75rem !important;
+	font-weight: 400 !important;
+	color: #545454 !important;
+}
+.notification-footer {
+	display: flex !important;
+	justify-content: space-between !important;
+	align-items: center !important;
+	margin-top: 0.7em !important;
+	gap: 0.5em !important;
+}
+.footer-btns {
+	display: flex !important;
+	gap: 0.5em !important;
+}
+.footer-btns .btn {
+	padding: 0 !important;
+	margin: 0 !important;
+	border: none !important;
+	background: none !important;
+	outline: none !important;
+	color: #77a8cf !important;
+	font-size: 0.65em !important;
+	line-height: 1 !important;
+	cursor: pointer !important;
+	white-space: nowrap !important;
+	min-width: 0;
 }
 
 .notification-list {
@@ -32,9 +60,8 @@
 }
 
 .notif-time {
-	display: block;
-	margin-top: 4px;
-	font-size: 0.8rem;
+	font-size: 0.5em;
+	opacity: 0.7;
 	color: #545454;
 }
 

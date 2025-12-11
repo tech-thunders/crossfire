@@ -24,8 +24,11 @@ function saveNotifications(notifs) {
 	localStorage.setItem("ncr_notifications", JSON.stringify(notifs));
 }
 
+// Add notification
 function addNotification(ncrNumber, actionType) {
 	const notifications = getNotifications();
+	const allRecords = JSON.parse(localStorage.getItem("ncr_records")) || [];
+	const record = allRecords.find((r) => r.ncrNumber === ncrNumber);
 
 	const messageActionType = {
 		create: "was created",
@@ -33,9 +36,23 @@ function addNotification(ncrNumber, actionType) {
 		delete: "was deleted",
 	};
 
+	let message = `NCR ${ncrNumber} ${messageActionType[actionType]}`;
+
+	if (actionType === "update" && record) {
+		if (record.currentStage === "Engineering") {
+			message = "Quality section completed";
+		} else if (record.currentStage === "Operations") {
+			message = "Engineering section completed";
+		} else if (record.currentStage === "Purchasing") {
+			message = "Operations section completed";
+		} else if (record.status === "Closed") {
+			message = "Purchasing section completed";
+		}
+	}
+
 	const newNotification = {
 		id: Date.now(),
-		message: `NCR ${ncrNumber} ${messageActionType[actionType]}`,
+		message: message,
 		time: new Date().toLocaleString(),
 		type: actionType,
 		unread: true,
@@ -50,7 +67,8 @@ function addNotification(ncrNumber, actionType) {
 }
 
 // function to mark the message as opened
-function markAsRead(id) {
+function markAsRead(event, id) {
+	event.stopPropagation();
 	const notifications = getNotifications();
 	const notification = notifications.find((n) => n.id === id);
 	// localStorage.setItem("selectedNCR", num);
@@ -61,10 +79,17 @@ function markAsRead(id) {
 	}
 }
 
+// function to view the report
+function viewReport(ncrNumber) {
+	localStorage.setItem("selectedNCR", ncrNumber);
+	window.location.href = "edit-ncr.html";
+}
+
 function displayNotifications() {
 	const list = document.querySelector(".notification-list");
 	const emptyMsg = document.getElementById("no-notifications");
 	const notifications = getNotifications();
+	const allRecords = JSON.parse(localStorage.getItem("ncr_records")) || [];
 
 	list.innerHTML = "";
 
@@ -78,15 +103,49 @@ function displayNotifications() {
 	notifications.forEach((notif) => {
 		const li = document.createElement("li");
 		li.className = "notification-item";
-		if (notif.unread) li.classList.add("unread");
 
-		li.setAttribute("onclick", `markAsRead(${notif.id})`);
+		const record = allRecords.find((r) => r.ncrNumber === notif.ncrNumber);
+		let text = "";
+		if (record) {
+			if (record.status === "Closed") {
+				text = "Closed Successfully";
+			} else {
+				text = `Sent to ${record.currentStage}`;
+			}
+		} else {
+			text = "";
+		}
+
+		if (notif.unread) {
+			li.style.backgroundColor = "#f0f7ff";
+			li.style.borderLeft = "4px solid #5896c9";
+		} else {
+			li.style.backgroundColor = "transparent";
+			li.style.borderLeft = "4px solid transparent";
+		}
 
 		li.innerHTML = `
-      <a href="/edit-ncr.html" class="notif-content">
-        <p class="notif-text">${notif.message}</p>
-        <span class="notif-time">${notif.time}</span>
-      </a>
+      <div class="notif-content">
+		<div>
+			<p class="notification-title">NCR ${notif.ncrNumber} ${text}</p>
+			
+			<div class="notification-description">${notif.message}</div>
+		</div>
+    	
+        <div class="notification-footer">
+          
+		  	<span class="notif-time">${notif.time}</span>
+		  
+          <div class="footer-btns">
+			<button class="btn" onclick="viewReport('${
+				notif.ncrNumber
+			}')">View Report</button>
+			<button class="btn" onclick="markAsRead(event, ${
+				notif.id
+			})">Mark as Read</button>
+		  </div>
+        </div>
+      </div>
       ${notif.unread ? `<span class="notif-status-dot"></span>` : ""}
     `;
 

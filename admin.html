@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="notification.css" />
     <link rel="stylesheet" href="dashboard-profile.css" />
     <link rel="stylesheet" href="admin.css" />
+    <link rel="stylesheet" href="breadcrumbs.css">
   </head>
 
   <body>
@@ -106,9 +107,9 @@
               <a href="profile.html" class="profile-menu-item">
                 <i class="bi bi-person"></i> My Profile
               </a>
-              <a href="setting-mock.html" class="profile-menu-item">
+              <!-- <a href="setting-mock.html" class="profile-menu-item">
                 <i class="bi bi-gear"></i> Settings
-              </a>
+              </a> -->
               <hr class="profile-divider" />
               <a href="index.html" class="profile-menu-item" onclick="logout()">
                 <i class="bi bi-box-arrow-right"></i> Logout
@@ -132,6 +133,14 @@
         </div>
       </nav>
     </header>
+    <div aria-label="breadcrumb" class="breadcrumb-nav">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="dashboard.html"><i class="bi bi-house-fill"></i> Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Admin Panel</li>
+      </ol>
+    </div>
 
     <!-- MAIN CONTENT -->
     <div class="main-container">
@@ -463,7 +472,7 @@
     <script src="scripts/user-manager.js"></script>
 
     <script src="scripts/navbar.js"></script>
-    
+
     <script src="scripts/notifications.js"></script>
     <script src="scripts/user-conditions.js"></script>
     <script src="scripts/script.js"></script>

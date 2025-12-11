@@ -19,7 +19,7 @@ a {
   text-decoration: none;
 }
 
-nav {
+header nav {
   /* background-color: var(--primary);
 	border-bottom: 2px solid var(--black); */
   background: linear-gradient(135deg, #5897c9 0%, #163451 100%);

@@ -30,7 +30,7 @@ article {
 
 header.form-header {
 	background: linear-gradient(135deg, #5897c9 0%, #4a7ba7 100%);
-	color: white;
+	color: #121212;
 	padding: 1.5rem 1rem;
 	border-bottom: none;
 }
@@ -59,7 +59,10 @@ header.form-header {
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
 }
-
+.meta-label,
+.meta-value {
+	color: #000000;
+}
 .meta-value {
 	font-weight: 600;
 	font-size: 0.875rem;
@@ -93,6 +96,9 @@ legend {
 .form-group {
 	margin-bottom: 1rem;
 }
+.form-group span {
+	color: #074c85;
+}
 
 label {
 	display: block;
@@ -103,7 +109,7 @@ label {
 }
 
 .required {
-	color: #dc2626;
+	color: #000;
 	font-weight: 600;
 }
 
@@ -190,7 +196,7 @@ button {
 
 .btn-primary {
 	background: #5897c9;
-	color: white;
+	color: #121212 !important;
 	transition: all 0.2s ease;
 }
 
@@ -271,7 +277,7 @@ button {
 /* help text */
 .help-text {
 	font-size: 0.75rem;
-	color: #6b7280;
+	color: #545454;
 	margin-top: 0.25rem;
 	display: block;
 	line-height: 1.4;

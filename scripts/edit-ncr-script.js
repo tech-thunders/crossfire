@@ -530,6 +530,7 @@ document
 
 		//close ncr
 		record.status = "Closed";
+		record.dateClosed = new Date().toISOString();
 		record.closedBy = currentUser.userId;
 
 		// save data

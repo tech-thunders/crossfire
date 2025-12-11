@@ -93,12 +93,13 @@ body {
   box-shadow: 0 0 0 0.2rem rgba(47, 110, 163, 0.15);
 }
 
-/* Button Styles */
-.btn-primary, 
+* Button Styles */ .btn-primary,
 .btn-danger {
   margin-bottom: 10px;
-  width: 55%;
+  width: auto; /* Change from 55% to auto */
+  min-width: 70px; /* Add minimum width */
 }
+
 .btn-primary-custom {
   background-color: #2f6ea3;
   border: none;
@@ -117,6 +118,14 @@ body {
 
 .btn-primary-custom:active {
   transform: translateY(0);
+}
+
+/* Action buttons in table */
+.table-custom tbody td button {
+  margin: 0.25rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.875rem;
+  white-space: nowrap;
 }
 
 /* Search Bar */
@@ -193,5 +202,62 @@ body {
 
   .custom-card {
     padding: 1.5rem;
+  }
+
+  /* Make table scrollable on mobile */
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Stack action buttons vertically on mobile */
+  .btn-action {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .btn-action:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Adjust table font size */
+  .table-custom {
+    font-size: 0.875rem;
+  }
+
+  .table-custom thead th,
+  .table-custom tbody td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  /* Actions column width */
+  th[style*="width: 160px"] {
+    width: 120px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  /* Further reduce padding on small screens */
+  .custom-card {
+    padding: 1rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .table-custom {
+    font-size: 0.8rem;
+  }
+
+  .table-custom thead th,
+  .table-custom tbody td {
+    padding: 0.5rem 0.25rem;
+  }
+
+  .btn-action {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.5rem;
   }
 }

@@ -170,7 +170,7 @@
                 </div>
                 <div>
                   <p>Closed NCRs</p>
-                  <h2>8</h2>
+                  <h2 id="closed-ncr-count">8</h2>
                 </div>
               </div>
             </div>
@@ -178,7 +178,7 @@
         </section>
       </div>
       <div id="wrapper">
-        <h1>Recent Active NCRs</h1>
+        <h1>Recent NCRs</h1>
         <div class="container">
           <div class="search-wrapper">
             <input
@@ -312,11 +312,17 @@
       fetch("data/logData.json")
         .then((response) => response.json())
         .then((data) => {
-          const records = localStorage.getItem("ncr_records");
+          console.log("Records ", data);
+          if(!localStorage.getItem("ncr_records")){
+            localStorage.setItem("ncr_records", JSON.stringify(data))
+          }
+          const records = JSON.parse(localStorage.getItem("ncr_records"));
+          
           // ncrData = records ? records : data;
           if (records) {
             try {
-              ncrData = JSON.parse(records); // ← FIX
+              ncrData =records; // ← FIX
+              
             } catch (e) {
               console.error("Invalid NCR localStorage data – resetting.", e);
               ncrData = data;
@@ -324,8 +330,11 @@
           } else {
             ncrData = data; // fallback to JSON file
           }
-          // Default: show only Active NCRs
-          filteredData = ncrData.filter((item) => item.status === "Active");
+          // Default: show all NCRs
+          filteredData = ncrData;
+
+          // // Update summary counts
+          updateSummaryCounts();
 
           renderTable();
         })
@@ -385,11 +394,8 @@
       document.getElementById("search").addEventListener("input", function () {
         const query = this.value.toLowerCase();
 
-        // First, get only Active NCRs from ncrData
-        const activeNCRs = ncrData.filter((item) => item.status === "Active");
-
-        // Then apply search filter on Active NCRs only
-        filteredData = activeNCRs.filter(
+        // Apply search filter on all NCRs
+        filteredData = ncrData.filter(
           (item) =>
             item.ncrNumber.toLowerCase().includes(query) ||
             item.currentStage.toLowerCase().includes(query) ||
@@ -402,6 +408,16 @@
         currentPage = 1;
         renderTable();
       });
+
+      function updateSummaryCounts() {
+        const totalNCRs = ncrData ? ncrData.length : 20;
+        const activeNCRs = ncrData ? ncrData.filter(item => item.status === "Active").length : 10;
+        const closedNCRs = ncrData ? ncrData.filter(item => item.status === "Closed").length: 10;
+
+        document.getElementById("total-ncr-summary").innerHTML = totalNCRs;
+        document.getElementById("active-ncr").innerHTML = activeNCRs;
+        document.getElementById("closed-ncr-count").innerHTML = closedNCRs;
+      }
 
       // Sorting
       function sortTable(colIndex) {

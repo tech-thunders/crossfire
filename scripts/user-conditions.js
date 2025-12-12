@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	if (currentUser.department.toLowerCase() === "admin")
         adminPanelMenu.style.display = "block";
+		createNcrMenu.style.display = "block";
     console.log(currentUser.department.toLowerCase());
 
 	//Section to be opened based on user department

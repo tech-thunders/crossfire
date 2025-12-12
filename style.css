@@ -402,3 +402,9 @@ tr:hover {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+@media (max-width: 1023px) {
+  .navbar-links {
+    background: linear-gradient(135deg, #5897c9 0%, #163451 100%);
+  }
+}

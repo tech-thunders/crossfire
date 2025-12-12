@@ -297,6 +297,7 @@ const NCRFormHandler = {
 				.value,
 
 			engineeringRequired: engineering_required.checked,
+			currentStage: "Engineering",
 		};
 	},
 

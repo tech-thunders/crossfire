@@ -127,7 +127,7 @@ const NCRDataManager = {
 
 	getCurrentUser() {
 		return (
-			localStorage.getItem(this.STORAGE_KEYS.CURRENT_USER) || "Emma Johnson"
+			localStorage.getItem(this.STORAGE_KEYS.CURRENT_USER) || "Michael Thompson"
 		);
 	},
 

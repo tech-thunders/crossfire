@@ -36,7 +36,9 @@ function addNotification(ncrNumber, actionType) {
 		delete: "was deleted",
 	};
 
-	let message = `NCR ${ncrNumber} ${messageActionType[actionType] || ""}`.trim();
+	let message = `NCR ${ncrNumber} ${
+		messageActionType[actionType] || ""
+	}`.trim();
 
 	if (actionType === "update" && record) {
 		if (record.currentStage === "Engineering") {
@@ -109,6 +111,8 @@ function displayNotifications() {
 		if (record) {
 			if (record.status === "Closed") {
 				text = "Closed Successfully";
+			} else if (record.currentStage) {
+				text = `Sent to Engineering`;
 			} else {
 				text = `Sent to ${record.currentStage}`;
 			}

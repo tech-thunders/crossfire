@@ -111,7 +111,7 @@ function displayNotifications() {
 		if (record) {
 			if (record.status === "Closed") {
 				text = "Closed Successfully";
-			} else if (record.currentStage) {
+			} else if (record.currentStage === "Quality") {
 				text = `Sent to Engineering`;
 			} else {
 				text = `Sent to ${record.currentStage}`;

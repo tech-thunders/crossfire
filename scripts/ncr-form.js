@@ -62,7 +62,7 @@ const NCRFormHandler = {
 	loadNCRForEditing(id) {
 		const ncr = NCRDataManager.getNCRById(id);
 		if (!ncr) {
-			alert("Record not found");
+			ToastManager.error("Record not found");
 			window.location.href = "view-ncr.html";
 			return;
 		}
@@ -134,6 +134,18 @@ const NCRFormHandler = {
 		document
 			.getElementById("qty_defective")
 			.addEventListener("input", () => this.validateQty());
+
+		document.querySelectorAll('input[name="process_type"]').forEach((radio) => {
+			radio.addEventListener("change", () =>
+				this.clearRadioError("process_type")
+			);
+		});
+
+		document.querySelectorAll('input[name="item_status"]').forEach((radio) => {
+			radio.addEventListener("change", () =>
+				this.clearRadioError("item_status")
+			);
+		});
 	},
 
 	validateField(id) {
@@ -146,6 +158,25 @@ const NCRFormHandler = {
 			return false;
 		}
 		return true;
+	},
+
+	clearFieldError(fieldId) {
+		const field = document.getElementById(fieldId);
+		const errorElement = document.getElementById(fieldId + "_error");
+
+		if (field && field.value.trim() !== "") {
+			field.classList.remove("error");
+			if (errorElement) {
+				errorElement.classList.remove("show");
+			}
+		}
+	},
+
+	clearRadioError(group) {
+		const errorElement = document.getElementById(group + "_error");
+		if (errorElement) {
+			errorElement.classList.remove("show");
+		}
 	},
 
 	validateQty() {
@@ -266,6 +297,7 @@ const NCRFormHandler = {
 				.value,
 
 			engineeringRequired: engineering_required.checked,
+			currentStage: "Engineering",
 		};
 	},
 
@@ -278,7 +310,7 @@ const NCRFormHandler = {
 		const newNCR = NCRDataManager.saveNewRecord(form);
 		this.closePreviewModal();
 		// this.showSuccessToast(`NCR ${newNCR.ncrNumber} created successfully!`);
-		alert(`NCR ${newNCR.ncrNumber} created successfully!`);
+		ToastManager.success(`NCR ${newNCR.ncrNumber} created successfully!`);
 		window.location.href = "view-ncr.html";
 	},
 };

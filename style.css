@@ -132,6 +132,49 @@ small,
   color: #940b0b;
 }
 
+/* Rows per page styling */
+.rows-per-page-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.rows-per-page-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #333;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.rows-per-page-select {
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  background-color: #fff;
+  font-size: 0.95rem;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  min-width: 80px;
+}
+
+.rows-per-page-select:hover {
+  border-color: #9ca3af;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.rows-per-page-select:focus {
+  outline: none;
+  border-color: #2f6ea3;
+  box-shadow: 0 0 0 3px rgba(47, 110, 163, 0.1);
+}
+
 /* Table */
 
 /* Page Content */
@@ -334,6 +377,20 @@ tr:hover {
 
   .row {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .rows-per-page-container {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .rows-per-page-label {
+    font-size: 0.9rem;
+  }
+
+  .rows-per-page-select {
+    font-size: 0.9rem;
+    flex: 1;
+    max-width: 100px;
   }
 }
 

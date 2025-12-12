@@ -17,13 +17,11 @@
 
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
+      rel="stylesheet" />
 
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   </head>
 
   <body>
@@ -32,33 +30,26 @@
       <nav>
         <div class="navbar">
           <div>
-            <a href="dashboard.html"
-              ><img
+            <a href="dashboard.html"><img
                 src="images/crossfire-logo-transparent.png"
                 alt="Crossfire Logo"
-                class="logo"
-            /></a>
+                class="logo" /></a>
           </div>
           <div class="navbar-links">
             <ul>
               <li>
-                <a href="dashboard.html"
-                  ><i class="bi bi-house-fill"></i> Dashboard</a
-                >
+                <a href="dashboard.html"><i class="bi bi-house-fill"></i>
+                  Dashboard</a>
               </li>
               <li>
-                <a href="view-ncr.html"
-                  ><i
+                <a href="view-ncr.html"><i
                     class="bi bi-file-earmark-bar-graph-fill"
-                    style="font-weight: 900"
-                  ></i>
-                  NCR Log</a
-                >
+                    style="font-weight: 900"></i>
+                  NCR Log</a>
               </li>
               <li id="create-ncr-menu">
-                <a href="create-ncr.html"
-                  ><i class="bi bi-file-earmark-plus-fill"></i> Create NCR</a
-                >
+                <a href="create-ncr.html"><i
+                    class="bi bi-file-earmark-plus-fill"></i> Create NCR</a>
               </li>
             </ul>
           </div>
@@ -66,8 +57,7 @@
             <div
               onclick="closePopUp()"
               title="Notifications"
-              class="navbar-notification"
-            >
+              class="navbar-notification">
               <i id="notification-icon" class="bi bi-bell-fill"></i>
               <div id="notification-indicator" class="notification-indicator">
                 4
@@ -77,8 +67,7 @@
             <div
               class="navbar-profile"
               onclick="toggleProfileMenu()"
-              title="Profile"
-            >
+              title="Profile">
               <i class="bi bi-person-circle"></i>
               <span id="userName">User</span>
               <i class="bi bi-chevron-down"></i>
@@ -104,8 +93,7 @@
                 <a
                   href="index.html"
                   class="profile-menu-item"
-                  onclick="logout()"
-                >
+                  onclick="logout()">
                   <i class="bi bi-box-arrow-right"></i> Logout
                 </a>
               </div>
@@ -118,8 +106,7 @@
           <div
             id="notificationPopup"
             title="Notifications"
-            class="notification-popup hidden"
-          >
+            class="notification-popup hidden">
             <!-- Notifications -->
             <div>
               <h3 class="notification-title">Notifications</h3>
@@ -140,16 +127,17 @@
         <li class="breadcrumb-item">
           <a href="view-ncr.html">NCR Log</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page" id="breadcrumb-current">
+        <li class="breadcrumb-item active" aria-current="page"
+          id="breadcrumb-current">
           NCR Details
         </li>
       </ol>
     </div>
-    
 
     <main id="main-content">
+
       <!-- Quality Section  -->
-      <div class="accordion accordion--radio">
+      <div class="accordion accordion--radio" id="quality-dept">
         <div class="role-tab">
           <input type="checkbox" id="rd1" class="tab-input" />
           <label for="rd1" class="tab__label">Quality Inspector Section</label>
@@ -161,28 +149,23 @@
                   <div
                     class="meta-info"
                     role="contentinfo"
-                    aria-label="NCR metadata"
-                  >
+                    aria-label="NCR metadata">
                     <div class="meta-item">
                       <span class="meta-label">NCR Number</span>
-                      <span class="meta-value" id="ncr-number-display"
-                        >Loading..</span
-                      >
+                      <span class="meta-value"
+                        id="ncr-number-display">Loading..</span>
                     </div>
                     <div class="meta-item">
                       <span class="meta-label">Created By</span>
-                      <span class="meta-value" id="created-by-display"
-                        >Loading..</span
-                      >
+                      <span class="meta-value"
+                        id="created-by-display">Loading..</span>
                     </div>
                     <div class="meta-item">
                       <span class="meta-label">Date Created</span>
                       <time
                         datetime="2025-11-08"
                         class="meta-value"
-                        id="date-created-display"
-                        >Loading..</time
-                      >
+                        id="date-created-display">Loading..</time>
                     </div>
                     <div class="meta-item">
                       <span class="meta-label">Status</span>
@@ -190,19 +173,17 @@
                         class="meta-value"
                         id="status-display"
                         role="status"
-                        aria-live="polite"
-                        >Draft</span
-                      >
+                        aria-live="polite">Draft</span>
                     </div>
                   </div>
+
                 </header>
 
                 <form action="#" method="post">
                   <aside
                     class="notice"
                     role="note"
-                    aria-label="Required fields notice"
-                  >
+                    aria-label="Required fields notice">
                     <i class="bi bi-info-circle" aria-hidden="true"></i>
                     Fields marked with
                     <span class="sr-only">required</span> are
@@ -228,15 +209,12 @@
                           placeholder="e.g., PO-2025-1234"
                           required
                           aria-required="true"
-                          aria-describedby="po_help"
-                        />
-                        <small id="po_help" class="help-text"
-                          >Enter the PO number from SAP</small
-                        >
-                        <span class="error-message" id="po_number_error"
-                          ><i class="bi bi-exclamation-circle"></i> PO Number is
-                          required</span
-                        >
+                          aria-describedby="po_help" />
+                        <small id="po_help" class="help-text">Enter the PO
+                          number from SAP</small>
+                        <span class="error-message" id="po_number_error"><i
+                            class="bi bi-exclamation-circle"></i> PO Number is
+                          required</span>
                       </div>
 
                       <div class="form-group">
@@ -251,15 +229,12 @@
                           placeholder="e.g., SO-2025-5678"
                           required
                           aria-required="true"
-                          aria-describedby="sales_help"
-                        />
-                        <small id="sales_help" class="help-text"
-                          >Manually entered sales order number</small
-                        >
-                        <span class="error-message" id="sales_order_error"
-                          ><i class="bi bi-exclamation-circle"></i>Sales Order
-                          Number is required</span
-                        >
+                          aria-describedby="sales_help" />
+                        <small id="sales_help" class="help-text">Manually
+                          entered sales order number</small>
+                        <span class="error-message" id="sales_order_error"><i
+                            class="bi bi-exclamation-circle"></i>Sales Order
+                          Number is required</span>
                       </div>
                     </div>
                   </fieldset>
@@ -281,12 +256,10 @@
                         name="supplier_name"
                         placeholder="e.g., NorthTech Industrial Supplies"
                         required
-                        aria-required="true"
-                      />
-                      <span class="error-message" id="supplier_name_error"
-                        ><i class="bi bi-exclamation-circle"></i>Supplier Name
-                        is required</span
-                      >
+                        aria-required="true" />
+                      <span class="error-message" id="supplier_name_error"><i
+                          class="bi bi-exclamation-circle"></i>Supplier Name
+                        is required</span>
                     </div>
                   </fieldset>
 
@@ -308,16 +281,14 @@
                           placeholder="e.g., Stainless steel screen panel, Model HX-200, SAP#: 12345"
                           required
                           aria-required="true"
-                          aria-describedby="item_help"
-                        ></textarea>
-                        <small id="item_help" class="help-text"
-                          >Include model number, specifications, and SAP number
-                          if available</small
-                        >
-                        <span class="error-message" id="item_description_error"
-                          ><i class="bi bi-exclamation-circle"></i>Item
-                          Description is required</span
-                        >
+                          aria-describedby="item_help"></textarea>
+                        <small id="item_help" class="help-text">Include model
+                          number, specifications, and SAP number
+                          if available</small>
+                        <span class="error-message"
+                          id="item_description_error"><i
+                            class="bi bi-exclamation-circle"></i>Item
+                          Description is required</span>
                       </div>
 
                       <div class="form-group full-width">
@@ -329,16 +300,14 @@
                           class="radio-group"
                           role="radiogroup"
                           aria-labelledby="process_type_label"
-                          aria-required="true"
-                        >
+                          aria-required="true">
                           <label>
                             <input
                               type="radio"
                               name="process_type"
                               value="supplier"
                               id="process_supplier"
-                              required
-                            />
+                              required />
                             <span>Supplier or Receiving-Inspection</span>
                           </label>
                           <label>
@@ -347,15 +316,13 @@
                               name="process_type"
                               value="wip"
                               id="process_wip"
-                              required
-                            />
+                              required />
                             <span>WIP (Production Order)</span>
                           </label>
                         </div>
-                        <span class="error-message" id="process_type_error"
-                          ><i class="bi bi-exclamation-circle"></i>Please select
-                          a process type</span
-                        >
+                        <span class="error-message" id="process_type_error"><i
+                            class="bi bi-exclamation-circle"></i>Please select
+                          a process type</span>
                       </div>
                     </div>
                   </fieldset>
@@ -365,8 +332,7 @@
                     <legend>
                       <i
                         class="bi bi-exclamation-triangle"
-                        aria-hidden="true"
-                      ></i>
+                        aria-hidden="true"></i>
                       Defect Information
                     </legend>
 
@@ -383,12 +349,10 @@
                           min="0"
                           placeholder="0"
                           required
-                          aria-required="true"
-                        />
-                        <span class="error-message" id="qty_received_error"
-                          ><i class="bi bi-exclamation-circle"></i>Quantity
-                          Received is required</span
-                        >
+                          aria-required="true" />
+                        <span class="error-message" id="qty_received_error"><i
+                            class="bi bi-exclamation-circle"></i>Quantity
+                          Received is required</span>
                       </div>
 
                       <div class="form-group">
@@ -403,16 +367,13 @@
                           min="0"
                           placeholder="0"
                           required
-                          aria-required="true"
-                        />
-                        <span class="error-message" id="qty_defective_error"
-                          ><i class="bi bi-exclamation-circle"></i>Quantity
-                          Defective is required</span
-                        >
-                        <span class="error-message" id="qty_validation_error"
-                          ><i class="bi bi-exclamation-circle"></i>Defective
-                          quantity cannot exceed received quantity</span
-                        >
+                          aria-required="true" />
+                        <span class="error-message" id="qty_defective_error"><i
+                            class="bi bi-exclamation-circle"></i>Quantity
+                          Defective is required</span>
+                        <span class="error-message" id="qty_validation_error"><i
+                            class="bi bi-exclamation-circle"></i>Defective
+                          quantity cannot exceed received quantity</span>
                       </div>
 
                       <div class="form-group full-width">
@@ -426,18 +387,15 @@
                           placeholder="e.g., Dimensional deviation exceeding tolerance on flange face; multiple units affected"
                           required
                           aria-required="true"
-                          aria-describedby="defect_help"
-                        ></textarea>
-                        <small id="defect_help" class="help-text"
-                          >Provide detailed description of the
-                          non-conformance</small
-                        >
+                          aria-describedby="defect_help"></textarea>
+                        <small id="defect_help" class="help-text">Provide
+                          detailed description of the
+                          non-conformance</small>
                         <span
                           class="error-message"
-                          id="defect_description_error"
-                          ><i class="bi bi-exclamation-circle"></i>Defect
-                          Description is required</span
-                        >
+                          id="defect_description_error"><i
+                            class="bi bi-exclamation-circle"></i>Defect
+                          Description is required</span>
                       </div>
                     </div>
                   </fieldset>
@@ -458,16 +416,14 @@
                           class="radio-group"
                           role="radiogroup"
                           aria-labelledby="item_status_label"
-                          aria-required="true"
-                        >
+                          aria-required="true">
                           <label>
                             <input
                               type="radio"
                               name="item_status"
                               value="conforming"
                               id="status_conforming"
-                              required
-                            />
+                              required />
                             <span>Conforming</span>
                           </label>
                           <label>
@@ -476,15 +432,13 @@
                               name="item_status"
                               value="nonconforming"
                               id="status_nonconforming"
-                              required
-                            />
+                              required />
                             <span>Non-Conforming</span>
                           </label>
                         </div>
-                        <span class="error-message" id="item_status_error"
-                          ><i class="bi bi-exclamation-circle"></i>Please select
-                          an item status</span
-                        >
+                        <span class="error-message" id="item_status_error"><i
+                            class="bi bi-exclamation-circle"></i>Please select
+                          an item status</span>
                       </div>
 
                       <div class="form-group full-width">
@@ -493,14 +447,12 @@
                             <input
                               type="checkbox"
                               id="engineering_required"
-                              name="engineering_required"
-                            />
+                              name="engineering_required" />
                             <span>
                               <strong>Engineering Review Required</strong>
                               <small
                                 class="help-text"
-                                style="display: block; margin-top: 0.25rem"
-                              >
+                                style="display: block; margin-top: 0.25rem">
                                 Check if this NCR needs engineering disposition
                               </small>
                             </span>
@@ -516,7 +468,7 @@
         </div>
       </div>
       <!-- Engineering Section  -->
-      <div class="accordion accordion--radio">
+      <div class="accordion accordion--radio" id="engineering-dept">
         <div class="role-tab">
           <input type="checkbox" id="rd2" class="tab-input" />
           <label for="rd2" class="tab__label">Engineering Section</label>
@@ -527,22 +479,18 @@
                   <div
                     class="meta-info"
                     role="contentinfo"
-                    aria-label="NCR metadata"
-                  >
+                    aria-label="NCR metadata">
                     <div class="meta-item">
                       <span class="meta-label">Updated By</span>
-                      <span class="meta-value" id="engineerId"
-                        >Jack Donalds</span
-                      >
+                      <span class="meta-value" id="engineerId">Jack
+                        Donalds</span>
                     </div>
                     <div class="meta-item">
                       <span class="meta-label">Updated On</span>
                       <time
                         datetime="2025-11-08"
                         class="meta-value"
-                        id="date-updated-eng"
-                        >Loading..</time
-                      >
+                        id="date-updated-eng">Loading..</time>
                     </div>
                     <div class="meta-item">
                       <span class="meta-label">Revision Number</span>
@@ -554,19 +502,17 @@
                         class="meta-value"
                         id="updated-revision-number"
                         role="status"
-                        aria-live="polite"
-                        >A1</span
-                      >
+                        aria-live="polite">A1</span>
                     </div>
                   </div>
+
                 </header>
                 <!-- Form  -->
                 <form action="#" method="post">
                   <aside
                     class="notice"
                     role="note"
-                    aria-label="Required fields notice"
-                  >
+                    aria-label="Required fields notice">
                     <i class="bi bi-info-circle" aria-hidden="true"></i>
                     Fields marked with
                     <span class="sr-only">required</span> are
@@ -581,8 +527,7 @@
                         name="log-type"
                         id="use-as-is"
                         value="Use As Is"
-                        type="radio"
-                      />
+                        type="radio" />
                       <label class="radio-label" for="use-as-is">
                         <span class="radio-inner-circle"></span>
                         Use As Is
@@ -593,8 +538,7 @@
                         name="log-type"
                         id="repair"
                         value="Repair"
-                        type="radio"
-                      />
+                        type="radio" />
                       <label class="radio-label" for="repair">
                         <span class="radio-inner-circle"></span>
                         Repair
@@ -605,8 +549,7 @@
                         name="log-type"
                         id="rework"
                         value="Rework"
-                        type="radio"
-                      />
+                        type="radio" />
                       <label class="radio-label" for="rework">
                         <span class="radio-inner-circle"></span>
                         Rework
@@ -617,8 +560,7 @@
                         name="log-type"
                         id="scrap"
                         value="Scrap"
-                        type="radio"
-                      />
+                        type="radio" />
                       <label class="radio-label" for="scrap">
                         <span class="radio-inner-circle"></span>
                         Scrap
@@ -633,8 +575,7 @@
                           name="ncr-notification"
                           id="yes-notification"
                           value="yes"
-                          type="radio"
-                        />
+                          type="radio" />
                         <label class="radio-label" for="yes-notification">
                           <span class="radio-inner-circle"></span>
                           Yes
@@ -645,8 +586,7 @@
                           name="ncr-notification"
                           id="no-notification"
                           value="no"
-                          type="radio"
-                        />
+                          type="radio" />
                         <label class="radio-label" for="no-notification">
                           <span class="radio-inner-circle"></span>
                           No
@@ -662,8 +602,7 @@
                         placeholder="Enter issue details addressed by customer."
                         required
                         aria-required="true"
-                        aria-describedby="item_help"
-                      ></textarea>
+                        aria-describedby="item_help"></textarea>
                     </div>
                     <div id="disposition-message">
                       <p>Disposition Sequence (Repair or Rework)</p>
@@ -673,8 +612,7 @@
                         placeholder="Enter disposition details."
                         required
                         aria-required="true"
-                        aria-describedby="item_help"
-                      ></textarea>
+                        aria-describedby="item_help"></textarea>
                     </div>
 
                     <div>
@@ -685,8 +623,7 @@
                           name="drawing-update"
                           id="yes-drawing-update"
                           value="yes"
-                          type="radio"
-                        />
+                          type="radio" />
                         <label class="radio-label" for="yes-drawing-update">
                           <span class="radio-inner-circle"></span>
                           Yes
@@ -697,8 +634,7 @@
                           name="drawing-update"
                           id="no-drawing-update"
                           value="no"
-                          type="radio"
-                        />
+                          type="radio" />
                         <label class="radio-label" for="no-drawing-update">
                           <span class="radio-inner-circle"></span>
                           No
@@ -712,7 +648,338 @@
           </div>
         </div>
       </div>
+      <!-- Operations Section  -->
+      <div class="accordion accordion--radio" id="operations-dept">
+        <div class="role-tab">
+          <input type="checkbox" id="rd3" class="tab-input" />
+          <label for="rd3" class="tab__label">Operations Section</label>
+          <div class="tab_content">
+            <div class="accordion-container">
+              <div class="role-head">
+                <header class="form-header">
+                  <div
+                    class="meta-info"
+                    role="contentinfo"
+                    aria-label="NCR metadata">
+                    <div class="meta-item">
+                      <span class="meta-label">Updated By</span>
+                      <span class="meta-value"
+                        id="operationsManagerName">Loading..</span>
+                    </div>
+                    <div class="meta-item">
+                      <span class="meta-label">Updated On</span>
+                      <time
+                        datetime="2025-11-08"
+                        class="meta-value"
+                        id="date-updated-ops">Loading..</time>
+                    </div>
+                  </div>
+
+                </header>
+                <!-- Form  -->
+                <form action="#" method="post">
+                  <aside
+                    class="notice"
+                    role="note"
+                    aria-label="Required fields notice">
+                    <i class="bi bi-info-circle" aria-hidden="true"></i>
+                    Fields marked with
+                    <span class="sr-only">required</span> are
+                    required
+                  </aside>
+
+                  <div>
+                    <p>Operation Decision</p>
+                    <div class="radio-group">
+                      <input
+                        class="radio-input"
+                        name="ops-decision"
+                        id="accept"
+                        value="Accept"
+                        type="radio" />
+                      <label class="radio-label" for="accept">
+                        <span class="radio-inner-circle"></span>
+                        Accept
+                      </label>
+
+                      <input
+                        class="radio-input"
+                        name="ops-decision"
+                        id="reject"
+                        value="Reject"
+                        type="radio" />
+                      <label class="radio-label" for="reject">
+                        <span class="radio-inner-circle"></span>
+                        Reject
+                      </label>
+                    </div>
+
+                    <div>
+                      <p>Is CAR Required?</p>
+                      <div class="radio-group">
+                        <input
+                          class="radio-input"
+                          name="car-required"
+                          id="car-yes"
+                          value="yes"
+                          type="radio" />
+                        <label class="radio-label" for="car-yes">
+                          <span class="radio-inner-circle"></span>
+                          Yes
+                        </label>
+
+                        <input
+                          class="radio-input"
+                          name="car-required"
+                          id="car-no"
+                          value="no"
+                          type="radio" />
+                        <label class="radio-label" for="car-no">
+                          <span class="radio-inner-circle"></span>
+                          No
+                        </label>
+                      </div>
+                    </div>
+
+                    <div id="car-number-field">
+                      <p>CAR Number</p>
+                      <input
+                        type="text"
+                        id="car-number"
+                        name="car-number"
+                        placeholder="Enter CAR number" />
+                    </div>
+
+                    <div>
+                      <p>Is Follow-up Required?</p>
+                      <div class="radio-group">
+                        <input
+                          class="radio-input"
+                          name="followup-required"
+                          id="followup-yes"
+                          value="yes"
+                          type="radio" />
+                        <label class="radio-label" for="followup-yes">
+                          <span class="radio-inner-circle"></span>
+                          Yes
+                        </label>
+
+                        <input
+                          class="radio-input"
+                          name="followup-required"
+                          id="followup-no"
+                          value="no"
+                          type="radio" />
+                        <label class="radio-label" for="followup-no">
+                          <span class="radio-inner-circle"></span>
+                          No
+                        </label>
+                      </div>
+                    </div>
+
+                    <div id="followup-details-field">
+                      <p>Follow-up Type</p>
+                      <input
+                        type="text"
+                        id="followup-type"
+                        name="followup-type"
+                        placeholder="Enter follow-up type" />
+                      <p>Follow-up Date</p>
+                      <input
+                        type="date"
+                        id="followup-date"
+                        name="followup-date" />
+                    </div>
+
+                    <div>
+                      <p>Has the item been re-inspected?</p>
+                      <div class="radio-group">
+                        <input
+                          class="radio-input"
+                          name="reinspection"
+                          id="reinspection-yes"
+                          value="yes"
+                          type="radio" />
+                        <label class="radio-label" for="reinspection-yes">
+                          <span class="radio-inner-circle"></span>
+                          Yes
+                        </label>
+
+                        <input
+                          class="radio-input"
+                          name="reinspection"
+                          id="reinspection-no"
+                          value="no"
+                          type="radio" />
+                        <label class="radio-label" for="reinspection-no">
+                          <span class="radio-inner-circle"></span>
+                          No
+                        </label>
+                      </div>
+                    </div>
+
+                    <div>
+                      <p>Action Date</p>
+                      <input
+                        type="date"
+                        id="ops-date"
+                        name="ops-date" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Purchasing Section  -->
+      <div class="accordion accordion--radio" id="purchasing-dept">
+        <div class="role-tab">
+          <input type="checkbox" id="rd4" class="tab-input" />
+          <label for="rd4" class="tab__label">Purchasing Section</label>
+          <div class="tab_content">
+            <div class="accordion-container">
+              <div class="role-head">
+                <header class="form-header">
+                  <div
+                    class="meta-info"
+                    role="contentinfo"
+                    aria-label="NCR metadata">
+                    <div class="meta-item">
+                      <span class="meta-label">Updated By</span>
+                      <span class="meta-value"
+                        id="procurementOfficer">Loading..</span>
+                    </div>
+                    <div class="meta-item">
+                      <span class="meta-label">Updated On</span>
+                      <time
+                        datetime="2025-11-08"
+                        class="meta-value"
+                        id="date-updated-proc">Loading..</time>
+                    </div>
+                  </div>
+
+                </header>
+                <!-- Form  -->
+                <form action="#" method="post">
+                  <aside
+                    class="notice"
+                    role="note"
+                    aria-label="Required fields notice">
+                    <i class="bi bi-info-circle" aria-hidden="true"></i>
+                    Fields marked with
+                    <span class="sr-only">required</span> are
+                    required
+                  </aside>
+
+                  <div>
+                    <p>Supplier Return</p>
+                    <div class="radio-group">
+                      <input
+                        class="radio-input"
+                        name="supplier-return"
+                        id="return-yes"
+                        value="yes"
+                        type="radio" />
+                      <label class="radio-label" for="return-yes">
+                        <span class="radio-inner-circle"></span>
+                        Yes
+                      </label>
+
+                      <input
+                        class="radio-input"
+                        name="supplier-return"
+                        id="return-no"
+                        value="no"
+                        type="radio" />
+                      <label class="radio-label" for="return-no">
+                        <span class="radio-inner-circle"></span>
+                        No
+                      </label>
+                    </div>
+
+                    <div id="return-details-field">
+                      <p>RMA Number</p>
+                      <input
+                        type="text"
+                        id="rma-number"
+                        name="rma-number"
+                        placeholder="Enter RMA number" />
+                      <p>Carrier Account</p>
+                      <input
+                        type="text"
+                        id="carrier-info"
+                        name="carrier-info"
+                        placeholder="Enter carrier account" />
+                    </div>
+
+                    <div id="dispose-field">
+                      <p>Dispose On Site</p>
+                      <input
+                        type="checkbox"
+                        id="dispose-onsite"
+                        name="dispose-onsite" />
+                    </div>
+
+                    <div>
+                      <p>Replacement Date</p>
+                      <input
+                        type="date"
+                        id="replacement-date"
+                        name="replacement-date" />
+                    </div>
+
+                    <div>
+                      <p>SAP Completed</p>
+                      <input
+                        type="checkbox"
+                        id="sap-completed"
+                        name="sap-completed" />
+                    </div>
+
+                    <div>
+                      <p>Credit Expected</p>
+                      <input
+                        type="checkbox"
+                        id="credit-expected"
+                        name="credit-expected" />
+                    </div>
+
+                    <div>
+                      <p>Billing Supplier</p>
+                      <input
+                        type="checkbox"
+                        id="billing-supplier"
+                        name="billing-supplier" />
+                    </div>
+
+                    <div>
+                      <p>Procurement Date</p>
+                      <input
+                        type="date"
+                        id="procurement-date"
+                        name="procurement-date" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
     </main>
+    
+          <footer class="form-footer">
+            <a href="/edit-ncr.html">
+    
+              <button type="button" class="btn-primary">
+                <i class="bi bi-file-earmark-medical" aria-hidden="true"></i>
+                <span>Edit
+                  NCR</span>
+              </button>
+            </a>
+          </footer>
 
     <script>
       document
@@ -720,7 +987,7 @@
           "#main-content input, #main-content textarea, #main-content select, #main-content button"
         )
         .forEach((el) => {
-          if (el.id !== "rd1" && el.id !== "rd2") {
+          if (el.id !== "rd1" && el.id !== "rd2" && el.id !== "rd3" && el.id !== "rd4") {
             el.disabled = true;
           }
         });
@@ -729,12 +996,11 @@
     <script src="scripts/data-manager.js"></script>
     <script src="scripts/user-manager.js"></script>
 
-    <!-- 2. Shared navbar (depends on UserManager) -->
     <script src="scripts/navbar.js"></script>
 
-    <!-- 3. Other shared utilities -->
     <script src="scripts/script.js"></script>
     <script src="scripts/notifications.js"></script>
     <script src="scripts/user-conditions.js"></script>
+    <script src="scripts/detailed-view-script.js"></script>
   </body>
 </html>

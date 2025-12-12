@@ -70,6 +70,7 @@ function applyRoleBasedAccess() {
 		});
 	}
 }
+
 // Populate the data into Quality Section
 document.addEventListener("DOMContentLoaded", async () => {
 	await loadUsers;
@@ -82,10 +83,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 	}
 	const record = allRecords.find((r) => r.ncrNumber === selectedNCR);
 	if (!record) {
-		alert(`No record found for ${selectedNCR.toUpperCase()}`);
+		ToastManager.error(`No record found for ${selectedNCR.toUpperCase()}`);
 		return;
 	}
-
 	console.log(record);
 	const user = findUser(record.createdBy);
 
@@ -501,7 +501,7 @@ document.getElementById("submitForm").addEventListener("click", function (e) {
 	PreviewModal.setConfirmAction(() => {
 		saveQualityToLocalStorage(values);
 		PreviewModal.close();
-		alert("Saved and sent to engineer");
+		ToastManager.success("Saved and sent to engineer");
 		location.reload();
 	});
 });
@@ -531,6 +531,7 @@ function saveQualityToLocalStorage(values) {
 	localStorage.setItem("ncr_records", JSON.stringify(allRecords));
 }
 
+//SUBMIT ENGINEERING FORM
 function validateEngineeringForm() {
 	let isValid = true;
 	const errors = [];
@@ -589,12 +590,12 @@ function validateEngineeringForm() {
 	}
 
 	if (!isValid) {
-		alert("Please correct the following errors:\n" + errors.join("\n"));
+		ToastManager.error(
+			"Please correct the following errors:\n" + errors.join("\n")
+		);
 	}
 	return isValid;
 }
-
-//SUBMIT ENGINEERING FORM
 document
 	.getElementById("submitEngineerForm")
 	.addEventListener("click", function (e) {
@@ -606,7 +607,7 @@ document
 		let allRecords = JSON.parse(localStorage.getItem("ncr_records")) || [];
 
 		let record = allRecords.find((r) => r.ncrNumber === selectedNCR);
-		if (!record) return alert("NCR not found");
+		if (!record) return ToastManager.error("NCR not found");
 
 		// get the new values
 		const dispositionType =
@@ -663,7 +664,7 @@ document
 			addNotification(record.ncrNumber, "update");
 
 			PreviewModal.close();
-			alert("NCR updated successfully");
+			ToastManager.success("NCR updated successfully");
 			window.location.href = "edit-ncr.html";
 		});
 	});
@@ -734,7 +735,9 @@ function validateOperationsForm() {
 	}
 
 	if (!isValid) {
-		alert("Please correct the following errors:\n" + errors.join("\n"));
+		ToastManager.error(
+			"Please correct the following errors:\n" + errors.join("\n")
+		);
 	}
 	return isValid;
 }
@@ -751,7 +754,7 @@ document
 		let allRecords = JSON.parse(localStorage.getItem("ncr_records")) || [];
 
 		let record = allRecords.find((r) => r.ncrNumber === selectedNCR);
-		if (!record) return alert("NCR not found");
+		if (!record) return ToastManager.error("NCR not found");
 
 		// get the new values
 		const operationDecision =
@@ -813,7 +816,7 @@ document
 			addNotification(record.ncrNumber, "update");
 
 			PreviewModal.close();
-			alert("NCR updated successfully");
+			ToastManager.success("NCR updated successfully");
 			window.location.href = "edit-ncr.html";
 		});
 	});
@@ -893,7 +896,7 @@ document
 		PreviewModal.setConfirmAction(() => {
 			saveProcurementToLocalStorage(values);
 			PreviewModal.close();
-			alert("Purchasing data saved and NCR completed.");
+			ToastManager.success("Purchasing data saved and NCR completed.");
 			window.location.href = "view-ncr.html";
 		});
 	});

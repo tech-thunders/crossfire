@@ -222,3 +222,44 @@ nav li {
 		font-size: 24px;
 	}
 }
+
+/* ////////////////////////////TOAS////////////////////// */
+#toast-container {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	z-index: 999999 !important;
+}
+
+.toast {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 14px;
+	border-radius: 6px;
+	color: #fff;
+	font-size: 0.9rem;
+	opacity: 0;
+	transform: translateY(-10px);
+	transition: opacity 0.25s ease, transform 0.25s ease;
+	z-index: 999999 !important;
+}
+
+.toast.show {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.toast-success {
+	background-color: #28a745;
+}
+
+.toast-error {
+	background-color: #dc3545;
+}
+.toast-text {
+	white-space: pre-line;
+}

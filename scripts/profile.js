@@ -36,45 +36,7 @@ function loadProfile() {
   displayProfile();
 }
 
-// ==========================================
-// TOAST NOTIFICATION
-// ==========================================
-
-function showToast(message) {
-  const container = document.getElementById('toastContainer');
-  
-  // Create toast element
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  
-  toast.innerHTML = `
-    <i class="bi bi-check-circle-fill toast-icon"></i>
-    <span class="toast-message">${message}</span>
-    <button class="toast-close" onclick="dismissToast(this)">
-      <i class="bi bi-x"></i>
-    </button>
-  `;
-  
-  // Add to container
-  container.appendChild(toast);
-  
-  // Trigger fade-in animation
-  setTimeout(() => {
-    toast.classList.add('show');
-  }, 10);
-}
-
-function dismissToast(button) {
-  const toast = button.closest('.toast');
-  
-  // Fade out
-  toast.classList.remove('show');
-  
-  // Remove from DOM after animation
-  setTimeout(() => {
-    toast.remove();
-  }, 300);
-}
+// Toast notifications are now handled by ToastManager (loaded from toast.js)
 
 function displayProfile() {
   console.log('🎨 displayProfile() called');

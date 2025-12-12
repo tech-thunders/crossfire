@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 		return;
 	}
 
+	applyRoleBasedViewAccess();
 	console.log(record);
 	const user = findUser(record.createdBy);
 
@@ -268,8 +269,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 		document.getElementById("procurement-date").value =
 			record.procurement.completedAt;
 	}
-
-	applyRoleBasedViewAccess();
 });
 
 function applyRoleBasedViewAccess() {
@@ -298,4 +297,20 @@ function applyRoleBasedViewAccess() {
 			}
 		}
 	});
+
+	// Open the department section by default
+	const deptToRd = {
+		quality: "rd1",
+		engineering: "rd2",
+		operations: "rd3",
+		purchasing: "rd4",
+		admin: "rd4",
+	};
+	const rdId = deptToRd[department];
+	if (rdId) {
+		const checkbox = document.getElementById(rdId);
+		if (checkbox) {
+			checkbox.checked = true;
+		}
+	}
 }

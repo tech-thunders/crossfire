@@ -36,7 +36,7 @@ function addNotification(ncrNumber, actionType) {
 		delete: "was deleted",
 	};
 
-	let message = `NCR ${ncrNumber} ${messageActionType[actionType]}`;
+	let message = `NCR ${ncrNumber} ${messageActionType[actionType] || ""}`.trim();
 
 	if (actionType === "update" && record) {
 		if (record.currentStage === "Engineering") {
